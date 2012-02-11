@@ -1,0 +1,282 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C9BA09ED14E72175001F5F20 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9BA09EC14E72175001F5F20 /* UIKit.framework */; };
+		C9BA09EF14E72175001F5F20 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9BA09EE14E72175001F5F20 /* Foundation.framework */; };
+		C9BA09F114E72175001F5F20 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9BA09F014E72175001F5F20 /* CoreGraphics.framework */; };
+		C9BA09F714E72175001F5F20 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9BA09F514E72175001F5F20 /* InfoPlist.strings */; };
+		C9BA09F914E72175001F5F20 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C9BA09F814E72175001F5F20 /* main.m */; };
+		C9BA09FD14E72175001F5F20 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9BA09FC14E72175001F5F20 /* AppDelegate.m */; };
+		C9BA0A0014E72175001F5F20 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9BA09FE14E72175001F5F20 /* MainStoryboard.storyboard */; };
+		C9BA0A0314E72175001F5F20 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9BA0A0214E72175001F5F20 /* ViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		C9BA09E814E72175001F5F20 /* medical.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = medical.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9BA09EC14E72175001F5F20 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		C9BA09EE14E72175001F5F20 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		C9BA09F014E72175001F5F20 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		C9BA09F414E72175001F5F20 /* medical-Info.plist */ = {isa = PBXFileReference; path = "medical-Info.plist"; sourceTree = "<group>"; };
+		C9BA09F614E72175001F5F20 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C9BA09F814E72175001F5F20 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C9BA09FA14E72175001F5F20 /* medical-Prefix.pch */ = {isa = PBXFileReference; path = "medical-Prefix.pch"; sourceTree = "<group>"; };
+		C9BA09FB14E72175001F5F20 /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		C9BA09FC14E72175001F5F20 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		C9BA09FF14E72175001F5F20 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		C9BA0A0114E72175001F5F20 /* ViewController.h */ = {isa = PBXFileReference; path = ViewController.h; sourceTree = "<group>"; };
+		C9BA0A0214E72175001F5F20 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C9BA09E514E72175001F5F20 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9BA09ED14E72175001F5F20 /* UIKit.framework in Frameworks */,
+				C9BA09EF14E72175001F5F20 /* Foundation.framework in Frameworks */,
+				C9BA09F114E72175001F5F20 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C9BA09DD14E72174001F5F20 = {
+			isa = PBXGroup;
+			children = (
+				C9BA09F214E72175001F5F20 /* medical */,
+				C9BA09EB14E72175001F5F20 /* Frameworks */,
+				C9BA09E914E72175001F5F20 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C9BA09E914E72175001F5F20 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C9BA09E814E72175001F5F20 /* medical.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C9BA09EB14E72175001F5F20 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C9BA09EC14E72175001F5F20 /* UIKit.framework */,
+				C9BA09EE14E72175001F5F20 /* Foundation.framework */,
+				C9BA09F014E72175001F5F20 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C9BA09F214E72175001F5F20 /* medical */ = {
+			isa = PBXGroup;
+			children = (
+				C9BA09FB14E72175001F5F20 /* AppDelegate.h */,
+				C9BA09FC14E72175001F5F20 /* AppDelegate.m */,
+				C9BA09FE14E72175001F5F20 /* MainStoryboard.storyboard */,
+				C9BA0A0114E72175001F5F20 /* ViewController.h */,
+				C9BA0A0214E72175001F5F20 /* ViewController.m */,
+				C9BA09F314E72175001F5F20 /* Supporting Files */,
+			);
+			path = medical;
+			sourceTree = "<group>";
+		};
+		C9BA09F314E72175001F5F20 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C9BA09F414E72175001F5F20 /* medical-Info.plist */,
+				C9BA09F514E72175001F5F20 /* InfoPlist.strings */,
+				C9BA09F814E72175001F5F20 /* main.m */,
+				C9BA09FA14E72175001F5F20 /* medical-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C9BA09E714E72175001F5F20 /* medical */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C9BA0A0614E72175001F5F20 /* Build configuration list for PBXNativeTarget "medical" */;
+			buildPhases = (
+				C9BA09E414E72175001F5F20 /* Sources */,
+				C9BA09E514E72175001F5F20 /* Frameworks */,
+				C9BA09E614E72175001F5F20 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = medical;
+			productName = medical;
+			productReference = C9BA09E814E72175001F5F20 /* medical.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C9BA09DF14E72174001F5F20 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = " PPA";
+			};
+			buildConfigurationList = C9BA09E214E72174001F5F20 /* Build configuration list for PBXProject "medical" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = C9BA09DD14E72174001F5F20;
+			productRefGroup = C9BA09E914E72175001F5F20 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C9BA09E714E72175001F5F20 /* medical */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C9BA09E614E72175001F5F20 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9BA09F714E72175001F5F20 /* InfoPlist.strings in Resources */,
+				C9BA0A0014E72175001F5F20 /* MainStoryboard.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C9BA09E414E72175001F5F20 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9BA09F914E72175001F5F20 /* main.m in Sources */,
+				C9BA09FD14E72175001F5F20 /* AppDelegate.m in Sources */,
+				C9BA0A0314E72175001F5F20 /* ViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		C9BA09F514E72175001F5F20 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C9BA09F614E72175001F5F20 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		C9BA09FE14E72175001F5F20 /* MainStoryboard.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C9BA09FF14E72175001F5F20 /* en */,
+			);
+			name = MainStoryboard.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C9BA0A0414E72175001F5F20 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		C9BA0A0514E72175001F5F20 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C9BA0A0714E72175001F5F20 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "medical/medical-Prefix.pch";
+				INFOPLIST_FILE = "medical/medical-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		C9BA0A0814E72175001F5F20 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "medical/medical-Prefix.pch";
+				INFOPLIST_FILE = "medical/medical-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C9BA09E214E72174001F5F20 /* Build configuration list for PBXProject "medical" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C9BA0A0414E72175001F5F20 /* Debug */,
+				C9BA0A0514E72175001F5F20 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C9BA0A0614E72175001F5F20 /* Build configuration list for PBXNativeTarget "medical" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C9BA0A0714E72175001F5F20 /* Debug */,
+				C9BA0A0814E72175001F5F20 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C9BA09DF14E72174001F5F20 /* Project object */;
+}
