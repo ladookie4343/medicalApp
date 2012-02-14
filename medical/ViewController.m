@@ -8,53 +8,61 @@
 
 #import "ViewController.h"
 
+@interface ViewController()
+
+- (void)fetchData:(NSData *)responseData;
+
+@end
+
 @implementation ViewController
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Release any cached data, images, etc that aren't in use.
-}
+@synthesize name = _name;
+@synthesize type = _type;
+@synthesize experience = _experience;
 
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+	
 }
 
 - (void)viewDidUnload
 {
+    [self setName:nil];
+    [self setType:nil];
+    [self setExperience:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
 
-- (void)viewWillAppear:(BOOL)animated
+#define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+#define kLadookieURL [NSURL URLWithString: @"http://www.ladookie4343.com/MedicalApp/doctor.php"]
+
+- (IBAction)buttonPressed:(UIButton *)sender 
 {
-    [super viewWillAppear:animated];
+    dispatch_async(kBgQueue, ^{
+        NSData *data = [NSData dataWithContentsOfURL:kLadookieURL];
+        [self performSelectorOnMainThread:@selector(fetchData:) withObject:data waitUntilDone:YES];
+    });
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)fetchData:(NSData *)responseData
 {
-    [super viewDidAppear:animated];
+    NSError *error;
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:responseData 
+                                                         options:kNilOptions 
+                                                           error:&error];
+    NSString *firstname = [json objectForKey:@"firstname"];
+    NSString *type = [json objectForKey:@"type"];
+    NSString *experience = [json objectForKey:@"years_experience"];
+    
+    self.name.text = firstname;
+    self.type.text = type;
+    self.experience.text = experience;
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-	[super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-	[super viewDidDisappear:animated];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
-}
 
 @end
