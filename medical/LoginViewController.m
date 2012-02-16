@@ -6,19 +6,17 @@
 //  Copyright (c) 2012  PPA. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "LoginViewController.h"
 
-@interface ViewController()
+@interface LoginViewController()
 
 - (void)fetchData:(NSData *)responseData;
 
 @end
 
-@implementation ViewController
+@implementation LoginViewController
 
-@synthesize name = _name;
-@synthesize type = _type;
-@synthesize experience = _experience;
+
 
 #pragma mark - View lifecycle
 
@@ -30,9 +28,6 @@
 
 - (void)viewDidUnload
 {
-    [self setName:nil];
-    [self setType:nil];
-    [self setExperience:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -49,6 +44,7 @@
     });
 }
 
+
 - (void)fetchData:(NSData *)responseData
 {
     NSError *error;
@@ -59,9 +55,8 @@
     NSString *type = [json objectForKey:@"type"];
     NSString *experience = [json objectForKey:@"years_experience"];
     
-    self.name.text = firstname;
-    self.type.text = type;
-    self.experience.text = experience;
+    NSLog(@"%@, %@, %@", firstname, type, experience);
+    NSLog(@"%@", json);
 }
 
 

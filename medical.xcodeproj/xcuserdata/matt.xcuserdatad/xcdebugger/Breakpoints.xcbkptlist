@@ -9,11 +9,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "medical/ViewController.m"
-         timestampString = "350944572.131423"
+         timestampString = "351111793.159992"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "45"
-         endingLineNumber = "45"
+         startingLineNumber = "40"
+         endingLineNumber = "40"
          landmarkName = "-buttonPressed:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -23,13 +23,13 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "medical/ViewController.m"
-         timestampString = "350944887.579402"
+         timestampString = "351111793.159992"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "53"
-         endingLineNumber = "53"
-         landmarkName = "-fetchData:"
-         landmarkType = "5">
+         startingLineNumber = "49"
+         endingLineNumber = "49"
+         landmarkName = "@implementation ViewController"
+         landmarkType = "3">
       </FileBreakpoint>
    </FileBreakpoints>
 </Bucket>

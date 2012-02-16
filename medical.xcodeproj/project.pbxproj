@@ -14,7 +14,7 @@
 		C9BA09F914E72175001F5F20 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C9BA09F814E72175001F5F20 /* main.m */; };
 		C9BA09FD14E72175001F5F20 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9BA09FC14E72175001F5F20 /* AppDelegate.m */; };
 		C9BA0A0014E72175001F5F20 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9BA09FE14E72175001F5F20 /* MainStoryboard.storyboard */; };
-		C9BA0A0314E72175001F5F20 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9BA0A0214E72175001F5F20 /* ViewController.m */; };
+		C9BA0A0314E72175001F5F20 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9BA0A0214E72175001F5F20 /* LoginViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,8 +29,8 @@
 		C9BA09FB14E72175001F5F20 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C9BA09FC14E72175001F5F20 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C9BA09FF14E72175001F5F20 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		C9BA0A0114E72175001F5F20 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		C9BA0A0214E72175001F5F20 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		C9BA0A0114E72175001F5F20 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		C9BA0A0214E72175001F5F20 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,8 +80,8 @@
 				C9BA09FB14E72175001F5F20 /* AppDelegate.h */,
 				C9BA09FC14E72175001F5F20 /* AppDelegate.m */,
 				C9BA09FE14E72175001F5F20 /* MainStoryboard.storyboard */,
-				C9BA0A0114E72175001F5F20 /* ViewController.h */,
-				C9BA0A0214E72175001F5F20 /* ViewController.m */,
+				C9BA0A0114E72175001F5F20 /* LoginViewController.h */,
+				C9BA0A0214E72175001F5F20 /* LoginViewController.m */,
 				C9BA09F314E72175001F5F20 /* Supporting Files */,
 			);
 			path = medical;
@@ -163,7 +163,7 @@
 			files = (
 				C9BA09F914E72175001F5F20 /* main.m in Sources */,
 				C9BA09FD14E72175001F5F20 /* AppDelegate.m in Sources */,
-				C9BA0A0314E72175001F5F20 /* ViewController.m in Sources */,
+				C9BA0A0314E72175001F5F20 /* LoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,6 +275,7 @@
 				C9BA0A0814E72175001F5F20 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
