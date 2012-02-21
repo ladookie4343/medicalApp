@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C927987114F42D86007DE3DB /* GradientButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C927987014F42D86007DE3DB /* GradientButton.m */; };
 		C9BA09ED14E72175001F5F20 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9BA09EC14E72175001F5F20 /* UIKit.framework */; };
 		C9BA09EF14E72175001F5F20 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9BA09EE14E72175001F5F20 /* Foundation.framework */; };
 		C9BA09F114E72175001F5F20 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9BA09F014E72175001F5F20 /* CoreGraphics.framework */; };
@@ -18,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C927986F14F42D86007DE3DB /* GradientButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientButton.h; sourceTree = "<group>"; };
+		C927987014F42D86007DE3DB /* GradientButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientButton.m; sourceTree = "<group>"; };
 		C9BA09E814E72175001F5F20 /* medical.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = medical.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9BA09EC14E72175001F5F20 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C9BA09EE14E72175001F5F20 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -82,6 +85,8 @@
 				C9BA09FE14E72175001F5F20 /* MainStoryboard.storyboard */,
 				C9BA0A0114E72175001F5F20 /* LoginViewController.h */,
 				C9BA0A0214E72175001F5F20 /* LoginViewController.m */,
+				C927986F14F42D86007DE3DB /* GradientButton.h */,
+				C927987014F42D86007DE3DB /* GradientButton.m */,
 				C9BA09F314E72175001F5F20 /* Supporting Files */,
 			);
 			path = medical;
@@ -164,6 +169,7 @@
 				C9BA09F914E72175001F5F20 /* main.m in Sources */,
 				C9BA09FD14E72175001F5F20 /* AppDelegate.m in Sources */,
 				C9BA0A0314E72175001F5F20 /* LoginViewController.m in Sources */,
+				C927987114F42D86007DE3DB /* GradientButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

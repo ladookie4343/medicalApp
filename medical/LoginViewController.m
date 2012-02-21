@@ -16,35 +16,34 @@
 
 @implementation LoginViewController
 
-@synthesize userTextField = _userTextField;
-@synthesize passwordTextField = _passwordTextField;
-
-
+@synthesize logOnButton = _logOnButton;
+@synthesize tableView;
 
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
+	[self.logOnButton useGreenConfirmStyle];
 }
 
 - (void)viewDidUnload
 {
-    [self setUserTextField:nil];
-    [self setPasswordTextField:nil];
+    [self setLogOnButton:nil];
+    [self setTableView:nil];
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
+
+#pragma mark -
+
 
 #define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
 #define kLadookieURL [NSURL URLWithString: @"http://www.ladookie4343.com/MedicalApp/doctorlogin.php"]
 
 - (IBAction)buttonPressed:(UIButton *)sender 
 {
-    NSString *username = self.userTextField.text;
-    NSString *password = self.passwordTextField.text;
+    // NSString *username = self.userTextField.text;
+    // NSString *password = self.passwordTextField.text;
     
     dispatch_async(kBgQueue, ^{
         NSData *data = [NSData dataWithContentsOfURL:kLadookieURL];
@@ -78,18 +77,41 @@
     NSLog(@"%@, %@, %@", firstname, type, experience);
     NSLog(@"%@", json);
 }
+#pragma mark
 
 
+#pragma mark Tableview datasource
 
-/*
- UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title 
-                                                 message:message
-                                                delegate:nil 
-                                       cancelButtonTitle:@"OK" 
-                                       otherButtonTitles:nil];
- [alert show];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault 
+                                                   reuseIdentifier:nil];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 10.0, 100, 20)];
+    label.backgroundColor = [UIColor clearColor];
+    [cell.contentView addSubview:label];
+    if (indexPath.row == 0) {
+        label.text = @"Username";
+    } else {
+        label.text = @"Password";
+    }
+    return cell;
+}
 
-*/
-
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 2;
+}
 
 @end
+
+
+
+
+
+
+
+
+
+
+
