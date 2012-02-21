@@ -15,10 +15,10 @@
 
 
 #import <UIKit/UIKit.h>
+#import "GradientButton.h"
 
-@interface LoginViewController : UIViewController
+@interface LoginViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
-@property (weak, nonatomic) IBOutlet UITextField *userTextField;
-@property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
+@property (weak, nonatomic) IBOutlet GradientButton *logOnButton;
 
 @end
