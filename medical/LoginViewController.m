@@ -14,8 +14,7 @@
 @property (nonatomic, weak) UITextField *passwordField;
 
 - (void)fetchData:(NSData *)responseData;
-- (UITextField *)newUsernameField;
-- (UITextField *)newPasswordField;
+- (UITextField *)newTextField:(NSString *)placeholderText;
 
 @end
 
@@ -32,8 +31,8 @@
 {
     [super viewDidLoad];
 	[self.logOnButton useGreenConfirmStyle];
-    self.usernameField = [self newUsernameField];
-    self.passwordField = [self newPasswordField];
+    self.usernameField = [self newTextField:@"Enter your Username"];
+    self.passwordField = [self newTextField:@"Enter your Password"];
 }
 
 - (void)viewDidUnload
@@ -101,8 +100,10 @@
     [cell.contentView addSubview:label];
     if (indexPath.row == 0) {
         label.text = @"Username";
+        [cell.contentView addSubview:self.usernameField];
     } else {
         label.text = @"Password";
+        [cell.contentView addSubview:self.passwordField];
     }
     
     
@@ -116,21 +117,20 @@
 
 #pragma mark - helper methods
 
-- (UITextField *)newUsernameField
+- (UITextField *)newTextField:(NSString *)placeholderText
 {
-    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10, 10, 250, 25)];
+    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(100, 10, 150, 25)];
     textField.font = [UIFont systemFontOfSize:16];
     textField.delegate = self;
-    textField.returnKeyType = UIReturnKeyDone;
+    textField.returnKeyType = UIReturnKeyGo;
     textField.clearsOnBeginEditing = NO;
+    textField.placeholder = placeholderText;
+    textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    textField.autocorrectionType = UITextAutocorrectionTypeNo;
     
     return textField;
 }
 
-- (UITextField *)newPasswordField
-{
-    
-}
 
 @end
 
