@@ -7,7 +7,9 @@
 //
 
 
-// TODO: 
+// TODO:
+//  - program the go button on the keyboard to act like the "Log On" button.
+//  - make it so that when the user touches outside the keybaord, the keyboard resigns itself.
 //  - implement a inputAccessoryView for the keyboard.
 //  - customize login button.
 
@@ -16,5 +18,7 @@
 
 @interface LoginViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UITextField *userTextField;
+@property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 
 @end
