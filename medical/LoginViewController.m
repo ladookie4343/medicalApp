@@ -10,14 +10,21 @@
 
 @interface LoginViewController()
 
+@property (nonatomic, weak) UITextField *usernameField;
+@property (nonatomic, weak) UITextField *passwordField;
+
 - (void)fetchData:(NSData *)responseData;
+- (UITextField *)newUsernameField;
+- (UITextField *)newPasswordField;
 
 @end
 
 @implementation LoginViewController
 
 @synthesize logOnButton = _logOnButton;
-@synthesize tableView;
+@synthesize tableView = _tableView;
+@synthesize usernameField = _usernameField;
+@synthesize passwordField = _passwordField;
 
 #pragma mark - View lifecycle
 
@@ -25,6 +32,8 @@
 {
     [super viewDidLoad];
 	[self.logOnButton useGreenConfirmStyle];
+    self.usernameField = [self newUsernameField];
+    self.passwordField = [self newPasswordField];
 }
 
 - (void)viewDidUnload
@@ -95,12 +104,32 @@
     } else {
         label.text = @"Password";
     }
+    
+    
     return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return 2;
+}
+
+#pragma mark - helper methods
+
+- (UITextField *)newUsernameField
+{
+    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10, 10, 250, 25)];
+    textField.font = [UIFont systemFontOfSize:16];
+    textField.delegate = self;
+    textField.returnKeyType = UIReturnKeyDone;
+    textField.clearsOnBeginEditing = NO;
+    
+    return textField;
+}
+
+- (UITextField *)newPasswordField
+{
+    
 }
 
 @end
