@@ -14,7 +14,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="PqY-ZW-Ed8" customClass="GradientButton">
-                                <rect key="frame" x="10" y="267" width="300" height="36"/>
+                                <rect key="frame" x="10" y="298" width="300" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <state key="normal" title="Log On">
@@ -31,21 +31,21 @@
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Doctor App" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="5NI-gn-bzv">
                                 <rect key="frame" x="20" y="27" width="280" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
-                                <color key="textColor" red="0.057157184601033785" green="0.50543478260869568" blue="0.38466506839251868" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Doctor User Log In" lineBreakMode="tailTruncation" minimumFontSize="10" id="mwd-OQ-sG5">
-                                <rect key="frame" x="88" y="74" width="145" height="21"/>
+                                <rect key="frame" x="88" y="93" width="145" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="8Lv-Wa-iWT">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="8Lv-Wa-iWT">
                                 <rect key="frame" x="0.0" y="122" width="320" height="125"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" red="0.28260869570000002" green="0.17054125580000001" blue="0.14370457319999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.088558910820000003" green="0.26136819989999999" blue="0.54347826089999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="U4E-FE-Fd3">
                                         <rect key="frame" x="0.0" y="46" width="320" height="46"/>
@@ -63,10 +63,11 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="0.28260869565217395" green="0.17054125576294274" blue="0.14370457322269084" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.088558910824371048" green="0.26136819991641169" blue="0.54347826086956519" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <connections>
                         <outlet property="logOnButton" destination="PqY-ZW-Ed8" id="Bhl-6y-6in"/>
+                        <outlet property="tableView" destination="8Lv-Wa-iWT" id="bnz-dP-FBp"/>
                     </connections>
                 </viewController>
             </objects>
@@ -81,6 +82,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
             <relationships>
                 <relationship kind="outlet" name="logOnButton" candidateClass="GradientButton"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
             </relationships>
         </class>
     </classes>

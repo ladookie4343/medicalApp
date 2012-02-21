@@ -20,5 +20,6 @@
 @interface LoginViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet GradientButton *logOnButton;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end

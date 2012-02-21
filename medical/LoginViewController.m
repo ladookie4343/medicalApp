@@ -15,24 +15,23 @@
 @end
 
 @implementation LoginViewController
-@synthesize logOnButton;
 
-
+@synthesize logOnButton = _logOnButton;
+@synthesize tableView;
 
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
+	[self.logOnButton useGreenConfirmStyle];
 }
 
 - (void)viewDidUnload
 {
     [self setLogOnButton:nil];
+    [self setTableView:nil];
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 #pragma mark -
