@@ -18,7 +18,7 @@
 #import "GradientButton.h"
 
 
-@interface LoginViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface LoginViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet GradientButton *logOnButton;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;

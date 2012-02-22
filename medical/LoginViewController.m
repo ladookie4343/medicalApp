@@ -10,14 +10,23 @@
 
 @interface LoginViewController()
 
+@property (nonatomic, strong) UITextField *usernameField;
+@property (nonatomic, strong) UITextField *passwordField;
+
 - (void)fetchData:(NSData *)responseData;
+- (UITextField *)newTextFieldwithPlaceholder:(NSString *)placeholderText 
+                                      xCoord:(CGFloat)x 
+                                      yCoord:(CGFloat)y 
+                                      secure:(BOOL)secure;
 
 @end
 
 @implementation LoginViewController
 
 @synthesize logOnButton = _logOnButton;
-@synthesize tableView;
+@synthesize tableView = _tableView;
+@synthesize usernameField = _usernameField;
+@synthesize passwordField = _passwordField;
 
 #pragma mark - View lifecycle
 
@@ -25,6 +34,15 @@
 {
     [super viewDidLoad];
 	[self.logOnButton useGreenConfirmStyle];
+    self.usernameField = [self newTextFieldwithPlaceholder:@"Enter your User ID" 
+                                                    xCoord:100.0 
+                                                    yCoord:5.0 
+                                                    secure:NO];
+    
+    self.passwordField = [self newTextFieldwithPlaceholder:@"Enter your Password" 
+                                                    xCoord:90.0 
+                                                    yCoord:5.0 
+                                                    secure:YES];
 }
 
 - (void)viewDidUnload
@@ -89,12 +107,16 @@
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 10.0, 100, 20)];
     label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont boldSystemFontOfSize:14];
     [cell.contentView addSubview:label];
     if (indexPath.row == 0) {
-        label.text = @"Username";
+        label.text = @"User ID";
+        [cell addSubview:self.usernameField];
     } else {
         label.text = @"Password";
+        [cell.contentView addSubview:self.passwordField];
     }
+    
     return cell;
 }
 
@@ -102,6 +124,26 @@
 {
     return 2;
 }
+
+#pragma mark - helper methods
+
+- (UITextField *)newTextFieldwithPlaceholder:(NSString *)placeholderText xCoord:(CGFloat)x 
+                                      yCoord:(CGFloat)y secure:(BOOL)secure
+{
+    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(x, y, 250, 35.0)];
+    textField.font = [UIFont boldSystemFontOfSize:14];
+    textField.delegate = self;
+    textField.returnKeyType = UIReturnKeyGo;
+    textField.clearsOnBeginEditing = NO;
+    textField.placeholder = placeholderText;
+    textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    textField.autocorrectionType = UITextAutocorrectionTypeNo;
+    textField.enabled = YES;
+    textField.secureTextEntry = secure;
+    textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    return textField;
+}
+
 
 @end
 
