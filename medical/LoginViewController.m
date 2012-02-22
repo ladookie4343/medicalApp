@@ -10,11 +10,14 @@
 
 @interface LoginViewController()
 
-@property (nonatomic, weak) UITextField *usernameField;
-@property (nonatomic, weak) UITextField *passwordField;
+@property (nonatomic, strong) UITextField *usernameField;
+@property (nonatomic, strong) UITextField *passwordField;
 
 - (void)fetchData:(NSData *)responseData;
-- (UITextField *)newTextField:(NSString *)placeholderText;
+- (UITextField *)newTextFieldwithPlaceholder:(NSString *)placeholderText 
+                                      xCoord:(CGFloat)x 
+                                      yCoord:(CGFloat)y 
+                                      secure:(BOOL)secure;
 
 @end
 
@@ -31,8 +34,15 @@
 {
     [super viewDidLoad];
 	[self.logOnButton useGreenConfirmStyle];
-    self.usernameField = [self newTextField:@"Enter your Username"];
-    self.passwordField = [self newTextField:@"Enter your Password"];
+    self.usernameField = [self newTextFieldwithPlaceholder:@"Enter your User ID" 
+                                                    xCoord:100.0 
+                                                    yCoord:5.0 
+                                                    secure:NO];
+    
+    self.passwordField = [self newTextFieldwithPlaceholder:@"Enter your Password" 
+                                                    xCoord:90.0 
+                                                    yCoord:5.0 
+                                                    secure:YES];
 }
 
 - (void)viewDidUnload
@@ -97,15 +107,15 @@
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 10.0, 100, 20)];
     label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont boldSystemFontOfSize:14];
     [cell.contentView addSubview:label];
     if (indexPath.row == 0) {
-        label.text = @"Username";
-        [cell.contentView addSubview:self.usernameField];
+        label.text = @"User ID";
+        [cell addSubview:self.usernameField];
     } else {
         label.text = @"Password";
         [cell.contentView addSubview:self.passwordField];
     }
-    
     
     return cell;
 }
@@ -117,17 +127,20 @@
 
 #pragma mark - helper methods
 
-- (UITextField *)newTextField:(NSString *)placeholderText
+- (UITextField *)newTextFieldwithPlaceholder:(NSString *)placeholderText xCoord:(CGFloat)x 
+                                      yCoord:(CGFloat)y secure:(BOOL)secure
 {
-    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(100, 10, 150, 25)];
-    textField.font = [UIFont systemFontOfSize:16];
+    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(x, y, 250, 35.0)];
+    textField.font = [UIFont boldSystemFontOfSize:14];
     textField.delegate = self;
     textField.returnKeyType = UIReturnKeyGo;
     textField.clearsOnBeginEditing = NO;
     textField.placeholder = placeholderText;
     textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     textField.autocorrectionType = UITextAutocorrectionTypeNo;
-    
+    textField.enabled = YES;
+    textField.secureTextEntry = secure;
+    textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     return textField;
 }
 
