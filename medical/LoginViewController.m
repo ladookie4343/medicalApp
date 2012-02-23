@@ -25,6 +25,7 @@
 
 @synthesize logOnButton = _logOnButton;
 @synthesize tableView = _tableView;
+@synthesize keyboardToolbar = _keyboardToolbar;
 @synthesize usernameField = _usernameField;
 @synthesize passwordField = _passwordField;
 
@@ -43,12 +44,28 @@
                                                     xCoord:90.0 
                                                     yCoord:5.0 
                                                     secure:YES];
+    
+    
+    UISegmentedControl *prevNext = [[UISegmentedControl alloc] initWithItems:[[NSArray alloc] initWithObjects:@"Previous", @"Next", nil]];
+    prevNext.segmentedControlStyle = UISegmentedControlStyleBar;
+    [prevNext addTarget:self action:@selector(prevNextPressed) forControlEvents:UIControlEventValueChanged];
+    prevNext.tintColor = [UIColor colorWithWhite:0.25 alpha:1];
+    UIBarButtonItem *prevNextButton = [[UIBarButtonItem alloc] initWithCustomView:prevNext];
+    
+    
+    UIBarButtonItem *flex = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    flex.width = 115;
+    UIBarButtonItem *done = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(closeKeyboard)];
+    done.tintColor = [UIColor colorWithWhite:0.25 alpha:1];
+    
+    self.keyboardToolbar.items = [[NSArray alloc] initWithObjects: prevNextButton, flex, done, nil];
 }
 
 - (void)viewDidUnload
 {
     [self setLogOnButton:nil];
     [self setTableView:nil];
+    [self setKeyboardToolbar:nil];
     [super viewDidUnload];
 }
 
@@ -124,6 +141,28 @@
 {
     return 2;
 }
+
+#pragma mark - textfield accessory view methods
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    textField.inputAccessoryView = self.keyboardToolbar;
+}
+
+- (void)prevNextPressed
+{
+    
+}
+
+- (void)closeKeyboard
+{
+    if ([self.usernameField isEditing]) {
+        [self.usernameField resignFirstResponder];
+    } else {
+        [self.passwordField resignFirstResponder];
+    }
+}
+
 
 #pragma mark - helper methods
 

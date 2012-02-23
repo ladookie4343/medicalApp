@@ -22,5 +22,6 @@
 
 @property (weak, nonatomic) IBOutlet GradientButton *logOnButton;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UIToolbar *keyboardToolbar;
 
 @end
