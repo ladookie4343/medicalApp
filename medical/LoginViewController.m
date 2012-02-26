@@ -18,6 +18,7 @@
                                       xCoord:(CGFloat)x 
                                       yCoord:(CGFloat)y 
                                       secure:(BOOL)secure;
+- (UIBarButtonItem *)prevNextBarButton;
 
 @end
 
@@ -45,25 +46,19 @@
                                                     yCoord:5.0 
                                                     secure:YES];
     
-    
-    UISegmentedControl *prevNext = [[UISegmentedControl alloc] initWithItems:[[NSArray alloc] initWithObjects:@"Previous", @"Next", nil]];
-    prevNext.segmentedControlStyle = UISegmentedControlStyleBar;
-    [prevNext addTarget:self action:@selector(prevNextPressed) forControlEvents:UIControlEventValueChanged];
-    prevNext.tintColor = [UIColor colorWithWhite:0.25 alpha:1];
-    UIBarButtonItem *prevNextButton = [[UIBarButtonItem alloc] initWithCustomView:prevNext];
-    
-    
+    UIBarButtonItem *userIDPassButton =  [self prevNextBarButton];    
     UIBarButtonItem *flex = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace 
                                                                           target:nil 
                                                                           action:nil];
     flex.width = 115;
+    
     UIBarButtonItem *done = [[UIBarButtonItem alloc] initWithTitle:@"Done" 
                                                              style:UIBarButtonItemStyleBordered 
                                                             target:self 
                                                             action:@selector(closeKeyboard)];
     done.tintColor = [UIColor colorWithWhite:0.25 alpha:1];
     
-    self.keyboardToolbar.items = [[NSArray alloc] initWithObjects: prevNextButton, flex, done, nil];
+    self.keyboardToolbar.items = [[NSArray alloc] initWithObjects: userIDPassButton, flex, done, nil];
 }
 
 - (void)viewDidUnload
@@ -170,6 +165,16 @@
 
 
 #pragma mark - helper methods
+
+- (UIBarButtonItem *)prevNextBarButton
+{
+    UISegmentedControl *prevNext = [[UISegmentedControl alloc] initWithItems:
+                                    [[NSArray alloc] initWithObjects:@"Previous", @"Next", nil]];
+    prevNext.segmentedControlStyle = UISegmentedControlStyleBar;
+    [prevNext addTarget:self action:@selector(prevNextPressed) forControlEvents:UIControlEventValueChanged];
+    prevNext.tintColor = [UIColor colorWithWhite:0.25 alpha:1];
+    return [[UIBarButtonItem alloc] initWithCustomView:prevNext];
+}
 
 - (UITextField *)newTextFieldwithPlaceholder:(NSString *)placeholderText xCoord:(CGFloat)x 
                                       yCoord:(CGFloat)y secure:(BOOL)secure
