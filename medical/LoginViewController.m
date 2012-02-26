@@ -53,9 +53,14 @@
     UIBarButtonItem *prevNextButton = [[UIBarButtonItem alloc] initWithCustomView:prevNext];
     
     
-    UIBarButtonItem *flex = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    UIBarButtonItem *flex = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace 
+                                                                          target:nil 
+                                                                          action:nil];
     flex.width = 115;
-    UIBarButtonItem *done = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(closeKeyboard)];
+    UIBarButtonItem *done = [[UIBarButtonItem alloc] initWithTitle:@"Done" 
+                                                             style:UIBarButtonItemStyleBordered 
+                                                            target:self 
+                                                            action:@selector(closeKeyboard)];
     done.tintColor = [UIColor colorWithWhite:0.25 alpha:1];
     
     self.keyboardToolbar.items = [[NSArray alloc] initWithObjects: prevNextButton, flex, done, nil];
