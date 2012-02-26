@@ -24,7 +24,6 @@
 
 @implementation LoginViewController
 
-@synthesize logOnButton = _logOnButton;
 @synthesize tableView = _tableView;
 @synthesize keyboardToolbar = _keyboardToolbar;
 @synthesize usernameField = _usernameField;
@@ -35,7 +34,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	[self.logOnButton useGreenConfirmStyle];
     self.usernameField = [self newTextFieldwithPlaceholder:@"Enter your User ID" 
                                                     xCoord:100.0 
                                                     yCoord:5.0 
@@ -63,7 +61,6 @@
 
 - (void)viewDidUnload
 {
-    [self setLogOnButton:nil];
     [self setTableView:nil];
     [self setKeyboardToolbar:nil];
     [super viewDidUnload];
