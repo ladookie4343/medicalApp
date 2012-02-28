@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C93361A714FAB9DD003F1349 /* button_silver_stretch.png in Resources */ = {isa = PBXBuildFile; fileRef = C93361A514FAB9DD003F1349 /* button_silver_stretch.png */; };
-		C93361A814FAB9DD003F1349 /* button_silver_stretch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C93361A614FAB9DD003F1349 /* button_silver_stretch@2x.png */; };
+		C96605CD14FC7D8400040818 /* green_button.png in Resources */ = {isa = PBXBuildFile; fileRef = C96605CC14FC7D8400040818 /* green_button.png */; };
+		C97DEBF014FC777D002A860E /* navBar44.png in Resources */ = {isa = PBXBuildFile; fileRef = C97DEBEF14FC777D002A860E /* navBar44.png */; };
 		C9BA09ED14E72175001F5F20 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9BA09EC14E72175001F5F20 /* UIKit.framework */; };
 		C9BA09EF14E72175001F5F20 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9BA09EE14E72175001F5F20 /* Foundation.framework */; };
 		C9BA09F114E72175001F5F20 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9BA09F014E72175001F5F20 /* CoreGraphics.framework */; };
@@ -20,8 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C93361A514FAB9DD003F1349 /* button_silver_stretch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_silver_stretch.png; sourceTree = "<group>"; };
-		C93361A614FAB9DD003F1349 /* button_silver_stretch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_silver_stretch@2x.png"; sourceTree = "<group>"; };
+		C96605CC14FC7D8400040818 /* green_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = green_button.png; sourceTree = "<group>"; };
+		C97DEBEF14FC777D002A860E /* navBar44.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navBar44.png; sourceTree = "<group>"; };
 		C9BA09E814E72175001F5F20 /* medical.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = medical.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9BA09EC14E72175001F5F20 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C9BA09EE14E72175001F5F20 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -62,8 +62,8 @@
 		C93361A414FAB9DD003F1349 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				C93361A514FAB9DD003F1349 /* button_silver_stretch.png */,
-				C93361A614FAB9DD003F1349 /* button_silver_stretch@2x.png */,
+				C97DEBEF14FC777D002A860E /* navBar44.png */,
+				C96605CC14FC7D8400040818 /* green_button.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -173,8 +173,8 @@
 			files = (
 				C9BA09F714E72175001F5F20 /* InfoPlist.strings in Resources */,
 				C9BA0A0014E72175001F5F20 /* MainStoryboard.storyboard in Resources */,
-				C93361A714FAB9DD003F1349 /* button_silver_stretch.png in Resources */,
-				C93361A814FAB9DD003F1349 /* button_silver_stretch@2x.png in Resources */,
+				C97DEBF014FC777D002A860E /* navBar44.png in Resources */,
+				C96605CD14FC7D8400040818 /* green_button.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

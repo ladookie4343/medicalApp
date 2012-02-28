@@ -8,16 +8,21 @@
 
 
 // TODO:
-//  - program the go button on the keyboard to act like the "Log On" button.
-//  - make it so that when the user touches outside the keybaord, the keyboard resigns itself.
-//  - implement a inputAccessoryView for the keyboard.
-//  - customize login button.
+//
+//  - Add medical logo above login
+//
+//  - With the medical logo above login, will need to make
+//    UserID and Password slide up the screen so that the
+//    keyboard doesn't cover them up
+//
+//  - Add button to allow user to save the username
 
 
 #import <UIKit/UIKit.h>
 
 
-@interface LoginViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
+@interface LoginViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, 
+    UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIToolbar *keyboardToolbar;
