@@ -25,7 +25,8 @@
     UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) IBOutlet UIToolbar *keyboardToolbar;
 @property (weak, nonatomic) IBOutlet UIButton *logOnButton;
+@property (strong, nonatomic) IBOutlet UIToolbar *keyboardToolbar;
+@property (strong, nonatomic) IBOutlet UIView *loadingView;
 
 @end
