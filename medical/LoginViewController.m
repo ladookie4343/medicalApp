@@ -32,6 +32,7 @@
 @synthesize tableView = _tableView;
 @synthesize keyboardToolbar = _keyboardToolbar;
 @synthesize logOnButton = _logOnButton;
+@synthesize loadingView = _loadingView;
 @synthesize usernameField = _usernameField;
 @synthesize passwordField = _passwordField;
 @synthesize userIDPass = _userIDPass;
@@ -57,6 +58,7 @@ dispatch_queue_t queue;
     [self setTableView:nil];
     [self setKeyboardToolbar:nil];
     [self setLogOnButton:nil];
+    [self setLoadingView:nil];
     [super viewDidUnload];
 }
 
@@ -102,13 +104,23 @@ dispatch_queue_t queue;
           alloc an officeViewController
           alloc a uistoryboardsegue
           performseguewithidentifier
- else { */
+ else { 
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil 
                                                     message:@"Test"
                                                    delegate:nil 
                                           cancelButtonTitle:@"OK" 
                                           otherButtonTitles:nil];
     [alert show];
+ */
+    [self.view addSubview:self.loadingView];
+    self.loadingView.backgroundColor = [UIColor clearColor];
+    self.loadingView.center = self.view.center;
+    [self performSelector:@selector(done) withObject:nil afterDelay:5.0];
+}
+
+- (void)done
+{
+    [self.loadingView removeFromSuperview];
 }
 
 - (void)fetchData:(NSData *)responseData
