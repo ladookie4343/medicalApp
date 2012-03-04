@@ -84,6 +84,8 @@ dispatch_queue_t queue;
     // NSString *password = self.passwordTextField.text;
     
     // initiate loading... view
+    
+    /*
     dispatch_async(queue, ^{
         self.inventory = [[IODItem retrieveInventoryItems] mutableCopy];
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -93,6 +95,7 @@ dispatch_queue_t queue;
             self.ibChalkBoardLabel.text = @"Inventory Loaded\n\nHow can I help you?";
         });
     });
+     */
     
     
 /* if (loginsuccessful) {

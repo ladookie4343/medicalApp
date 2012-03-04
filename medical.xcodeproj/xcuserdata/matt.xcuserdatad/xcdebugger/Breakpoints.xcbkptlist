@@ -37,11 +37,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "medical/LoginViewController.m"
-         timestampString = "351981146.645197"
+         timestampString = "352576225.757879"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "108"
-         endingLineNumber = "108"
+         startingLineNumber = "111"
+         endingLineNumber = "111"
          landmarkName = "-tryLogOn"
          landmarkType = "5">
       </FileBreakpoint>
