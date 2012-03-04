@@ -26,5 +26,6 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIToolbar *keyboardToolbar;
+@property (weak, nonatomic) IBOutlet UIButton *logOnButton;
 
 @end

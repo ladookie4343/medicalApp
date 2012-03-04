@@ -7,20 +7,23 @@
 //
 
 #import "LoginViewController.h"
+#import "OfficeViewController.h"
 
 @interface LoginViewController()
 
 @property (nonatomic, strong) UITextField *usernameField;
 @property (nonatomic, strong) UITextField *passwordField;
 @property (nonatomic, strong) UISegmentedControl *userIDPass;
+@property (nonatomic, strong) UIStoryboardSegue *segue;
 
 - (void)fetchData:(NSData *)responseData;
 - (UITextField *)newUsernameTextField;
 - (UITextField *)newPasswordTextField;
 - (UIBarButtonItem *)userIDPassBarButton;
-- (UIButton *)logOnButton;
+- (void)setLogOnButtonProperties;
 - (NSArray *)keyboardToolbarItems;
 - (void)tryLogOn;
+- (UITextField *)tableCellTextField;
 
 @end
 
@@ -28,11 +31,15 @@
 
 @synthesize tableView = _tableView;
 @synthesize keyboardToolbar = _keyboardToolbar;
+@synthesize logOnButton = _logOnButton;
 @synthesize usernameField = _usernameField;
 @synthesize passwordField = _passwordField;
 @synthesize userIDPass = _userIDPass;
+@synthesize segue = _segue;
 
 #pragma mark - View lifecycle
+
+dispatch_queue_t queue;
 
 - (void)viewDidLoad
 {
@@ -40,25 +47,22 @@
     
     self.usernameField = [self newUsernameTextField];
     self.passwordField = [self newPasswordTextField];
-    self.keyboardToolbar.items = [self keyboardToolbarItems];    
-    
-    [self.view addSubview:[self logOnButton]];
+    self.keyboardToolbar.items = [self keyboardToolbarItems];  
+    [self setLogOnButtonProperties];
+    queue = dispatch_queue_create("com.medicalapp.www", nil);
 }
 
 - (void)viewDidUnload
 {
     [self setTableView:nil];
     [self setKeyboardToolbar:nil];
+    [self setLogOnButton:nil];
     [super viewDidUnload];
 }
 
 #pragma mark -
 
-
-#define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
-#define kLadookieURL [NSURL URLWithString: @"http://www.ladookie4343.com/MedicalApp/doctorlogin.php"]
-
-- (void)logOnPressed:(UIButton *)sender 
+- (IBAction)logOnPressed:(id)sender 
 {
     [self tryLogOn];
 }
@@ -70,19 +74,34 @@
     return YES;
 }
 
+
+#define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+#define kLadookieURL [NSURL URLWithString: @"http://www.ladookie4343.com/MedicalApp/doctorlogin.php"]
+
 - (void)tryLogOn
 {
     // NSString *username = self.userTextField.text;
     // NSString *password = self.passwordTextField.text;
     
-    dispatch_async(kBgQueue, ^{
-        NSData *data = [NSData dataWithContentsOfURL:kLadookieURL];
-        [self performSelectorOnMainThread:@selector(fetchData:) withObject:data waitUntilDone:YES];
+    // initiate loading... view
+    dispatch_async(queue, ^{
+        self.inventory = [[IODItem retrieveInventoryItems] mutableCopy];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self updateOrderBoard];
+            [self updateCurrentInventoryItem];
+            [self updateInventoryButtons];
+            self.ibChalkBoardLabel.text = @"Inventory Loaded\n\nHow can I help you?";
+        });
     });
     
     
+/* if (loginsuccessful) {
+          alloc an officeViewController
+          alloc a uistoryboardsegue
+          performseguewithidentifier
+ else { */
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil 
-                                                    message:@"I pooped!"
+                                                    message:@"Test"
                                                    delegate:nil 
                                           cancelButtonTitle:@"OK" 
                                           otherButtonTitles:nil];
@@ -165,49 +184,47 @@
 
 #pragma mark - helper methods
 
-- (UITextField *)newUsernameTextField
+- (UITextField *)tableCellTextField
 {
-    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(103.0, 5.0, 202.0, 35.0)];
+    UITextField *textField = [[UITextField alloc] init];
     textField.font = [UIFont boldSystemFontOfSize:14];
     textField.delegate = self;
     textField.returnKeyType = UIReturnKeyGo;
     textField.clearsOnBeginEditing = NO;
-    textField.placeholder = @"Enter your User ID";
     textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     textField.autocorrectionType = UITextAutocorrectionTypeNo;
     textField.enabled = YES;
-    textField.secureTextEntry = NO;
     textField.clearButtonMode = UITextFieldViewModeWhileEditing;
     textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    return textField;
+}
+
+- (UITextField *)newUsernameTextField
+{
+    UITextField *textField = [self tableCellTextField];
+    textField.frame = CGRectMake(105.0, 5.0, 202.0, 35.0);
+    textField.placeholder = @"Enter your User ID";
+    textField.secureTextEntry = NO;
     return textField;
 }
 
 - (UITextField *)newPasswordTextField
 {
-    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(93.0, 5.0, 204.0, 35.0)];
-    textField.font = [UIFont boldSystemFontOfSize:14];
-    textField.delegate = self;
-    textField.returnKeyType = UIReturnKeyGo;
-    textField.clearsOnBeginEditing = NO;
+    UITextField *textField = [self tableCellTextField];
+    textField.frame = CGRectMake(93.0, 5.0, 204.0, 35.0);
     textField.placeholder = @"Enter your Password";
-    textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    textField.autocorrectionType = UITextAutocorrectionTypeNo;
-    textField.enabled = YES;
     textField.secureTextEntry = YES;
-    textField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     return textField;
 }
 
-- (UIButton *)logOnButton
+- (void)setLogOnButtonProperties
 {
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(10, 250, 300, 38)];
-    [button setTitle:@"Log On" forState:UIControlStateNormal];
+    self.logOnButton.frame = CGRectMake(10, 250, 300, 38);
+    [self.logOnButton setTitle:@"Log On" forState:UIControlStateNormal];
     UIImage *buttonImage = [[UIImage imageNamed:@"green_button.png"] resizableImageWithCapInsets:
                             UIEdgeInsetsMake(0, 11, 0, 11)];
-    [button addTarget:self action:(@selector(logOnPressed:)) forControlEvents:UIControlEventTouchUpInside];
-    [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
-    return button;
+    [self.logOnButton addTarget:self action:(@selector(logOnPressed:)) forControlEvents:UIControlEventTouchUpInside];
+    [self.logOnButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
 }
 
 - (NSArray *)keyboardToolbarItems;

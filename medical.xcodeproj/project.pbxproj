@@ -17,6 +17,8 @@
 		C9BA09FD14E72175001F5F20 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9BA09FC14E72175001F5F20 /* AppDelegate.m */; };
 		C9BA0A0014E72175001F5F20 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9BA09FE14E72175001F5F20 /* MainStoryboard.storyboard */; };
 		C9BA0A0314E72175001F5F20 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9BA0A0214E72175001F5F20 /* LoginViewController.m */; };
+		C9F38A5A1502BAA100B0B808 /* Office.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F38A591502BAA100B0B808 /* Office.m */; };
+		C9FC356A14FFFBC900DFBC24 /* OfficeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FC356914FFFBC900DFBC24 /* OfficeViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +37,10 @@
 		C9BA09FF14E72175001F5F20 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		C9BA0A0114E72175001F5F20 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		C9BA0A0214E72175001F5F20 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		C9F38A581502BAA100B0B808 /* Office.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Office.h; sourceTree = "<group>"; };
+		C9F38A591502BAA100B0B808 /* Office.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Office.m; sourceTree = "<group>"; };
+		C9FC356814FFFBC900DFBC24 /* OfficeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfficeViewController.h; sourceTree = "<group>"; };
+		C9FC356914FFFBC900DFBC24 /* OfficeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfficeViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,11 +105,14 @@
 			isa = PBXGroup;
 			children = (
 				C93361A314FAB9DD003F1349 /* Resources */,
+				C9F38A561502BA5B00B0B808 /* Models */,
 				C9BA09FB14E72175001F5F20 /* AppDelegate.h */,
 				C9BA09FC14E72175001F5F20 /* AppDelegate.m */,
 				C9BA09FE14E72175001F5F20 /* MainStoryboard.storyboard */,
 				C9BA0A0114E72175001F5F20 /* LoginViewController.h */,
 				C9BA0A0214E72175001F5F20 /* LoginViewController.m */,
+				C9FC356814FFFBC900DFBC24 /* OfficeViewController.h */,
+				C9FC356914FFFBC900DFBC24 /* OfficeViewController.m */,
 				C9BA09F314E72175001F5F20 /* Supporting Files */,
 			);
 			path = medical;
@@ -118,6 +127,15 @@
 				C9BA09FA14E72175001F5F20 /* medical-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C9F38A561502BA5B00B0B808 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C9F38A581502BAA100B0B808 /* Office.h */,
+				C9F38A591502BAA100B0B808 /* Office.m */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -188,6 +206,8 @@
 				C9BA09F914E72175001F5F20 /* main.m in Sources */,
 				C9BA09FD14E72175001F5F20 /* AppDelegate.m in Sources */,
 				C9BA0A0314E72175001F5F20 /* LoginViewController.m in Sources */,
+				C9FC356A14FFFBC900DFBC24 /* OfficeViewController.m in Sources */,
+				C9F38A5A1502BAA100B0B808 /* Office.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
