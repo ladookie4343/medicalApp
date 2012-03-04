@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C96605CD14FC7D8400040818 /* green_button.png in Resources */ = {isa = PBXBuildFile; fileRef = C96605CC14FC7D8400040818 /* green_button.png */; };
+		C97BD0AC150403EC00788AA4 /* loading.png in Resources */ = {isa = PBXBuildFile; fileRef = C97BD0AB150403EC00788AA4 /* loading.png */; };
 		C97DEBF014FC777D002A860E /* navBar44.png in Resources */ = {isa = PBXBuildFile; fileRef = C97DEBEF14FC777D002A860E /* navBar44.png */; };
 		C9BA09ED14E72175001F5F20 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9BA09EC14E72175001F5F20 /* UIKit.framework */; };
 		C9BA09EF14E72175001F5F20 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9BA09EE14E72175001F5F20 /* Foundation.framework */; };
@@ -23,6 +24,7 @@
 
 /* Begin PBXFileReference section */
 		C96605CC14FC7D8400040818 /* green_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = green_button.png; sourceTree = "<group>"; };
+		C97BD0AB150403EC00788AA4 /* loading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loading.png; sourceTree = "<group>"; };
 		C97DEBEF14FC777D002A860E /* navBar44.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navBar44.png; sourceTree = "<group>"; };
 		C9BA09E814E72175001F5F20 /* medical.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = medical.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9BA09EC14E72175001F5F20 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -70,6 +72,7 @@
 			children = (
 				C97DEBEF14FC777D002A860E /* navBar44.png */,
 				C96605CC14FC7D8400040818 /* green_button.png */,
+				C97BD0AB150403EC00788AA4 /* loading.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -193,6 +196,7 @@
 				C9BA0A0014E72175001F5F20 /* MainStoryboard.storyboard in Resources */,
 				C97DEBF014FC777D002A860E /* navBar44.png in Resources */,
 				C96605CD14FC7D8400040818 /* green_button.png in Resources */,
+				C97BD0AC150403EC00788AA4 /* loading.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
