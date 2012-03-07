@@ -10,6 +10,8 @@
 
 @implementation OfficeViewController
 
+@synthesize office = _office;
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
