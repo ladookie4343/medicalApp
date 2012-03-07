@@ -77,8 +77,6 @@
 }
 
 
-#define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
-
 - (void)tryLogOn
 {
     if ([self emptyUsernameOrPassword]) {
@@ -132,7 +130,7 @@
         [self showAlertViewWithMessage:@"good credentials"];
     } else {
         [self showAlertViewWithMessage:@"The User ID or Password you entered is incorrect. "
-         "Please click 'OK' to reenter your USER ID and password"];
+         "Please click 'OK' to reenter your User ID and password"];
     } 
 }
 
@@ -275,7 +273,7 @@
     [self.logOnButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
 }
 
-- (NSArray *)keyboardToolbarItems;
+- (NSArray *)keyboardToolbarItems
 {
     UIBarButtonItem *userIDPassButton =  [self userIDPassBarButton];    
     UIBarButtonItem *flex = [[UIBarButtonItem alloc] 
