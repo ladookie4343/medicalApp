@@ -115,7 +115,7 @@
         NSData *responseData = [NSURLConnection sendSynchronousRequest:request 
                                                      returningResponse:&response 
                                                                  error:&error];
-        [self performSelectorOnMainThread:@selector(responseFromLoginPHPScript:) 
+        [self performSelectorOnMainThread:@selector(responseFromLoginScript:) 
                                withObject:responseData 
                             waitUntilDone:YES];
     });
