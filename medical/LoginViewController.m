@@ -27,6 +27,7 @@
 - (void)showAlertViewWithMessage:(NSString *)message;
 - (BOOL)emptyUsernameOrPassword;
 - (BOOL)correctUserIDandPass;
+- (NSString *)responseFromLoginPHPScript;
 
 @end
 
@@ -81,7 +82,6 @@ dispatch_queue_t queue;
 
 
 #define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
-#define kLadookieURL [NSURL URLWithString: @"http://www.ladookie4343.com/MedicalApp/doctorlogin.php"]
 
 - (void)tryLogOn
 {
@@ -95,16 +95,44 @@ dispatch_queue_t queue;
     self.loadingView.center = self.view.center;
     
     if ([self correctUserIDandPass]) {
-        // performSegue
+        [self showAlertViewWithMessage:@"good credentials"];
     } else {
         [self showAlertViewWithMessage:@"The User ID or Password you entered is incorrect."
                                         "Please click 'OK' to reenter your USER ID and password"];
     }
 }
 
+#define kLadookieURL [NSURL URLWithString: @"http://www.ladookie4343.com/MedicalApp/doctorlogin.php"]
+
 - (BOOL)correctUserIDandPass
 {
+    NSString *success = [self responseFromLoginPHPScript];
+    if ([success isEqualToString:@"yes"]) {
+        return YES;
+    } else if ([success isEqualToString:@"no"]) {
+        return NO;
+    } else {
+        NSLog(@"%@", success);
+        return NO;
+    }
+}
+
+- (NSString *)responseFromLoginPHPScript
+{
+    NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:kLadookieURL];
+    [request setHTTPMethod:@"POST"];
     
+    NSString *username = self.usernameField.text;
+    NSString *password = self.passwordField.text;
+    NSString *requestData = [NSString stringWithFormat:@"username=%@&password=%@", username, password];
+    [request setHTTPBody:[requestData dataUsingEncoding:NSUTF8StringEncoding]]; 
+    
+    NSURLResponse *response;
+    NSError *error;
+    NSData *responseData = [NSURLConnection sendSynchronousRequest:request 
+                                                 returningResponse:&response 
+                                                             error:&error];
+    return [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
 }
 
 - (BOOL)emptyUsernameOrPassword
