@@ -24,6 +24,9 @@
 - (NSArray *)keyboardToolbarItems;
 - (void)tryLogOn;
 - (UITextField *)tableCellTextField;
+- (void)showAlertViewWithMessage:(NSString *)message;
+- (BOOL)emptyUsernameOrPassword;
+- (BOOL)correctUserIDandPass;
 
 @end
 
@@ -82,40 +85,44 @@ dispatch_queue_t queue;
 
 - (void)tryLogOn
 {
-    // NSString *username = self.userTextField.text;
-    // NSString *password = self.passwordTextField.text;
+    if ([self emptyUsernameOrPassword]) {
+        [self showAlertViewWithMessage:@"Please enter a User ID and Password to continue"];
+        return;
+    }
     
-    // initiate loading... view
-    
-    /*
-    dispatch_async(queue, ^{
-        self.inventory = [[IODItem retrieveInventoryItems] mutableCopy];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self updateOrderBoard];
-            [self updateCurrentInventoryItem];
-            [self updateInventoryButtons];
-            self.ibChalkBoardLabel.text = @"Inventory Loaded\n\nHow can I help you?";
-        });
-    });
-     */
-    
-    
-/* if (loginsuccessful) {
-          alloc an officeViewController
-          alloc a uistoryboardsegue
-          performseguewithidentifier
- else { 
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil 
-                                                    message:@"Test"
-                                                   delegate:nil 
-                                          cancelButtonTitle:@"OK" 
-                                          otherButtonTitles:nil];
-    [alert show];
- */
     [self.view addSubview:self.loadingView];
     self.loadingView.backgroundColor = [UIColor clearColor];
     self.loadingView.center = self.view.center;
-    [self performSelector:@selector(done) withObject:nil afterDelay:5.0];
+    
+    if ([self correctUserIDandPass]) {
+        // performSegue
+    } else {
+        [self showAlertViewWithMessage:@"The User ID or Password you entered is incorrect."
+                                        "Please click 'OK' to reenter your USER ID and password"];
+    }
+}
+
+- (BOOL)correctUserIDandPass
+{
+    
+}
+
+- (BOOL)emptyUsernameOrPassword
+{
+    return [@"" isEqualToString:self.usernameField.text] ||
+           [@"" isEqualToString:self.passwordField.text] ||
+           self.usernameField.text == nil ||
+           self.passwordField.text == nil;
+}
+
+- (void)showAlertViewWithMessage:(NSString *)message
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil 
+                                                    message:message
+                                                   delegate:nil 
+                                          cancelButtonTitle:@"OK" 
+                                          otherButtonTitles:nil];
+    [alert show];   
 }
 
 - (void)done
@@ -226,7 +233,7 @@ dispatch_queue_t queue;
 - (UITextField *)newPasswordTextField
 {
     UITextField *textField = [self tableCellTextField];
-    textField.frame = CGRectMake(93.0, 5.0, 204.0, 35.0);
+    textField.frame = CGRectMake(95.0, 5.0, 204.0, 35.0);
     textField.placeholder = @"Enter your Password";
     textField.secureTextEntry = YES;
     return textField;
@@ -279,7 +286,17 @@ dispatch_queue_t queue;
 
 
 
-
+/*
+ dispatch_async(queue, ^{
+ self.inventory = [[IODItem retrieveInventoryItems] mutableCopy];
+ dispatch_async(dispatch_get_main_queue(), ^{
+ [self updateOrderBoard];
+ [self updateCurrentInventoryItem];
+ [self updateInventoryButtons];
+ self.ibChalkBoardLabel.text = @"Inventory Loaded\n\nHow can I help you?";
+ });
+ });
+ */
 
 
 

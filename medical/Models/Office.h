@@ -15,8 +15,9 @@
 @property (nonatomic, strong) NSString *city;
 @property (nonatomic, strong) NSString *state;
 @property (nonatomic, strong) NSString *zipcode;
+@property (nonatomic, strong) NSString *phone;
+@property (nonatomic, strong) NSString *email;
+@property (nonatomic, strong) NSString *website;
 
-- (id) initWithOfficeID:(int)oid street:(NSString *)street city:(NSString *)city
-                  state:(NSString *)state zipcode:(NSString *)zipcode;
 
 @end
