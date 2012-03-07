@@ -16,7 +16,6 @@
 @property (nonatomic, strong) UISegmentedControl *userIDPass;
 @property (nonatomic, strong) UIStoryboardSegue *segue;
 
-- (void)fetchData:(NSData *)responseData;
 - (UITextField *)newUsernameTextField;
 - (UITextField *)newPasswordTextField;
 - (UIBarButtonItem *)userIDPassBarButton;
@@ -26,8 +25,7 @@
 - (UITextField *)tableCellTextField;
 - (void)showAlertViewWithMessage:(NSString *)message;
 - (BOOL)emptyUsernameOrPassword;
-- (BOOL)correctUserIDandPass;
-- (NSString *)responseFromLoginPHPScript;
+- (void) contactServer;
 
 @end
 
@@ -44,7 +42,6 @@
 
 #pragma mark - View lifecycle
 
-dispatch_queue_t queue;
 
 - (void)viewDidLoad
 {
@@ -54,7 +51,6 @@ dispatch_queue_t queue;
     self.passwordField = [self newPasswordTextField];
     self.keyboardToolbar.items = [self keyboardToolbarItems];  
     [self setLogOnButtonProperties];
-    queue = dispatch_queue_create("com.medicalapp.www", nil);
 }
 
 - (void)viewDidUnload
@@ -90,34 +86,19 @@ dispatch_queue_t queue;
         return;
     }
     
+    
     [self.view addSubview:self.loadingView];
     self.loadingView.backgroundColor = [UIColor clearColor];
     self.loadingView.center = self.view.center;
     
-    if ([self correctUserIDandPass]) {
-        [self showAlertViewWithMessage:@"good credentials"];
-    } else {
-        [self showAlertViewWithMessage:@"The User ID or Password you entered is incorrect."
-                                        "Please click 'OK' to reenter your USER ID and password"];
-    }
+    [self contactServer];
 }
 
+
+#define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
 #define kLadookieURL [NSURL URLWithString: @"http://www.ladookie4343.com/MedicalApp/doctorlogin.php"]
 
-- (BOOL)correctUserIDandPass
-{
-    NSString *success = [self responseFromLoginPHPScript];
-    if ([success isEqualToString:@"yes"]) {
-        return YES;
-    } else if ([success isEqualToString:@"no"]) {
-        return NO;
-    } else {
-        NSLog(@"%@", success);
-        return NO;
-    }
-}
-
-- (NSString *)responseFromLoginPHPScript
+- (void)contactServer
 {
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:kLadookieURL];
     [request setHTTPMethod:@"POST"];
@@ -127,12 +108,32 @@ dispatch_queue_t queue;
     NSString *requestData = [NSString stringWithFormat:@"username=%@&password=%@", username, password];
     [request setHTTPBody:[requestData dataUsingEncoding:NSUTF8StringEncoding]]; 
     
-    NSURLResponse *response;
-    NSError *error;
-    NSData *responseData = [NSURLConnection sendSynchronousRequest:request 
-                                                 returningResponse:&response 
-                                                             error:&error];
-    return [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+    
+    dispatch_async(kBgQueue, ^{ 
+        NSURLResponse *response;
+        NSError *error;
+        NSData *responseData = [NSURLConnection sendSynchronousRequest:request 
+                                                     returningResponse:&response 
+                                                                 error:&error];
+        [self performSelectorOnMainThread:@selector(responseFromLoginPHPScript:) 
+                               withObject:responseData 
+                            waitUntilDone:YES];
+    });
+     
+}
+
+- (void)responseFromLoginScript:(NSData *)data
+{
+    [self.loadingView removeFromSuperview];
+    
+    NSString *success = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    
+    if ([success isEqualToString:@"yes"]) {
+        [self showAlertViewWithMessage:@"good credentials"];
+    } else {
+        [self showAlertViewWithMessage:@"The User ID or Password you entered is incorrect. "
+         "Please click 'OK' to reenter your USER ID and password"];
+    } 
 }
 
 - (BOOL)emptyUsernameOrPassword
@@ -153,11 +154,7 @@ dispatch_queue_t queue;
     [alert show];   
 }
 
-- (void)done
-{
-    [self.loadingView removeFromSuperview];
-}
-
+/*
 - (void)fetchData:(NSData *)responseData
 {
     NSError *error;
@@ -171,6 +168,7 @@ dispatch_queue_t queue;
     NSLog(@"%@, %@, %@", firstname, type, experience);
     NSLog(@"%@", json);
 }
+ */
 #pragma mark
 
 
@@ -314,17 +312,7 @@ dispatch_queue_t queue;
 
 
 
-/*
- dispatch_async(queue, ^{
- self.inventory = [[IODItem retrieveInventoryItems] mutableCopy];
- dispatch_async(dispatch_get_main_queue(), ^{
- [self updateOrderBoard];
- [self updateCurrentInventoryItem];
- [self updateInventoryButtons];
- self.ibChalkBoardLabel.text = @"Inventory Loaded\n\nHow can I help you?";
- });
- });
- */
+
 
 
 
