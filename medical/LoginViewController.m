@@ -14,7 +14,6 @@
 @property (nonatomic, strong) UITextField *usernameField;
 @property (nonatomic, strong) UITextField *passwordField;
 @property (nonatomic, strong) UISegmentedControl *userIDPass;
-@property (nonatomic, strong) UIStoryboardSegue *segue;
 
 - (UITextField *)newUsernameTextField;
 - (UITextField *)newPasswordTextField;
@@ -38,7 +37,6 @@
 @synthesize usernameField = _usernameField;
 @synthesize passwordField = _passwordField;
 @synthesize userIDPass = _userIDPass;
-@synthesize segue = _segue;
 
 #pragma mark - View lifecycle
 
