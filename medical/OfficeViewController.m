@@ -19,6 +19,10 @@
 @implementation OfficeViewController
 
 @synthesize office = _office;
+@synthesize phoneNumber = _phoneNumber;
+@synthesize email = _email;
+@synthesize website = _website;
+@synthesize location = _location;
 
 - (void)didReceiveMemoryWarning
 {
@@ -38,11 +42,15 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     self.navigationItem.hidesBackButton = YES;
+    self.location.text = @"12909 Woodliegh Ave\nTampa, FL\nUnited States";
 }
-
 
 - (void)viewDidUnload
 {
+    [self setPhoneNumber:nil];
+    [self setEmail:nil];
+    [self setWebsite:nil];
+    [self setLocation:nil];
     [super viewDidUnload];
 }
 
