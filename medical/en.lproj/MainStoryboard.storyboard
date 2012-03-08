@@ -5,20 +5,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="933"/>
     </dependencies>
     <scenes>
-        <scene sceneID="ssX-G0-aln">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="d3x-FK-uBq" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="Ud1-co-RDO" customClass="OfficeViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="uBL-FR-rS4">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="3YZ-vB-QjS"/>
-                </viewController>
-            </objects>
-            <point key="canvasLocation" x="2889" y="181"/>
-        </scene>
         <scene sceneID="5">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
@@ -33,6 +19,8 @@
                                 <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="22"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <size key="shadowOffset" width="0.0" height="1"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" allowsSelection="NO" rowHeight="40" sectionHeaderHeight="10" sectionFooterHeight="10" id="8Lv-Wa-iWT">
                                 <rect key="frame" x="0.0" y="57" width="320" height="96"/>
@@ -78,7 +66,7 @@
                         <outlet property="loadingView" destination="gWf-9C-qEL" id="bZg-QG-QnC"/>
                         <outlet property="logOnButton" destination="qen-Nz-a9g" id="Hb8-hX-XZd"/>
                         <outlet property="tableView" destination="8Lv-Wa-iWT" id="bnz-dP-FBp"/>
-                        <segue destination="Ud1-co-RDO" kind="push" identifier="login" id="LKd-bF-MUQ"/>
+                        <segue destination="RGV-V5-J9U" kind="push" identifier="login" id="Wm9-C8-hHK"/>
                     </connections>
                 </viewController>
                 <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="blackOpaque" id="rgp-9N-vng">
@@ -113,6 +101,60 @@
             </objects>
             <point key="canvasLocation" x="2425" y="181"/>
         </scene>
+        <scene sceneID="VJo-Dr-kLd">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vbR-qe-lth" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="RGV-V5-J9U" customClass="OfficeViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Q44-9b-B2q">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.20784313730000001" green="0.45882352939999999" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <sections>
+                            <tableViewSection id="pVr-vK-zRr">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="rHf-Eg-vBq">
+                                        <rect key="frame" x="0.0" y="10" width="320" height="45"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="10" y="1" width="300" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="vzN-hF-4ao">
+                                        <rect key="frame" x="0.0" y="55" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="10" y="1" width="300" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="190-Si-7KV">
+                                        <rect key="frame" x="0.0" y="99" width="320" height="45"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="10" y="1" width="300" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="RGV-V5-J9U" id="0cA-rP-jiL"/>
+                            <outlet property="delegate" destination="RGV-V5-J9U" id="Wtq-sN-lz7"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Office" id="st2-hP-qqw"/>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="2856" y="181"/>
+        </scene>
         <scene sceneID="1Nn-sj-a5Z">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jSY-5K-xWR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -144,16 +186,8 @@
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
             </relationships>
         </class>
-        <class className="OfficeViewController" superclassName="UIViewController">
+        <class className="OfficeViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/OfficeViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="label1" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="label2" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="label3" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="label4" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="label5" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="label6" candidateClass="UILabel"/>
-            </relationships>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

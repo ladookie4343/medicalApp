@@ -23,11 +23,24 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    UIView *containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 60)];
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, 300, 40)];
+    
+    headerLabel.text = [NSString stringWithFormat:@"Matt's Dental Office"];
+    headerLabel.textColor = [UIColor whiteColor];
+    headerLabel.shadowColor = [UIColor blackColor];
+    headerLabel.shadowOffset = CGSizeMake(0, 1);
+    headerLabel.font = [UIFont boldSystemFontOfSize:22];
+    headerLabel.backgroundColor = [UIColor clearColor];
+    headerLabel.textAlignment = UITextAlignmentCenter;
+    [containerView addSubview:headerLabel];
+    self.tableView.tableHeaderView = containerView;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-
+    self.navigationItem.hidesBackButton = YES;
 }
 
 
@@ -40,5 +53,18 @@
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
+/*
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+        return self.officeNameView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+        return 40;
+   
+}
+*/
 
 @end
