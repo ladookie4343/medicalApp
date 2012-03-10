@@ -10,6 +10,7 @@
 		C96605CD14FC7D8400040818 /* green_button.png in Resources */ = {isa = PBXBuildFile; fileRef = C96605CC14FC7D8400040818 /* green_button.png */; };
 		C97BD0AC150403EC00788AA4 /* loading.png in Resources */ = {isa = PBXBuildFile; fileRef = C97BD0AB150403EC00788AA4 /* loading.png */; };
 		C97DEBF014FC777D002A860E /* navBar44.png in Resources */ = {isa = PBXBuildFile; fileRef = C97DEBEF14FC777D002A860E /* navBar44.png */; };
+		C99B0690150BFD9C006490A6 /* OfficeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C99B068F150BFD9C006490A6 /* OfficeTableViewController.m */; };
 		C9BA09ED14E72175001F5F20 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9BA09EC14E72175001F5F20 /* UIKit.framework */; };
 		C9BA09EF14E72175001F5F20 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9BA09EE14E72175001F5F20 /* Foundation.framework */; };
 		C9BA09F114E72175001F5F20 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9BA09F014E72175001F5F20 /* CoreGraphics.framework */; };
@@ -26,6 +27,8 @@
 		C96605CC14FC7D8400040818 /* green_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = green_button.png; sourceTree = "<group>"; };
 		C97BD0AB150403EC00788AA4 /* loading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loading.png; sourceTree = "<group>"; };
 		C97DEBEF14FC777D002A860E /* navBar44.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navBar44.png; sourceTree = "<group>"; };
+		C99B068E150BFD9C006490A6 /* OfficeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfficeTableViewController.h; sourceTree = "<group>"; };
+		C99B068F150BFD9C006490A6 /* OfficeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfficeTableViewController.m; sourceTree = "<group>"; };
 		C9BA09E814E72175001F5F20 /* medical.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = medical.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9BA09EC14E72175001F5F20 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C9BA09EE14E72175001F5F20 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -63,8 +66,10 @@
 			isa = PBXGroup;
 			children = (
 				C93361A414FAB9DD003F1349 /* Images */,
+				C9BA09FE14E72175001F5F20 /* MainStoryboard.storyboard */,
 			);
-			path = Resources;
+			name = Resources;
+			path = medical/Resources;
 			sourceTree = "<group>";
 		};
 		C93361A414FAB9DD003F1349 /* Images */ = {
@@ -81,6 +86,8 @@
 			isa = PBXGroup;
 			children = (
 				C9BA09F214E72175001F5F20 /* Classes */,
+				C9BA09F314E72175001F5F20 /* Supporting Files */,
+				C93361A314FAB9DD003F1349 /* Resources */,
 				C9BA09EB14E72175001F5F20 /* Frameworks */,
 				C9BA09E914E72175001F5F20 /* Products */,
 			);
@@ -107,16 +114,15 @@
 		C9BA09F214E72175001F5F20 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				C93361A314FAB9DD003F1349 /* Resources */,
 				C9F38A561502BA5B00B0B808 /* Models */,
 				C9BA09FB14E72175001F5F20 /* AppDelegate.h */,
 				C9BA09FC14E72175001F5F20 /* AppDelegate.m */,
-				C9BA09FE14E72175001F5F20 /* MainStoryboard.storyboard */,
 				C9BA0A0114E72175001F5F20 /* LoginViewController.h */,
 				C9BA0A0214E72175001F5F20 /* LoginViewController.m */,
 				C9FC356814FFFBC900DFBC24 /* OfficeViewController.h */,
 				C9FC356914FFFBC900DFBC24 /* OfficeViewController.m */,
-				C9BA09F314E72175001F5F20 /* Supporting Files */,
+				C99B068E150BFD9C006490A6 /* OfficeTableViewController.h */,
+				C99B068F150BFD9C006490A6 /* OfficeTableViewController.m */,
 			);
 			name = Classes;
 			path = medical;
@@ -131,6 +137,7 @@
 				C9BA09FA14E72175001F5F20 /* medical-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			path = medical;
 			sourceTree = "<group>";
 		};
 		C9F38A561502BA5B00B0B808 /* Models */ = {
@@ -213,6 +220,7 @@
 				C9BA0A0314E72175001F5F20 /* LoginViewController.m in Sources */,
 				C9FC356A14FFFBC900DFBC24 /* OfficeViewController.m in Sources */,
 				C9F38A5A1502BAA100B0B808 /* Office.m in Sources */,
+				C99B0690150BFD9C006490A6 /* OfficeTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,6 +241,7 @@
 				C9BA09FF14E72175001F5F20 /* en */,
 			);
 			name = MainStoryboard.storyboard;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

@@ -66,7 +66,7 @@
                         <outlet property="loadingView" destination="gWf-9C-qEL" id="bZg-QG-QnC"/>
                         <outlet property="logOnButton" destination="qen-Nz-a9g" id="Hb8-hX-XZd"/>
                         <outlet property="tableView" destination="8Lv-Wa-iWT" id="bnz-dP-FBp"/>
-                        <segue destination="RGV-V5-J9U" kind="push" identifier="login" id="Wm9-C8-hHK"/>
+                        <segue destination="2F5-xs-fLH" kind="push" id="vsb-eq-5bJ"/>
                     </connections>
                 </viewController>
                 <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="blackOpaque" id="rgp-9N-vng">
@@ -101,12 +101,77 @@
             </objects>
             <point key="canvasLocation" x="2425" y="181"/>
         </scene>
+        <scene sceneID="mMu-7h-puW">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zIg-on-T7c" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="2F5-xs-fLH" customClass="OfficeTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="64" sectionHeaderHeight="10" sectionFooterHeight="10" id="T0k-H4-2xK">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.20784313730000001" green="0.45882352939999999" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="cNG-6m-Lh5">
+                                <rect key="frame" x="0.0" y="46" width="320" height="66"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="10" y="1" width="280" height="63"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <connections>
+                                    <segue destination="grs-TG-FDa" kind="push" id="Gap-UR-ktk"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="2F5-xs-fLH" id="oIG-1Q-YKN"/>
+                            <outlet property="delegate" destination="2F5-xs-fLH" id="6Iu-wr-k3n"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Offices" id="qcz-vu-LtZ"/>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="2895" y="181"/>
+        </scene>
+        <scene sceneID="jLa-HO-rpd">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MgN-gc-wpj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="6Nm-Oo-GW0" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="qde-cO-OK5">
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item 2" id="Mtc-Fd-lvq"/>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="3931" y="473"/>
+        </scene>
+        <scene sceneID="UOi-N6-HHw">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="see-92-LPC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tabBarController definesPresentationContext="YES" id="grs-TG-FDa" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="8H7-J2-FfF"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="eqo-zF-TGz">
+                        <rect key="frame" x="129" y="330" width="163" height="49"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="6Nm-Oo-GW0" kind="relationship" relationship="viewControllers" id="eov-bT-mka"/>
+                        <segue destination="RGV-V5-J9U" kind="relationship" relationship="viewControllers" id="uGD-YI-GOB"/>
+                    </connections>
+                </tabBarController>
+            </objects>
+            <point key="canvasLocation" x="3397" y="181"/>
+        </scene>
         <scene sceneID="VJo-Dr-kLd">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vbR-qe-lth" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="RGV-V5-J9U" customClass="OfficeViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Q44-9b-B2q">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.20784313730000001" green="0.45882352939999999" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
@@ -232,26 +297,7 @@
                                 </cells>
                             </tableViewSection>
                             <tableViewSection id="5dZ-MM-WYv">
-                                <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="sxm-9F-Wvv">
-                                        <rect key="frame" x="0.0" y="306" width="320" height="46"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="1" width="267" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Patient List" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" minimumFontSize="10" id="ZFU-Yu-Yuh">
-                                                    <rect key="frame" x="20" y="8" width="169" height="27"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </tableViewCell>
-                                </cells>
+                                <cells/>
                             </tableViewSection>
                         </sections>
                         <connections>
@@ -259,7 +305,8 @@
                             <outlet property="delegate" destination="RGV-V5-J9U" id="Wtq-sN-lz7"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Office" id="st2-hP-qqw"/>
+                    <tabBarItem key="tabBarItem" title="Item" id="4fe-Vh-rvS"/>
+                    <navigationItem key="navigationItem" title="Office Info" id="st2-hP-qqw"/>
                     <connections>
                         <outlet property="email" destination="bkT-iM-7EL" id="6bm-z9-vir"/>
                         <outlet property="location" destination="z28-2F-jlO" id="Bu3-Yy-CtJ"/>
@@ -268,7 +315,7 @@
                     </connections>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="2856" y="181"/>
+            <point key="canvasLocation" x="3922" y="-142"/>
         </scene>
         <scene sceneID="1Nn-sj-a5Z">
             <objects>
@@ -300,6 +347,9 @@
                 <relationship kind="outlet" name="logOnButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
             </relationships>
+        </class>
+        <class className="OfficeTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OfficeTableViewController.h"/>
         </class>
         <class className="OfficeViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/OfficeViewController.h"/>
