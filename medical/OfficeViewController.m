@@ -78,6 +78,39 @@
     return containerView;
 }
 
+#pragma mark - tableview methods
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    /*samples
+     
+     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunesconnect.apple.com"]];
+     
+     // Where is Apple on the map anyway?
+     NSString* addressText = @"1 Infinite Loop, Cupertino, CA 95014";
+     // URL encode the spaces
+     addressText =  [addressText stringByAddingPercentEscapesUsingEncoding: NSASCIIStringEncoding];	
+     NSString* urlText = [NSString stringWithFormat:@"http://maps.google.com/maps?q=%@", addressText];
+     // lets throw this text on the log so we can view the url in the event we have an issue
+     NSLog(@"%@", urlText);
+     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlText]];
+     
+     */
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+
+    switch (indexPath.section) {
+        case 1:
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto://devprograms@apple.com"]];
+
+            break;
+            
+        default:
+            break;
+    }
+    
+}
+
 @end
 
 

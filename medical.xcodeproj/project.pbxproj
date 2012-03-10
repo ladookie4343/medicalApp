@@ -80,7 +80,7 @@
 		C9BA09DD14E72174001F5F20 = {
 			isa = PBXGroup;
 			children = (
-				C9BA09F214E72175001F5F20 /* medical */,
+				C9BA09F214E72175001F5F20 /* Classes */,
 				C9BA09EB14E72175001F5F20 /* Frameworks */,
 				C9BA09E914E72175001F5F20 /* Products */,
 			);
@@ -104,7 +104,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		C9BA09F214E72175001F5F20 /* medical */ = {
+		C9BA09F214E72175001F5F20 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
 				C93361A314FAB9DD003F1349 /* Resources */,
@@ -118,6 +118,7 @@
 				C9FC356914FFFBC900DFBC24 /* OfficeViewController.m */,
 				C9BA09F314E72175001F5F20 /* Supporting Files */,
 			);
+			name = Classes;
 			path = medical;
 			sourceTree = "<group>";
 		};
