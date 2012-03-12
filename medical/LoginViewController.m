@@ -8,6 +8,7 @@
 
 #import "LoginViewController.h"
 #import "OfficeViewController.h"
+#import "Utilities.h"
 
 @interface LoginViewController()
 
@@ -24,6 +25,7 @@
 - (UITextField *)tableCellTextField;
 - (void)showAlertViewWithMessage:(NSString *)message;
 - (BOOL)emptyUsernameOrPassword;
+- (void)showLoadingView;
 - (void) contactServer;
 
 @end
@@ -74,29 +76,48 @@
     return YES;
 }
 
+#define kLoginURL [NSURL URLWithString: @"http://www.ladookie4343.com/MedicalApp/doctorlogin.php"]
 
 - (void)tryLogOn
 {
-  //  if ([self emptyUsernameOrPassword]) {
-  //      [self showAlertViewWithMessage:@"Please enter a User ID and Password to continue"];
-  //      return;
-  //  }
+    if ([self emptyUsernameOrPassword]) {
+        [self showAlertViewWithMessage:@"Please enter a User ID and Password to continue"];
+        return;
+    }
     
     
+    [self showLoadingView];
+    
+    
+    NSString *username = self.usernameField.text;
+    NSString *password = self.passwordField.text;
+    NSString *requestData = [NSString stringWithFormat:@"username=%@&password=%@", username, password];
+    NSData *data = [Utilities dataFromPHPScript:kLoginURL post:YES request:requestData];
+    NSString *success = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    
+     if ([success isEqualToString:@"yes"]) {
+         [self performSegueWithIdentifier:@"login" sender:self];
+     } else {
+         [self.loadingView removeFromSuperview];
+         [self showAlertViewWithMessage:@"The User ID or Password you entered is incorrect. "
+          "Please click 'OK' to reenter your User ID and password"];
+     }
+}
+
+- (void)showLoadingView
+{
     [self.view addSubview:self.loadingView];
     self.loadingView.backgroundColor = [UIColor clearColor];
-    self.loadingView.center = self.view.center;
-    
-    [self contactServer];
+    self.loadingView.center = self.view.center;   
 }
 
 
 #define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
-#define kLadookieURL [NSURL URLWithString: @"http://www.ladookie4343.com/MedicalApp/doctorlogin.php"]
+
 
 - (void)contactServer
 {
-    NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:kLadookieURL];
+    NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:kLoginURL];
     [request setHTTPMethod:@"POST"];
     
     NSString *username = self.usernameField.text;
@@ -115,21 +136,6 @@
                                withObject:responseData 
                             waitUntilDone:YES];
     });
-     
-}
-
-- (void)responseFromLoginScript:(NSData *)data
-{
-    [self.loadingView removeFromSuperview];
-    
-   // NSString *success = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    
-   // if ([success isEqualToString:@"yes"]) {
-        [self performSegueWithIdentifier:@"login" sender:self];
-   // } else {
-   //     [self showAlertViewWithMessage:@"The User ID or Password you entered is incorrect. "
-   //      "Please click 'OK' to reenter your User ID and password"];
-   // } 
 }
 
 - (BOOL)emptyUsernameOrPassword
@@ -150,25 +156,9 @@
     [alert show];   
 }
 
-/*
-- (void)fetchData:(NSData *)responseData
-{
-    NSError *error;
-    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:responseData 
-                                                         options:kNilOptions 
-                                                           error:&error];
-    NSString *firstname = [json objectForKey:@"firstname"];
-    NSString *type = [json objectForKey:@"type"];
-    NSString *experience = [json objectForKey:@"years_experience"];
-    
-    NSLog(@"%@, %@, %@", firstname, type, experience);
-    NSLog(@"%@", json);
-}
- */
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    
+    [self.loadingView removeFromSuperview];
 }
 
 #pragma mark

@@ -10,4 +10,6 @@
 
 @interface Utilities : NSObject
 
++ (NSData *)dataFromPHPScript:(NSURL *)script post:(BOOL)post request:(NSString *)request;
+
 @end
