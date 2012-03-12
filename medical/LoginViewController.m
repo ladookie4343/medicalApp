@@ -77,10 +77,10 @@
 
 - (void)tryLogOn
 {
-  //  if ([self emptyUsernameOrPassword]) {
-  //      [self showAlertViewWithMessage:@"Please enter a User ID and Password to continue"];
-  //      return;
-  //  }
+    if ([self emptyUsernameOrPassword]) {
+        [self showAlertViewWithMessage:@"Please enter a User ID and Password to continue"];
+        return;
+    }
     
     
     [self.view addSubview:self.loadingView];
@@ -122,14 +122,14 @@
 {
     [self.loadingView removeFromSuperview];
     
-   // NSString *success = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSString *success = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     
-   // if ([success isEqualToString:@"yes"]) {
+    if ([success isEqualToString:@"yes"]) {
         [self performSegueWithIdentifier:@"login" sender:self];
-   // } else {
-   //     [self showAlertViewWithMessage:@"The User ID or Password you entered is incorrect. "
-   //      "Please click 'OK' to reenter your User ID and password"];
-   // } 
+    } else {
+        [self showAlertViewWithMessage:@"The User ID or Password you entered is incorrect. "
+         "Please click 'OK' to reenter your User ID and password"];
+    } 
 }
 
 - (BOOL)emptyUsernameOrPassword
