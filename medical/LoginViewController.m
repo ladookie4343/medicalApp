@@ -77,6 +77,7 @@
 }
 
 #define kLoginURL [NSURL URLWithString: @"http://www.ladookie4343.com/MedicalApp/doctorlogin.php"]
+#define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
 
 - (void)tryLogOn
 {
@@ -85,23 +86,31 @@
         return;
     }
     
-    
     [self showLoadingView];
     
-    
-    NSString *username = self.usernameField.text;
-    NSString *password = self.passwordField.text;
-    NSString *requestData = [NSString stringWithFormat:@"username=%@&password=%@", username, password];
-    NSData *data = [Utilities dataFromPHPScript:kLoginURL post:YES request:requestData];
+    dispatch_async(kBgQueue, ^{
+        NSString *username = self.usernameField.text;
+        NSString *password = self.passwordField.text;
+        NSString *requestData = [NSString stringWithFormat:@"username=%@&password=%@", username, password];
+        NSData *data = [Utilities dataFromPHPScript:kLoginURL post:YES request:requestData];
+        [self performSelectorOnMainThread:@selector(responseFromLoginScript:) 
+                               withObject:data 
+                            waitUntilDone:YES];
+    });
+
+}
+
+- (void)responseFromLoginScript:(NSData *)data
+{
     NSString *success = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     
-     if ([success isEqualToString:@"yes"]) {
-         [self performSegueWithIdentifier:@"login" sender:self];
-     } else {
-         [self.loadingView removeFromSuperview];
-         [self showAlertViewWithMessage:@"The User ID or Password you entered is incorrect. "
-          "Please click 'OK' to reenter your User ID and password"];
-     }
+    if ([success isEqualToString:@"yes"]) {
+        [self performSegueWithIdentifier:@"LoginTransition" sender:self];
+    } else {
+        [self.loadingView removeFromSuperview];
+        [self showAlertViewWithMessage:@"The User ID or Password you entered is incorrect. "
+         "Please click 'OK' to reenter your User ID and password"];
+    }
 }
 
 - (void)showLoadingView
@@ -109,33 +118,6 @@
     [self.view addSubview:self.loadingView];
     self.loadingView.backgroundColor = [UIColor clearColor];
     self.loadingView.center = self.view.center;   
-}
-
-
-#define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
-
-
-- (void)contactServer
-{
-    NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:kLoginURL];
-    [request setHTTPMethod:@"POST"];
-    
-    NSString *username = self.usernameField.text;
-    NSString *password = self.passwordField.text;
-    NSString *requestData = [NSString stringWithFormat:@"username=%@&password=%@", username, password];
-    [request setHTTPBody:[requestData dataUsingEncoding:NSUTF8StringEncoding]]; 
-    
-    
-    dispatch_async(kBgQueue, ^{ 
-        NSURLResponse *response;
-        NSError *error;
-        NSData *responseData = [NSURLConnection sendSynchronousRequest:request 
-                                                     returningResponse:&response 
-                                                                 error:&error];
-        [self performSelectorOnMainThread:@selector(responseFromLoginScript:) 
-                               withObject:responseData 
-                            waitUntilDone:YES];
-    });
 }
 
 - (BOOL)emptyUsernameOrPassword

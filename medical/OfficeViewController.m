@@ -41,7 +41,6 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.navigationItem.hidesBackButton = YES;
     self.location.text = @"12909 Woodliegh Ave\nTampa, FL\nUnited States";
 }
 
