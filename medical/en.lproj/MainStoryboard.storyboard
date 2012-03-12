@@ -66,7 +66,7 @@
                         <outlet property="loadingView" destination="gWf-9C-qEL" id="bZg-QG-QnC"/>
                         <outlet property="logOnButton" destination="qen-Nz-a9g" id="Hb8-hX-XZd"/>
                         <outlet property="tableView" destination="8Lv-Wa-iWT" id="bnz-dP-FBp"/>
-                        <segue destination="2F5-xs-fLH" kind="push" id="vsb-eq-5bJ"/>
+                        <segue destination="2F5-xs-fLH" kind="push" identifier="LoginTransition" id="vsb-eq-5bJ"/>
                     </connections>
                 </viewController>
                 <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="blackOpaque" id="rgp-9N-vng">
@@ -152,7 +152,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="see-92-LPC" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tabBarController definesPresentationContext="YES" id="grs-TG-FDa" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="8H7-J2-FfF"/>
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="eqo-zF-TGz">
                         <rect key="frame" x="129" y="330" width="163" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>

@@ -20,6 +20,9 @@
 @synthesize website = _website;
 @synthesize officeImage = _officeImage;
 
+#define kOfficeRetrievalURL [NSURL URLWithString: @"http://www.ladookie4343.com/MedicalApp/retrieveOffices.php"]
+
+
 + (NSArray *)OfficesForUsername:(NSString *)username
 {
     
