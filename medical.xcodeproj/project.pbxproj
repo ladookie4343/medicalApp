@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C93E1E25150D92610067622D /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = C93E1E24150D92610067622D /* Utilities.m */; };
 		C96605CD14FC7D8400040818 /* green_button.png in Resources */ = {isa = PBXBuildFile; fileRef = C96605CC14FC7D8400040818 /* green_button.png */; };
 		C97BD0AC150403EC00788AA4 /* loading.png in Resources */ = {isa = PBXBuildFile; fileRef = C97BD0AB150403EC00788AA4 /* loading.png */; };
 		C97DEBF014FC777D002A860E /* navBar44.png in Resources */ = {isa = PBXBuildFile; fileRef = C97DEBEF14FC777D002A860E /* navBar44.png */; };
@@ -24,6 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C93E1E23150D92610067622D /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
+		C93E1E24150D92610067622D /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
 		C96605CC14FC7D8400040818 /* green_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = green_button.png; sourceTree = "<group>"; };
 		C97BD0AB150403EC00788AA4 /* loading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loading.png; sourceTree = "<group>"; };
 		C97DEBEF14FC777D002A860E /* navBar44.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navBar44.png; sourceTree = "<group>"; };
@@ -123,6 +126,8 @@
 				C9FC356914FFFBC900DFBC24 /* OfficeViewController.m */,
 				C99B068E150BFD9C006490A6 /* OfficeTableViewController.h */,
 				C99B068F150BFD9C006490A6 /* OfficeTableViewController.m */,
+				C93E1E23150D92610067622D /* Utilities.h */,
+				C93E1E24150D92610067622D /* Utilities.m */,
 			);
 			name = Classes;
 			path = medical;
@@ -221,6 +226,7 @@
 				C9FC356A14FFFBC900DFBC24 /* OfficeViewController.m in Sources */,
 				C9F38A5A1502BAA100B0B808 /* Office.m in Sources */,
 				C99B0690150BFD9C006490A6 /* OfficeTableViewController.m in Sources */,
+				C93E1E25150D92610067622D /* Utilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

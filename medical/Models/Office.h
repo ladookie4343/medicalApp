@@ -18,6 +18,8 @@
 @property (nonatomic, strong) NSString *phone;
 @property (nonatomic, strong) NSString *email;
 @property (nonatomic, strong) NSString *website;
+@property (nonatomic, strong) NSString *officeImage;
 
++ (NSArray *)OfficesForUsername:(NSString *)username;
 
 @end

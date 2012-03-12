@@ -15,8 +15,14 @@
 @synthesize city = _city;
 @synthesize state = _state;
 @synthesize zipcode = _zipcode;
-@synthesize phone;
-@synthesize email;
-@synthesize website;
+@synthesize phone = _phone;
+@synthesize email = _email;
+@synthesize website = _website;
+@synthesize officeImage = _officeImage;
+
++ (NSArray *)OfficesForUsername:(NSString *)username
+{
+    
+}
 
 @end

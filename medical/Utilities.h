@@ -1,0 +1,13 @@
+//
+//  Utilities.h
+//  medical
+//
+//  Created by Matt LaDuca on 3/11/12.
+//  Copyright (c) 2012  PPA. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface Utilities : NSObject
+
+@end

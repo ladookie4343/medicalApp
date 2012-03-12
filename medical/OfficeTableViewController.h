@@ -10,4 +10,6 @@
 
 @interface OfficeTableViewController : UITableViewController
 
+@property (nonatomic, strong) NSArray *offices;
+
 @end
