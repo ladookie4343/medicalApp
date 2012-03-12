@@ -26,7 +26,6 @@
 - (void)showAlertViewWithMessage:(NSString *)message;
 - (BOOL)emptyUsernameOrPassword;
 - (void)showLoadingView;
-- (void) contactServer;
 
 @end
 
