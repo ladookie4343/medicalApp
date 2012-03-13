@@ -7,8 +7,9 @@
 //
 
 #import "LoginViewController.h"
-#import "OfficeViewController.h"
+#import "OfficeTableViewController.h"
 #import "Utilities.h"
+#import "Office.h"
 
 @interface LoginViewController()
 
@@ -139,6 +140,8 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    ((OfficeTableViewController *)segue.destinationViewController).offices = [Office OfficesForUsername:self.usernameField.text];
+    
     [self.loadingView removeFromSuperview];
 }
 

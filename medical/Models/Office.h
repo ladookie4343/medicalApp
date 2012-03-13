@@ -11,6 +11,7 @@
 @interface Office : NSObject 
 
 @property (nonatomic, assign) int officeID;
+@property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *street;
 @property (nonatomic, strong) NSString *city;
 @property (nonatomic, strong) NSString *state;

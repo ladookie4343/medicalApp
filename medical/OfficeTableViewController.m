@@ -7,12 +7,18 @@
 //
 
 #import "OfficeTableViewController.h"
+#import "OfficeTableViewCell.h"
+#import "QuartzCore/QuartzCore.h"
+#import "Office.h"
+@interface OfficeTableViewController()
 
+- (UIImage *)getImageForOffice:(Office *)office;
+
+@end
 
 @implementation OfficeTableViewController
 
 @synthesize offices = _offices;
-
 
 
 - (void)didReceiveMemoryWarning
@@ -31,26 +37,6 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -72,19 +58,41 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    OfficeTableViewCell *cell = (OfficeTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"OfficeCell"];
+    
+    Office *office = [self.offices objectAtIndex:indexPath.row];
+    
+    cell.officeImageView.image = [self getImageForOffice:office];
+    cell.officeImageView.clipsToBounds = YES;
+    cell.officeImageView.layer.cornerRadius = 5.0;
+    cell.officeNameLabel.text = office.name;
+    cell.officeLocationLabel.text = office.street;
+    
+    if (self.offices.count == 1) {
+        cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"oneRowOnlySelected.png"]];
+    } else if (self.offices.count > 1) {
+        if (indexPath.row == 0) {
+            cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"topRowSelected.png"]];
+        } else if (indexPath.row == self.offices.count - 1) {
+            cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bottomRowSelected.png"]];
+        } else {
+            cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"middleRowSelected.png"]];
+        }
     }
-    
-    // Configure the cell...
-    
     return cell;
 }
 
+#define kOfficeImageAddress @"http://www.ladookie4343.com/MedicalApp/officeImages/"
 
+- (UIImage *)getImageForOffice:(Office *)office
+{
+    NSString *imageName = office.officeImage;
+    NSString *imageURLstring = [kOfficeImageAddress stringByAppendingString:imageName];
+    NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageURLstring]];
+    return [UIImage imageWithData:data];
+}
+                                                                 
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
