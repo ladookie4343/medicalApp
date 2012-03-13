@@ -6,9 +6,9 @@
 //  Copyright (c) 2012  PPA. All rights reserved.
 //
 
-#import "OfficeViewController.h"
+#import "OfficeDetailViewController.h"
 
-@interface OfficeViewController()
+@interface OfficeDetailViewController()
 
 - (UIView *)officeNameHeader;
 
@@ -16,7 +16,7 @@
 
 
 
-@implementation OfficeViewController
+@implementation OfficeDetailViewController
 
 @synthesize office = _office;
 @synthesize phoneNumber = _phoneNumber;

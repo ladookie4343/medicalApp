@@ -105,20 +105,43 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zIg-on-T7c" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="2F5-xs-fLH" customClass="OfficeTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="64" sectionHeaderHeight="10" sectionFooterHeight="10" id="T0k-H4-2xK">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="80" sectionHeaderHeight="10" sectionFooterHeight="10" id="T0k-H4-2xK">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.20784313730000001" green="0.45882352939999999" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="cNG-6m-Lh5">
-                                <rect key="frame" x="0.0" y="46" width="320" height="66"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="OfficeCell" id="cNG-6m-Lh5" customClass="OfficeTableViewCell">
+                                <rect key="frame" x="0.0" y="46" width="320" height="82"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="10" y="1" width="280" height="63"/>
+                                    <rect key="frame" x="10" y="1" width="280" height="79"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="S6Q-uf-j4J">
+                                            <rect key="frame" x="10" y="11" width="73" height="62"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" minimumFontSize="10" id="ONe-tT-H0l">
+                                            <rect key="frame" x="92" y="11" width="196" height="29"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" minimumFontSize="10" id="nXf-YE-tHh">
+                                            <rect key="frame" x="100" y="41" width="188" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <connections>
+                                    <outlet property="officeImageView" destination="S6Q-uf-j4J" id="0Nc-8i-QJ9"/>
+                                    <outlet property="officeLocationLabel" destination="nXf-YE-tHh" id="TTM-vj-i9u"/>
+                                    <outlet property="officeNameLabel" destination="ONe-tT-H0l" id="eh0-8b-P0b"/>
                                     <segue destination="grs-TG-FDa" kind="push" id="Gap-UR-ktk"/>
                                 </connections>
                             </tableViewCell>
@@ -346,6 +369,14 @@
                 <relationship kind="outlet" name="loadingView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="logOnButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="OfficeTableViewCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OfficeTableViewCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="officeImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="officeLocationLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="officeNameLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
         <class className="OfficeTableViewController" superclassName="UITableViewController">

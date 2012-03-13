@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Office.h"
 
-@interface OfficeViewController : UITableViewController <UITableViewDelegate>
+@interface OfficeDetailViewController : UITableViewController <UITableViewDelegate>
 
 @property (nonatomic, strong) Office *office;
 
