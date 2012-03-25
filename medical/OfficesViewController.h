@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface OfficeTableViewController : UITableViewController
+@interface OfficesViewController : UITableViewController
 
 @property (nonatomic, strong) NSArray *offices;
 

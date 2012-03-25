@@ -9,11 +9,7 @@
 
 // TODO:
 //
-//  - Add medical logo above login
-//
-//  - With the medical logo above login, will need to make
-//    UserID and Password slide up the screen so that the
-//    keyboard doesn't cover them up
+//  - Add medical logo above in navbar
 //
 //  - Add button to allow user to save the username
 

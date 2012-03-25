@@ -1,3 +1,17 @@
-medical.xcodeproj/project.xcworkspace/xcuserdata/matt.xcuserdatad/UserInterfaceState.xcuserstate
-medical.xcodeproj/xcuserdata
-medical.xcodeproj/xcuserdata/matt.xcuserdatad/xcdebugger/Breakpoints.xcbkptlist
+.DS_Store
+*.swp
+*~.nib
+
+build/
+
+*.pbxuser
+*.perspective
+*.perspectivev3
+
+*.mode1v3
+*.mode2v3
+
+medical.xcodeproj/xcuserdata/*
+medical.xcodeproj/project.xcworkspace/xcuserdata/*
+
+.xcodeproj/ !*.xcodeproj/project.pbxproj

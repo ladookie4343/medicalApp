@@ -6,17 +6,17 @@
 //  Copyright (c) 2012  PPA. All rights reserved.
 //
 
-#import "OfficeTableViewController.h"
+#import "OfficesViewController.h"
 #import "OfficeTableViewCell.h"
 #import "QuartzCore/QuartzCore.h"
 #import "Office.h"
-@interface OfficeTableViewController()
+@interface OfficesViewController()
 
 - (UIImage *)getImageForOffice:(Office *)office;
 
 @end
 
-@implementation OfficeTableViewController
+@implementation OfficesViewController
 
 @synthesize offices = _offices;
 
@@ -70,14 +70,18 @@
     cell.officeLocationLabel.text = office.street;
     
     if (self.offices.count == 1) {
-        cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"oneRowOnlySelected.png"]];
+        cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:
+                                       [UIImage imageNamed:@"oneRowOnlySelected.png"]];
     } else if (self.offices.count > 1) {
         if (indexPath.row == 0) {
-            cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"topRowSelected.png"]];
+            cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:
+                                           [UIImage imageNamed:@"topRowSelected.png"]];
         } else if (indexPath.row == self.offices.count - 1) {
-            cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bottomRowSelected.png"]];
+            cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:
+                                           [UIImage imageNamed:@"bottomRowSelected.png"]];
         } else {
-            cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"middleRowSelected.png"]];
+            cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:
+                                           [UIImage imageNamed:@"middleRowSelected.png"]];
         }
     }
     return cell;
