@@ -10,12 +10,15 @@
 #import "OfficesViewController.h"
 #import "Utilities.h"
 #import "Office.h"
+#import "Reachability.h"
 
 @interface LoginViewController()
 
 @property (nonatomic, strong) UITextField *usernameField;
 @property (nonatomic, strong) UITextField *passwordField;
 @property (nonatomic, strong) UISegmentedControl *userIDPass;
+@property (nonatomic, strong) Reachability *hostReachability;
+
 
 - (UITextField *)newUsernameTextField;
 - (UITextField *)newPasswordTextField;
@@ -27,6 +30,7 @@
 - (void)showAlertViewWithMessage:(NSString *)message;
 - (BOOL)emptyUsernameOrPassword;
 - (void)showLoadingView;
+- (void)checkNetworkStatus:(NSNotification *)notice;
 
 @end
 
@@ -39,6 +43,7 @@
 @synthesize usernameField = _usernameField;
 @synthesize passwordField = _passwordField;
 @synthesize userIDPass = _userIDPass;
+@synthesize hostReachability = _hostReachability;
 
 #pragma mark - View lifecycle
 
@@ -76,7 +81,8 @@
     return YES;
 }
 
-#define kLoginURL [NSURL URLWithString: @"http://www.ladookie4343.com/MedicalApp/doctorlogin.php"]
+#define kLoginURLString @"http://www.ladookie4343.com/MedicalApp/doctorlogin.php"
+#define kLoginURL [NSURL URLWithString: kLoginURLString]
 #define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
 
 - (void)tryLogOn
@@ -88,16 +94,31 @@
     
     [self showLoadingView];
     
-    dispatch_async(kBgQueue, ^{
-        NSString *username = self.usernameField.text;
-        NSString *password = self.passwordField.text;
-        NSString *requestData = [NSString stringWithFormat:@"username=%@&password=%@", username, password];
-        NSData *data = [Utilities dataFromPHPScript:kLoginURL post:YES request:requestData];
-        [self performSelectorOnMainThread:@selector(responseFromLoginScript:) 
-                               withObject:data 
-                            waitUntilDone:YES];
-    });
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkNetworkStatus:) name:kReachabilityChangedNotification object:nil];
+    
+    self.hostReachability = [Reachability reachabilityWithHostName:kLoginURLString];
+    [self.hostReachability startNotifier];
+}
 
+- (void)checkNetworkStatus:(NSNotification *)notice
+{
+    NetworkStatus hostStatus = [self.hostReachability currentReachabilityStatus];
+    
+    if (hostStatus == NotReachable) {
+        [self showAlertViewWithMessage:@"Cannot connect to server"];
+        [self.loadingView removeFromSuperview];
+    } else {
+        dispatch_async(kBgQueue, ^{
+            NSString *username = self.usernameField.text;
+            NSString *password = self.passwordField.text;
+            NSString *requestData = [NSString stringWithFormat:@"username=%@&password=%@", username, password];
+            NSData *data = [Utilities dataFromPHPScript:kLoginURL post:YES request:requestData];
+            [self performSelectorOnMainThread:@selector(responseFromLoginScript:) 
+                                   withObject:data 
+                                waitUntilDone:YES];
+        });
+    }
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)responseFromLoginScript:(NSData *)data
