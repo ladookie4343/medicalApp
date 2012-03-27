@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C90C6B4E1521F6C5003A2F4A /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = C90C6B4D1521F6C5003A2F4A /* Reachability.m */; };
 		C90D26ED151F65B00099926F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90D26EC151F65B00099926F /* SystemConfiguration.framework */; };
 		C90D2735151F96CB0099926F /* bottomRowSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D2731151F96CB0099926F /* bottomRowSelected.png */; };
 		C90D2736151F96CB0099926F /* middleRowSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D2732151F96CB0099926F /* middleRowSelected.png */; };
@@ -31,6 +32,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C90C6B4B1521F6AB003A2F4A /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		C90C6B4D1521F6C5003A2F4A /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		C90D26EC151F65B00099926F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C90D2731151F96CB0099926F /* bottomRowSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bottomRowSelected.png; sourceTree = "<group>"; };
 		C90D2732151F96CB0099926F /* middleRowSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = middleRowSelected.png; sourceTree = "<group>"; };
@@ -149,6 +152,8 @@
 				C9E5355B150E954D004EF069 /* OfficeTableViewCell.m */,
 				C93E1E23150D92610067622D /* Utilities.h */,
 				C93E1E24150D92610067622D /* Utilities.m */,
+				C90C6B4B1521F6AB003A2F4A /* Reachability.h */,
+				C90C6B4D1521F6C5003A2F4A /* Reachability.m */,
 			);
 			name = Classes;
 			path = medical;
@@ -253,6 +258,7 @@
 				C99B0690150BFD9C006490A6 /* OfficesViewController.m in Sources */,
 				C93E1E25150D92610067622D /* Utilities.m in Sources */,
 				C9E5355C150E954E004EF069 /* OfficeTableViewCell.m in Sources */,
+				C90C6B4E1521F6C5003A2F4A /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

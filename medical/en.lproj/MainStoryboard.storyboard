@@ -190,13 +190,7 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Item" id="oGC-mg-T5F"/>
-                    <navigationItem key="navigationItem" title="Patients" id="qMX-QR-L5L">
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="eCJ-Ia-g55">
-                            <connections>
-                                <segue destination="RGV-V5-J9U" kind="modal" id="46S-Ih-fnl"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Patients" id="qMX-QR-L5L"/>
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="3406" y="181"/>
