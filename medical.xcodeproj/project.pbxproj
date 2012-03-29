@@ -18,6 +18,10 @@
 		C97BD0AC150403EC00788AA4 /* loading.png in Resources */ = {isa = PBXBuildFile; fileRef = C97BD0AB150403EC00788AA4 /* loading.png */; };
 		C97DEBF014FC777D002A860E /* navBar44.png in Resources */ = {isa = PBXBuildFile; fileRef = C97DEBEF14FC777D002A860E /* navBar44.png */; };
 		C99B0690150BFD9C006490A6 /* OfficesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C99B068F150BFD9C006490A6 /* OfficesViewController.m */; };
+		C9B431BE152494D0006CC1E2 /* Patient.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B431BD152494D0006CC1E2 /* Patient.m */; };
+		C9B431C2152497E0006CC1E2 /* Visit.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B431C1152497E0006CC1E2 /* Visit.m */; };
+		C9B431C515249807006CC1E2 /* Test.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B431C415249807006CC1E2 /* Test.m */; };
+		C9B431C81524985B006CC1E2 /* Surgery.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B431C71524985B006CC1E2 /* Surgery.m */; };
 		C9BA09ED14E72175001F5F20 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9BA09EC14E72175001F5F20 /* UIKit.framework */; };
 		C9BA09EF14E72175001F5F20 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9BA09EE14E72175001F5F20 /* Foundation.framework */; };
 		C9BA09F114E72175001F5F20 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9BA09F014E72175001F5F20 /* CoreGraphics.framework */; };
@@ -28,7 +32,6 @@
 		C9BA0A0314E72175001F5F20 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9BA0A0214E72175001F5F20 /* LoginViewController.m */; };
 		C9E5355C150E954E004EF069 /* OfficeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E5355B150E954D004EF069 /* OfficeTableViewCell.m */; };
 		C9F38A5A1502BAA100B0B808 /* Office.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F38A591502BAA100B0B808 /* Office.m */; };
-		C9FC356A14FFFBC900DFBC24 /* OfficeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FC356914FFFBC900DFBC24 /* OfficeDetailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +49,14 @@
 		C97DEBEF14FC777D002A860E /* navBar44.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navBar44.png; sourceTree = "<group>"; };
 		C99B068E150BFD9C006490A6 /* OfficesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfficesViewController.h; sourceTree = "<group>"; };
 		C99B068F150BFD9C006490A6 /* OfficesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfficesViewController.m; sourceTree = "<group>"; };
+		C9B431BC152494D0006CC1E2 /* Patient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Patient.h; sourceTree = "<group>"; };
+		C9B431BD152494D0006CC1E2 /* Patient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Patient.m; sourceTree = "<group>"; };
+		C9B431C0152497E0006CC1E2 /* Visit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Visit.h; sourceTree = "<group>"; };
+		C9B431C1152497E0006CC1E2 /* Visit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Visit.m; sourceTree = "<group>"; };
+		C9B431C315249807006CC1E2 /* Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Test.h; sourceTree = "<group>"; };
+		C9B431C415249807006CC1E2 /* Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Test.m; sourceTree = "<group>"; };
+		C9B431C61524985B006CC1E2 /* Surgery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Surgery.h; sourceTree = "<group>"; };
+		C9B431C71524985B006CC1E2 /* Surgery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Surgery.m; sourceTree = "<group>"; };
 		C9BA09E814E72175001F5F20 /* medical.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = medical.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9BA09EC14E72175001F5F20 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C9BA09EE14E72175001F5F20 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -63,8 +74,6 @@
 		C9E5355B150E954D004EF069 /* OfficeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfficeTableViewCell.m; sourceTree = "<group>"; };
 		C9F38A581502BAA100B0B808 /* Office.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Office.h; sourceTree = "<group>"; };
 		C9F38A591502BAA100B0B808 /* Office.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Office.m; sourceTree = "<group>"; };
-		C9FC356814FFFBC900DFBC24 /* OfficeDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfficeDetailViewController.h; sourceTree = "<group>"; };
-		C9FC356914FFFBC900DFBC24 /* OfficeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfficeDetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +115,21 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
+		C9B431BF152497B7006CC1E2 /* Patient Classes */ = {
+			isa = PBXGroup;
+			children = (
+				C9B431BC152494D0006CC1E2 /* Patient.h */,
+				C9B431BD152494D0006CC1E2 /* Patient.m */,
+				C9B431C0152497E0006CC1E2 /* Visit.h */,
+				C9B431C1152497E0006CC1E2 /* Visit.m */,
+				C9B431C315249807006CC1E2 /* Test.h */,
+				C9B431C415249807006CC1E2 /* Test.m */,
+				C9B431C61524985B006CC1E2 /* Surgery.h */,
+				C9B431C71524985B006CC1E2 /* Surgery.m */,
+			);
+			name = "Patient Classes";
+			sourceTree = "<group>";
+		};
 		C9BA09DD14E72174001F5F20 = {
 			isa = PBXGroup;
 			children = (
@@ -144,8 +168,6 @@
 				C9BA09FC14E72175001F5F20 /* AppDelegate.m */,
 				C9BA0A0114E72175001F5F20 /* LoginViewController.h */,
 				C9BA0A0214E72175001F5F20 /* LoginViewController.m */,
-				C9FC356814FFFBC900DFBC24 /* OfficeDetailViewController.h */,
-				C9FC356914FFFBC900DFBC24 /* OfficeDetailViewController.m */,
 				C99B068E150BFD9C006490A6 /* OfficesViewController.h */,
 				C99B068F150BFD9C006490A6 /* OfficesViewController.m */,
 				C9E5355A150E954D004EF069 /* OfficeTableViewCell.h */,
@@ -174,6 +196,7 @@
 		C9F38A561502BA5B00B0B808 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C9B431BF152497B7006CC1E2 /* Patient Classes */,
 				C9F38A581502BAA100B0B808 /* Office.h */,
 				C9F38A591502BAA100B0B808 /* Office.m */,
 			);
@@ -253,12 +276,15 @@
 				C9BA09F914E72175001F5F20 /* main.m in Sources */,
 				C9BA09FD14E72175001F5F20 /* AppDelegate.m in Sources */,
 				C9BA0A0314E72175001F5F20 /* LoginViewController.m in Sources */,
-				C9FC356A14FFFBC900DFBC24 /* OfficeDetailViewController.m in Sources */,
 				C9F38A5A1502BAA100B0B808 /* Office.m in Sources */,
 				C99B0690150BFD9C006490A6 /* OfficesViewController.m in Sources */,
 				C93E1E25150D92610067622D /* Utilities.m in Sources */,
 				C9E5355C150E954E004EF069 /* OfficeTableViewCell.m in Sources */,
 				C90C6B4E1521F6C5003A2F4A /* Reachability.m in Sources */,
+				C9B431BE152494D0006CC1E2 /* Patient.m in Sources */,
+				C9B431C2152497E0006CC1E2 /* Visit.m in Sources */,
+				C9B431C515249807006CC1E2 /* Test.m in Sources */,
+				C9B431C81524985B006CC1E2 /* Surgery.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
