@@ -10,4 +10,10 @@
 
 @implementation Surgery
 
+@synthesize doctor = _doctor;
+@synthesize when = _when;
+@synthesize type = _type;
+@synthesize result = _result;
+@synthesize difficulties = _difficulties;
+
 @end

@@ -10,4 +10,10 @@
 
 @interface Surgery : NSObject
 
+@property (nonatomic, strong) NSString *doctor;
+@property (nonatomic, strong) NSDate *when;
+@property (nonatomic, strong) NSString *type;
+@property (nonatomic, strong) NSString *result;
+@property (nonatomic, strong) NSString *difficulties;
+
 @end

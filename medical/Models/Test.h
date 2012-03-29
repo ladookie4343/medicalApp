@@ -10,4 +10,9 @@
 
 @interface Test : NSObject
 
+@property (nonatomic, strong) NSString *doctor;
+@property (nonatomic, strong) NSDate *when;
+@property (nonatomic, strong) NSString *testType;
+@property (nonatomic, strong) NSString *testResult;
+
 @end

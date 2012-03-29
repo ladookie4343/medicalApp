@@ -10,4 +10,13 @@
 
 @implementation Visit
 
+@synthesize patientID = _patientID;
+@synthesize when = _when;
+@synthesize reason = _reason;
+@synthesize diagnosis = _diagnosis;
+@synthesize height = _height;
+@synthesize weight = _weight;
+@synthesize bpSystolic = _bpSystolic;
+@synthesize bpDiastolic = _bpDiastolic;
+
 @end

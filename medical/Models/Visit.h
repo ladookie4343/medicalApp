@@ -10,4 +10,13 @@
 
 @interface Visit : NSObject
 
+@property (nonatomic, assign) int patientID;
+@property (nonatomic, strong) NSDate *when;
+@property (nonatomic, strong) NSString *reason;
+@property (nonatomic, strong) NSString *diagnosis;
+@property (nonatomic, strong) NSString *height;
+@property (nonatomic, strong) NSString *weight;
+@property (nonatomic, strong) NSString *bpSystolic;
+@property (nonatomic, strong) NSString *bpDiastolic;
+
 @end
