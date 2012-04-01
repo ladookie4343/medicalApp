@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface OfficesViewController : UITableViewController
+@interface OfficesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) NSArray *offices;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UIView *loadingView;
+
 
 @end

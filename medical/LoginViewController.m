@@ -126,7 +126,7 @@
     NSString *success = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     
     if ([success isEqualToString:@"yes"]) {
-        [self performSegueWithIdentifier:@"LoginTransition" sender:self];
+        [self performSegueWithIdentifier:@"TransitionToOfficesView" sender:self];
     } else {
         [self.loadingView removeFromSuperview];
         [self showAlertViewWithMessage:@"The User ID or Password you entered is incorrect. "
@@ -161,8 +161,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    ((OfficesViewController *)segue.destinationViewController).offices = 
-        [Office OfficesForUsername:self.usernameField.text];
+    ((OfficesViewController *)segue.destinationViewController).offices = [Office OfficesForUsername:self.usernameField.text];
     
     [self.loadingView removeFromSuperview];
 }
