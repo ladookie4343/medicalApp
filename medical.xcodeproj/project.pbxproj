@@ -15,6 +15,7 @@
 		C90D2738151F96CB0099926F /* topRowSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D2734151F96CB0099926F /* topRowSelected.png */; };
 		C93E1E25150D92610067622D /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = C93E1E24150D92610067622D /* Utilities.m */; };
 		C96605CD14FC7D8400040818 /* green_button.png in Resources */ = {isa = PBXBuildFile; fileRef = C96605CC14FC7D8400040818 /* green_button.png */; };
+		C96CDFCE15291BF8006F24F7 /* OfficeDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C96CDFCD15291BF8006F24F7 /* OfficeDetailsViewController.m */; };
 		C97BD0AC150403EC00788AA4 /* loading.png in Resources */ = {isa = PBXBuildFile; fileRef = C97BD0AB150403EC00788AA4 /* loading.png */; };
 		C97DEBF014FC777D002A860E /* navBar44.png in Resources */ = {isa = PBXBuildFile; fileRef = C97DEBEF14FC777D002A860E /* navBar44.png */; };
 		C99B0690150BFD9C006490A6 /* OfficesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C99B068F150BFD9C006490A6 /* OfficesViewController.m */; };
@@ -46,8 +47,8 @@
 		C93E1E23150D92610067622D /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		C93E1E24150D92610067622D /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
 		C96605CC14FC7D8400040818 /* green_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = green_button.png; sourceTree = "<group>"; };
-		C96CDFC91529193D006F24F7 /* OfficeDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OfficeDetailsViewController.m; sourceTree = "<group>"; };
-		C96CDFCA1529193D006F24F7 /* OfficeDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OfficeDetailsViewController.h; sourceTree = "<group>"; };
+		C96CDFCC15291BF8006F24F7 /* OfficeDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfficeDetailsViewController.h; sourceTree = "<group>"; };
+		C96CDFCD15291BF8006F24F7 /* OfficeDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfficeDetailsViewController.m; sourceTree = "<group>"; };
 		C97BD0AB150403EC00788AA4 /* loading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loading.png; sourceTree = "<group>"; };
 		C97DEBEF14FC777D002A860E /* navBar44.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navBar44.png; sourceTree = "<group>"; };
 		C99B068E150BFD9C006490A6 /* OfficesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfficesViewController.h; sourceTree = "<group>"; };
@@ -179,8 +180,8 @@
 				C9E5355B150E954D004EF069 /* OfficeTableViewCell.m */,
 				C9F4C842152759C600E05A66 /* PatientsViewController.h */,
 				C9F4C843152759C600E05A66 /* PatientsViewController.m */,
-				C96CDFC91529193D006F24F7 /* OfficeDetailsViewController.m */,
-				C96CDFCA1529193D006F24F7 /* OfficeDetailsViewController.h */,
+				C96CDFCC15291BF8006F24F7 /* OfficeDetailsViewController.h */,
+				C96CDFCD15291BF8006F24F7 /* OfficeDetailsViewController.m */,
 				C9F4C846152759EC00E05A66 /* Utilities */,
 			);
 			name = Classes;
@@ -303,6 +304,7 @@
 				C9B431C515249807006CC1E2 /* Test.m in Sources */,
 				C9B431C81524985B006CC1E2 /* Surgery.m in Sources */,
 				C9F4C844152759C600E05A66 /* PatientsViewController.m in Sources */,
+				C96CDFCE15291BF8006F24F7 /* OfficeDetailsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
