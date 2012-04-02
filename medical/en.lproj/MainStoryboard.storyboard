@@ -422,7 +422,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Office Info" id="st2-hP-qqw">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="R7I-7g-lFx"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="R7I-7g-lFx">
+                            <connections>
+                                <action selector="doneButtonPressed:" destination="RGV-V5-J9U" id="sn8-et-P2e"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="email" destination="bkT-iM-7EL" id="sHY-Hn-qN5"/>
@@ -475,6 +479,48 @@
     <resources>
         <image name="loading.png" width="130" height="40"/>
     </resources>
+    <classes>
+        <class className="LoginViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="keyboardToolbar" candidateClass="UIToolbar"/>
+                <relationship kind="outlet" name="loadingView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="logOnButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="OfficeDetailsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OfficeDetailsViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="email" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="location" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="phoneNumber" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="website" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="OfficeTableViewCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OfficeTableViewCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="officeImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="officeLocationLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="officeNameLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="OfficesViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OfficesViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="loadingView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="PatientsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PatientsViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="infoButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

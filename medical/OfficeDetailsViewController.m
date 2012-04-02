@@ -78,10 +78,11 @@
     return containerView;
 }
 
-- (void)doneButtonPressed
+- (IBAction)doneButtonPressed:(UIBarButtonItem *)sender 
 {
-    
+    [self dismissModalViewControllerAnimated:YES];
 }
+
 
 #pragma mark - tableview methods
 

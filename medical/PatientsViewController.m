@@ -7,14 +7,18 @@
 //
 
 #import "PatientsViewController.h"
+#import "Office.h"
+#import "Patient.h"
 
 @interface PatientsViewController ()
 
 @end
 
 @implementation PatientsViewController
-@synthesize tableView;
-@synthesize infoButton;
+@synthesize office = _office;
+@synthesize patients = _patients;
+@synthesize tableView = _tableView;
+@synthesize infoButton = _infoButton;
 
 
 - (void)viewDidLoad
