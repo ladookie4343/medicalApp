@@ -30,7 +30,7 @@
 - (void)showAlertViewWithMessage:(NSString *)message;
 - (BOOL)emptyUsernameOrPassword;
 - (void)showLoadingView;
-- (void)checkNetworkStatus:(NSNotification *)notice;
+- (BOOL)loginServerReachable;
 
 @end
 
@@ -94,20 +94,7 @@
     
     [self showLoadingView];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkNetworkStatus:) name:kReachabilityChangedNotification object:nil];
-    
-    self.hostReachability = [Reachability reachabilityWithHostName:kLoginURLString];
-    [self.hostReachability startNotifier];
-}
-
-- (void)checkNetworkStatus:(NSNotification *)notice
-{
-    NetworkStatus hostStatus = [self.hostReachability currentReachabilityStatus];
-    
-    if (hostStatus == NotReachable) {
-        [self showAlertViewWithMessage:@"Cannot connect to server"];
-        [self.loadingView removeFromSuperview];
-    } else {
+    if ([self loginServerReachable]) {
         dispatch_async(kBgQueue, ^{
             NSString *username = self.usernameField.text;
             NSString *password = self.passwordField.text;
@@ -117,8 +104,21 @@
                                    withObject:data 
                                 waitUntilDone:YES];
         });
+    } else {
+        [self showAlertViewWithMessage:@"Cannot connect to server"];
+        [self.loadingView removeFromSuperview];
     }
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (BOOL)loginServerReachable
+{
+    Reachability *reachability = [Reachability reachabilityWithHostName:kLoginURLString];
+    NetworkStatus hostStatus = [reachability currentReachabilityStatus];
+    if (hostStatus == NotReachable) {
+        return NO;
+    } else {
+        return YES;
+    }
 }
 
 - (void)responseFromLoginScript:(NSData *)data

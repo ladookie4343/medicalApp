@@ -112,7 +112,6 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     [self showLoadingView];
     
-    
 }
 
 @end
