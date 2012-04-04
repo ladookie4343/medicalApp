@@ -24,5 +24,8 @@
 @property (nonatomic, strong) NSArray *surgeries;
 @property (nonatomic, strong) NSArray *allergies;
 @property (nonatomic, strong) NSArray *medicalConditions;
+@property (nonatomic, strong) NSArray *patientImage;
+
++ (NSArray *)patientsForPatientsTable:(int)officeID;
 
 @end
