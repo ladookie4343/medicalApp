@@ -10,14 +10,12 @@
 #import "OfficesViewController.h"
 #import "Utilities.h"
 #import "Office.h"
-#import "Reachability.h"
 
 @interface LoginViewController()
 
 @property (nonatomic, strong) UITextField *usernameField;
 @property (nonatomic, strong) UITextField *passwordField;
 @property (nonatomic, strong) UISegmentedControl *userIDPass;
-@property (nonatomic, strong) Reachability *hostReachability;
 
 
 - (UITextField *)newUsernameTextField;
@@ -42,7 +40,6 @@
 @synthesize usernameField = _usernameField;
 @synthesize passwordField = _passwordField;
 @synthesize userIDPass = _userIDPass;
-@synthesize hostReachability = _hostReachability;
 
 #pragma mark - View lifecycle
 
@@ -118,13 +115,8 @@
 
 - (BOOL)loginServerReachable
 {
-    Reachability *reachability = [Reachability reachabilityWithHostName:kLoginURLString];
-    NetworkStatus hostStatus = [reachability currentReachabilityStatus];
-    if (hostStatus == NotReachable) {
-        return NO;
-    } else {
-        return YES;
-    }
+    NSString *response = [NSString stringWithContentsOfURL:kLoginURL encoding:NSUTF8StringEncoding error:nil];
+    return (response != NULL) ? YES : NO;
 }
 
 - (void)responseFromLoginScript:(NSData *)data

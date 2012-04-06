@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C90C6B4E1521F6C5003A2F4A /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = C90C6B4D1521F6C5003A2F4A /* Reachability.m */; };
-		C90D26ED151F65B00099926F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90D26EC151F65B00099926F /* SystemConfiguration.framework */; };
 		C90D2735151F96CB0099926F /* bottomRowSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D2731151F96CB0099926F /* bottomRowSelected.png */; };
 		C90D2736151F96CB0099926F /* middleRowSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D2732151F96CB0099926F /* middleRowSelected.png */; };
 		C90D2737151F96CB0099926F /* oneRowOnly.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D2733151F96CB0099926F /* oneRowOnly.png */; };
@@ -37,8 +35,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C90C6B4B1521F6AB003A2F4A /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
-		C90C6B4D1521F6C5003A2F4A /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		C90D26EC151F65B00099926F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C90D2731151F96CB0099926F /* bottomRowSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bottomRowSelected.png; sourceTree = "<group>"; };
 		C90D2732151F96CB0099926F /* middleRowSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = middleRowSelected.png; sourceTree = "<group>"; };
@@ -87,7 +83,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C90D26ED151F65B00099926F /* SystemConfiguration.framework in Frameworks */,
 				C9BA09ED14E72175001F5F20 /* UIKit.framework in Frameworks */,
 				C9BA09EF14E72175001F5F20 /* Foundation.framework in Frameworks */,
 				C9BA09F114E72175001F5F20 /* CoreGraphics.framework in Frameworks */,
@@ -213,8 +208,6 @@
 		C9F4C846152759EC00E05A66 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				C90C6B4B1521F6AB003A2F4A /* Reachability.h */,
-				C90C6B4D1521F6C5003A2F4A /* Reachability.m */,
 				C93E1E23150D92610067622D /* Utilities.h */,
 				C93E1E24150D92610067622D /* Utilities.m */,
 			);
@@ -298,7 +291,6 @@
 				C99B0690150BFD9C006490A6 /* OfficesViewController.m in Sources */,
 				C93E1E25150D92610067622D /* Utilities.m in Sources */,
 				C9E5355C150E954E004EF069 /* OfficeTableViewCell.m in Sources */,
-				C90C6B4E1521F6C5003A2F4A /* Reachability.m in Sources */,
 				C9B431BE152494D0006CC1E2 /* Patient.m in Sources */,
 				C9B431C2152497E0006CC1E2 /* Visit.m in Sources */,
 				C9B431C515249807006CC1E2 /* Test.m in Sources */,
