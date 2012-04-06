@@ -12,6 +12,9 @@
 
 @interface PatientsViewController ()
 - (void)splitPatientsByLastname;
+- (NSArray *)customToolBarItems;
+- (void)infoPressed;
+- (void)addPatient;
 @end
 
 @implementation PatientsViewController
@@ -19,22 +22,41 @@
 @synthesize patients = _patients;
 @synthesize tableView = _tableView;
 
-/*
- NSArray *items = [NSArray arrayWithObjects: customItem, customItem1, nil];
- [toolbar setItems:items animated:NO];
- */
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     [self splitPatientsByLastname];
+    
     self.navigationController.toolbarHidden = NO;
-    
+    self.toolbarItems = [self customToolBarItems];
+}
+
+- (NSArray *)customToolBarItems
+{
     UIButton *infoUIButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
-    UIBarButtonItem *info = [[UIBarButtonItem alloc] initWithCustomView:infoUIButton];
-    NSArray *items = [NSArray arrayWithObjects:[self.toolbarItems objectAtIndex:0], [self.toolbarItems objectAtIndex:1], info, nil];
-    [self.navigationController.toolbar setItems:items animated:NO];
+    [infoUIButton addTarget:self action:@selector(infoPressed) forControlEvents:UIControlEventTouchUpInside];
     
+    UIBarButtonItem *info = [[UIBarButtonItem alloc] initWithCustomView:infoUIButton];
+    
+    UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    fixedSpace.width = 243;
+    
+    
+    UIBarButtonItem *addPatient = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addPatient)];
+    addPatient.style = UIBarButtonItemStyleBordered;
+    
+    return [NSArray arrayWithObjects:addPatient, fixedSpace, info, nil];
+}
+
+- (void)infoPressed
+{
+    [self performSegueWithIdentifier:@"officeDetailsSegue" sender:self];
+}
+
+- (void)addPatient
+{
     
 }
 
