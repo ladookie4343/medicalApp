@@ -29,7 +29,6 @@
 - (UITextField *)tableCellTextField;
 - (void)showAlertViewWithMessage:(NSString *)message;
 - (BOOL)emptyUsernameOrPassword;
-- (void)showLoadingView;
 - (BOOL)loginServerReachable;
 
 @end
@@ -67,6 +66,13 @@
     [super viewDidUnload];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.navigationController.toolbarHidden = YES;
+    self.usernameField.text = @"";
+    self.passwordField.text = @"";
+}
+
 #pragma mark -
 
 - (IBAction)logOnPressed:(id)sender 
@@ -92,7 +98,7 @@
         return;
     }
     
-    [self showLoadingView];
+    [Utilities showLoadingView:self.loadingView InView:self.view];
     
     if ([self loginServerReachable]) {
         dispatch_async(kBgQueue, ^{
@@ -132,13 +138,6 @@
         [self showAlertViewWithMessage:@"The User ID or Password you entered is incorrect. "
          "Please click 'OK' to reenter your User ID and password"];
     }
-}
-
-- (void)showLoadingView
-{
-    [self.view addSubview:self.loadingView];
-    self.loadingView.backgroundColor = [UIColor clearColor];
-    self.loadingView.center = self.view.center;   
 }
 
 - (BOOL)emptyUsernameOrPassword

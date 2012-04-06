@@ -10,9 +10,14 @@
 #import "OfficeTableViewCell.h"
 #import "QuartzCore/QuartzCore.h"
 #import "Office.h"
+#import "PatientsViewController.h"
+#import "Patient.h"
+#import "Utilities.h"
+
 @interface OfficesViewController()
 
 - (UIImage *)getImageForOffice:(Office *)office;
+@property (nonatomic, strong) Office *selectedOffice;
 
 @end
 
@@ -21,6 +26,7 @@
 @synthesize offices = _offices;
 @synthesize tableView = _tableView;
 @synthesize loadingView = _loadingView;
+@synthesize selectedOffice = _selectedOffice;
 
 - (void)didReceiveMemoryWarning
 {
@@ -40,6 +46,12 @@
     [self setTableView:nil];
     [self setLoadingView:nil];
     [super viewDidUnload];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.navigationController.toolbarHidden = YES;
+    [self.loadingView removeFromSuperview];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -90,6 +102,11 @@
     return cell;
 }
 
+- (IBAction)logoutPressed:(id)sender 
+{
+    [self.navigationController popToRootViewControllerAnimated:NO];
+}
+
 #define kOfficeImageAddress @"http://www.ladookie4343.com/MedicalApp/officeImages/"
 
 - (UIImage *)getImageForOffice:(Office *)office
@@ -102,16 +119,19 @@
                                                                  
 #pragma mark - Table view delegate
 
-- (void)showLoadingView
-{
-    
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    [self showLoadingView];
-    
+    self.selectedOffice = [self.offices objectAtIndex:indexPath.row];
+    [self performSegueWithIdentifier:@"SegueToPatientsView" sender:self];
+    [Utilities showLoadingView:self.loadingView InView:self.view];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    ((PatientsViewController *)segue.destinationViewController).office = self.selectedOffice;
+    ((PatientsViewController *)segue.destinationViewController).patients = [Patient patientsForPatientsTable:self.selectedOffice.officeID];
+    [self.loadingView removeFromSuperview];
 }
 
 @end

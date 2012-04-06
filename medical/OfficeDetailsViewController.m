@@ -10,7 +10,8 @@
 
 @interface OfficeDetailsViewController()
 
-- (UIView *)officeNameHeader;
+- (UIView *)topSpacer;
+- (UINavigationBar *)navBar;
 - (void)doneButtonPressed;
 
 @end
@@ -37,7 +38,21 @@
 {
     [super viewDidLoad];
     
-    self.tableView.tableHeaderView = [self officeNameHeader];
+    // add space near the top so that the navbar doesn't cover up the first cell.
+    self.tableView.tableHeaderView = [self topSpacer];
+    
+    [self.view addSubview:[self navBar]];
+}
+
+- (UINavigationBar *)navBar
+{
+    UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneButtonPressed)];
+    UINavigationItem *item = [[UINavigationItem alloc] initWithTitle:@"Office Info"];
+    item.rightBarButtonItem = rightButton;
+    item.hidesBackButton = YES;
+    [navBar pushNavigationItem:item animated:NO];
+    return navBar;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -61,24 +76,16 @@
 
 #pragma mark - helpers
 
-- (UIView *)officeNameHeader
+- (UIView *)topSpacer
 {
     UIView *containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 60)];
-    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, 300, 40)];
-    
-    headerLabel.text = [NSString stringWithFormat:@"Matt's Dental Office"];
-    headerLabel.textColor = [UIColor whiteColor];
-    headerLabel.shadowColor = [UIColor blackColor];
-    headerLabel.shadowOffset = CGSizeMake(0, 1);
-    headerLabel.font = [UIFont boldSystemFontOfSize:22];
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, 300, 80)];
     headerLabel.backgroundColor = [UIColor clearColor];
-    headerLabel.textAlignment = UITextAlignmentCenter;
     [containerView addSubview:headerLabel];
-    
     return containerView;
 }
 
-- (IBAction)doneButtonPressed:(UIBarButtonItem *)sender 
+- (void)doneButtonPressed
 {
     [self dismissModalViewControllerAnimated:YES];
 }

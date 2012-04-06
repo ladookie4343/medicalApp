@@ -27,11 +27,11 @@
 
 + (NSArray *)patientsForPatientsTable:(int)officeID
 {
-    NSString *postRequest = [NSString stringWithFormat:@"patientID=%d", officeID];
+    NSString *postRequest = [NSString stringWithFormat:@"officeID=%d", officeID];
     NSData *responseData = [Utilities dataFromPHPScript:kPatientsRetrievalURL post:YES request:postRequest];
     
-    // NSString *readabledata = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-    // NSLog(@"%@", readabledata);
+    //NSString *readabledata = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+    //NSLog(@"%@", readabledata);
     
     NSMutableArray *patients = [[NSMutableArray alloc] init];
     

@@ -42,6 +42,12 @@ NSData *responseData;
                                              error:&error];
 }
 
++ (void)showLoadingView:(UIView *)loadingView InView:(UIView *)view
+{
+    [view addSubview:loadingView];
+    loadingView.backgroundColor = [UIColor clearColor];
+    loadingView.center = view.center;
+}
 
 
 @end

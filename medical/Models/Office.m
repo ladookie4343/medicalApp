@@ -30,8 +30,8 @@
     NSString *postRequest = [NSString stringWithFormat:@"username=%@", username];
     NSData *responseData = [Utilities dataFromPHPScript:kOfficeRetrievalURL post:YES request:postRequest];
     
-    // NSString *readabledata = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-    // NSLog(@"%@", readabledata);
+    //NSString *readabledata = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+    //NSLog(@"%@", readabledata);
     
     NSMutableArray *offices = [[NSMutableArray alloc] init];
     

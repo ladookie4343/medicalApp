@@ -16,6 +16,5 @@
 @property (strong, nonatomic) Office *office;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *infoButton;
 
 @end

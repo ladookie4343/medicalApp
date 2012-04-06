@@ -11,5 +11,6 @@
 @interface Utilities : NSObject
 
 + (NSData *)dataFromPHPScript:(NSURL *)script post:(BOOL)post request:(NSString *)request;
++ (void)showLoadingView:(UIView *)loadingView InView:(UIView *)view;
 
 @end
