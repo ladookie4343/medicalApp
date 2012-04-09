@@ -97,8 +97,8 @@
     
     [Utilities showLoadingView:self.loadingView InView:self.view];
     
-    if ([self loginServerReachable]) {
-        dispatch_async(kBgQueue, ^{
+    dispatch_async(kBgQueue, ^{
+        if ([self loginServerReachable]) {
             NSString *username = self.usernameField.text;
             NSString *password = self.passwordField.text;
             NSString *requestData = [NSString stringWithFormat:@"username=%@&password=%@", username, password];
@@ -106,11 +106,18 @@
             [self performSelectorOnMainThread:@selector(responseFromLoginScript:) 
                                    withObject:data 
                                 waitUntilDone:YES];
-        });
-    } else {
-        [self showAlertViewWithMessage:@"Cannot connect to server"];
-        [self.loadingView removeFromSuperview];
-    }
+        } else {
+            [self performSelectorOnMainThread:@selector(cannotConnectToServer) 
+                                   withObject:nil 
+                                waitUntilDone:YES];
+        }
+    });
+}
+
+- (void)cannotConnectToServer
+{
+    [self showAlertViewWithMessage:@"Cannot connect to server"];
+    [self.loadingView removeFromSuperview];
 }
 
 - (BOOL)loginServerReachable
