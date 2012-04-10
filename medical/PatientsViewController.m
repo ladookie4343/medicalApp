@@ -90,7 +90,7 @@
         [self.patientsByLastName addObject:[self.patients subarrayWithRange:NSMakeRange(startLocation, length)]];
     }
     
-    [self testPatientsByLastName];
+    //[self testPatientsByLastName];
 }
 
 - (char)lastNameFirstCharForPatient:(Patient *)patient
@@ -107,15 +107,60 @@
 
 #pragma mark - Table View Methods
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    NSArray *patientsWithSimilarLastName = [self.patientsByLastName objectAtIndex:section];
+    Patient *p = [patientsWithSimilarLastName objectAtIndex:0];
+    char firstLetterOfLastName = [[p.lastname uppercaseString] characterAtIndex:0];
+    
+    return [NSString stringWithFormat:@"%c", firstLetterOfLastName];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return self.patientsByLastName.count;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    NSArray *patientsWithSimilarLastName = [self.patientsByLastName objectAtIndex:section];
+    return patientsWithSimilarLastName.count;
 }
+
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
+{
+    NSMutableArray *firstLettersOfLastName = [[NSMutableArray alloc] init];
+    
+    for (int i = 0; i < self.patientsByLastName.count; i++) {
+        NSArray *patientsWithSimilarLastName = [self.patientsByLastName objectAtIndex:i];
+        Patient *p = [patientsWithSimilarLastName objectAtIndex:0];
+        char letter = [[p.lastname uppercaseString] characterAtIndex:0];
+        [firstLettersOfLastName addObject: [NSString stringWithFormat:@"%c", letter]];
+    }
+    return [NSArray arrayWithArray:firstLettersOfLastName];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title 
+               atIndex:(NSInteger)index
+{
+    return index;
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return nil;
+    static NSString *CellIdentifier = @"PatientCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier];
+    }
+    
+    NSArray *patientsWithSimilarLastName = [self.patientsByLastName objectAtIndex:indexPath.section];
+    Patient *p = [patientsWithSimilarLastName objectAtIndex:indexPath.row];
+    
+    cell.textLabel.text = p.lastname;
+    
+    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
