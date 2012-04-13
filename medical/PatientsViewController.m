@@ -9,6 +9,7 @@
 #import "PatientsViewController.h"
 #import "Office.h"
 #import "Patient.h"
+#import "OfficeDetailsViewController.h"
 
 @interface PatientsViewController ()
 - (void)splitPatientsByLastname;
@@ -168,6 +169,11 @@
 }
 
 #pragma mark - Helper Methods
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    ((OfficeDetailsViewController *)segue.destinationViewController).office = self.office;
+}
 
 - (NSArray *)customToolBarItems
 {

@@ -57,7 +57,10 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.location.text = @"12909 Woodliegh Ave\nTampa, FL\nUnited States";
+    self.phoneNumber.text = self.office.phone;
+    self.email.text = self.office.email;
+    self.website.text = self.office.website;
+    self.location.text = [NSString stringWithFormat:@"%@\n%@, %@ %@\nUnited States", self.office.street, self.office.city, self.office.state, self.office.zipcode];
 }
 
 - (void)viewDidUnload
@@ -95,29 +98,25 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    /*samples
-     
-     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunesconnect.apple.com"]];
-     
-     // Where is Apple on the map anyway?
-     NSString* addressText = @"1 Infinite Loop, Cupertino, CA 95014";
-     // URL encode the spaces
-     addressText =  [addressText stringByAddingPercentEscapesUsingEncoding: NSASCIIStringEncoding];	
-     NSString* urlText = [NSString stringWithFormat:@"http://maps.google.com/maps?q=%@", addressText];
-     // lets throw this text on the log so we can view the url in the event we have an issue
-     NSLog(@"%@", urlText);
-     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlText]];
-     
-     */
-    
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
     switch (indexPath.section) {
-        case 1:
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto://devprograms@apple.com"]];
-            
+        case 0:
             break;
-            
+        case 1:
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"mailto://%@", self.office.email]]];
+            break;
+        case 2:
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@", self.office.website]]];
+            break;
+        case 3: {
+            NSString *address = [NSString stringWithFormat:@"%@, %@, %@ %@", self.office.street, self.office.city, self.office.state, self.office.zipcode];
+            address = [address stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+            NSString *url = [NSString stringWithFormat:@"http://maps.google.com/maps?q=%@", address];
+            NSLog(@"%@", url);
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+            break;
+        }
         default:
             break;
     }
@@ -125,3 +124,42 @@
 }
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
