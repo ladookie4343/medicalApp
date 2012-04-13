@@ -1,18 +1,17 @@
 //
-//  OfficeTableViewCell.m
+//  PatientsTableViewCell.m
 //  medical
 //
-//  Created by Matt LaDuca on 3/12/12.
+//  Created by Matt LaDuca on 4/12/12.
 //  Copyright (c) 2012  PPA. All rights reserved.
 //
 
-#import "OfficeTableViewCell.h"
+#import "PatientsTableViewCell.h"
 
-@implementation OfficeTableViewCell
+@implementation PatientsTableViewCell
 
-@synthesize officeImageView;
-@synthesize officeLocationLabel;
-@synthesize officeNameLabel;
+@synthesize firstNameLabel;
+@synthesize lastNameLabel;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

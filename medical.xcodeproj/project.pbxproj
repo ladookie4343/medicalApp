@@ -17,6 +17,7 @@
 		C97BD0AC150403EC00788AA4 /* loading.png in Resources */ = {isa = PBXBuildFile; fileRef = C97BD0AB150403EC00788AA4 /* loading.png */; };
 		C97DEBF014FC777D002A860E /* navBar44.png in Resources */ = {isa = PBXBuildFile; fileRef = C97DEBEF14FC777D002A860E /* navBar44.png */; };
 		C99B0690150BFD9C006490A6 /* OfficesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C99B068F150BFD9C006490A6 /* OfficesViewController.m */; };
+		C9A15D1A1537D37A003CB66A /* PatientsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A15D191537D37A003CB66A /* PatientsTableViewCell.m */; };
 		C9B431BE152494D0006CC1E2 /* Patient.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B431BD152494D0006CC1E2 /* Patient.m */; };
 		C9B431C2152497E0006CC1E2 /* Visit.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B431C1152497E0006CC1E2 /* Visit.m */; };
 		C9B431C515249807006CC1E2 /* Test.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B431C415249807006CC1E2 /* Test.m */; };
@@ -49,6 +50,8 @@
 		C97DEBEF14FC777D002A860E /* navBar44.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navBar44.png; sourceTree = "<group>"; };
 		C99B068E150BFD9C006490A6 /* OfficesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfficesViewController.h; sourceTree = "<group>"; };
 		C99B068F150BFD9C006490A6 /* OfficesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfficesViewController.m; sourceTree = "<group>"; };
+		C9A15D181537D37A003CB66A /* PatientsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatientsTableViewCell.h; sourceTree = "<group>"; };
+		C9A15D191537D37A003CB66A /* PatientsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PatientsTableViewCell.m; sourceTree = "<group>"; };
 		C9B431BC152494D0006CC1E2 /* Patient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Patient.h; sourceTree = "<group>"; };
 		C9B431BD152494D0006CC1E2 /* Patient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Patient.m; sourceTree = "<group>"; };
 		C9B431C0152497E0006CC1E2 /* Visit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Visit.h; sourceTree = "<group>"; };
@@ -175,6 +178,8 @@
 				C9E5355B150E954D004EF069 /* OfficeTableViewCell.m */,
 				C9F4C842152759C600E05A66 /* PatientsViewController.h */,
 				C9F4C843152759C600E05A66 /* PatientsViewController.m */,
+				C9A15D181537D37A003CB66A /* PatientsTableViewCell.h */,
+				C9A15D191537D37A003CB66A /* PatientsTableViewCell.m */,
 				C96CDFCC15291BF8006F24F7 /* OfficeDetailsViewController.h */,
 				C96CDFCD15291BF8006F24F7 /* OfficeDetailsViewController.m */,
 				C9F4C846152759EC00E05A66 /* Utilities */,
@@ -297,6 +302,7 @@
 				C9B431C81524985B006CC1E2 /* Surgery.m in Sources */,
 				C9F4C844152759C600E05A66 /* PatientsViewController.m in Sources */,
 				C96CDFCE15291BF8006F24F7 /* OfficeDetailsViewController.m in Sources */,
+				C9A15D1A1537D37A003CB66A /* PatientsTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

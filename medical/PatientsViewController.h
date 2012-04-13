@@ -10,10 +10,15 @@
 
 @class Office;
 
-@interface PatientsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface PatientsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchDisplayDelegate>
 
+// data source members
 @property (strong, nonatomic) NSArray *patients;
 @property (strong, nonatomic) Office *office;
+
+// search members
+@property (strong, nonatomic) NSMutableArray *patientSearchResults;
+@property (strong, nonatomic) NSString *savedSearchTerm;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 

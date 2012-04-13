@@ -15,9 +15,3 @@
 @property (nonatomic, strong) IBOutlet UIImageView *officeImageView;
 
 @end
-
-/*
- @property (nonatomic, weak) IBOutlet UILabel *officeNameLabel;
- @property (nonatomic, weak) IBOutlet UILabel *officeLocationLabel;
- @property (nonatomic, strong) IBOutlet UIImageView *officeImageView;
-*/

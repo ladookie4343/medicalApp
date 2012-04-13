@@ -214,14 +214,34 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PatientCell" id="kwz-B7-kb6">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PatientCell" id="kwz-B7-kb6" customClass="PatientsTableViewCell">
                                         <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="wGg-je-Ybe">
+                                                    <rect key="frame" x="20" y="10" width="49" height="22"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="kj1-VK-khI">
+                                                    <rect key="frame" x="89" y="10" width="54" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                            </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <connections>
+                                            <outlet property="firstNameLabel" destination="wGg-je-Ybe" id="Oyz-HW-kGp"/>
+                                            <outlet property="lastNameLabel" destination="kj1-VK-khI" id="Y72-fb-5AU"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -229,12 +249,12 @@
                                     <outlet property="delegate" destination="rQ4-1e-hBO" id="PzG-3h-lMk"/>
                                 </connections>
                             </tableView>
-                            <searchBar contentMode="redraw" id="C69-JR-ihN">
+                            <searchBar contentMode="redraw" id="JHO-ps-QMV">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <outlet property="delegate" destination="rQ4-1e-hBO" id="Jr7-e7-otY"/>
+                                    <outlet property="delegate" destination="rQ4-1e-hBO" id="o2c-Gd-YkF"/>
                                 </connections>
                             </searchBar>
                         </subviews>
@@ -249,22 +269,65 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="searchDisplayController" destination="llv-TP-RE4" id="abw-J3-yWR"/>
+                        <outlet property="searchDisplayController" destination="CUN-v4-syT" id="B3O-la-Zoz"/>
                         <outlet property="tableView" destination="bWO-ug-6SA" id="ZTg-88-cFV"/>
                         <segue destination="RGV-V5-J9U" kind="modal" identifier="officeDetailsSegue" modalTransitionStyle="flipHorizontal" id="C6h-TX-Dja"/>
+                        <segue destination="CDy-Sk-sr2" kind="push" identifier="AddPatientSearchTransition" id="RPN-Dr-TnH"/>
                     </connections>
                 </viewController>
-                <searchDisplayController id="llv-TP-RE4">
+                <searchDisplayController id="CUN-v4-syT">
                     <connections>
-                        <outlet property="delegate" destination="rQ4-1e-hBO" id="vAi-Nx-UWR"/>
-                        <outlet property="searchBar" destination="C69-JR-ihN" id="Uxr-98-po9"/>
-                        <outlet property="searchContentsController" destination="rQ4-1e-hBO" id="1Oe-wr-yAw"/>
-                        <outlet property="searchResultsDataSource" destination="rQ4-1e-hBO" id="RyB-p7-4eO"/>
-                        <outlet property="searchResultsDelegate" destination="rQ4-1e-hBO" id="RzA-ic-PjJ"/>
+                        <outlet property="delegate" destination="rQ4-1e-hBO" id="qWc-HQ-d1t"/>
+                        <outlet property="searchBar" destination="JHO-ps-QMV" id="VPR-ig-Aqe"/>
+                        <outlet property="searchContentsController" destination="rQ4-1e-hBO" id="bR6-14-nQU"/>
+                        <outlet property="searchResultsDataSource" destination="rQ4-1e-hBO" id="hgt-iq-Ly5"/>
+                        <outlet property="searchResultsDelegate" destination="rQ4-1e-hBO" id="A9q-QP-3JX"/>
                     </connections>
                 </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1252" y="413"/>
+        </scene>
+        <!--View Controller - Patient Search-->
+        <scene sceneID="vLx-sO-ZZB">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dcb-EA-CQV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="CDy-Sk-sr2" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aJP-xc-TTx">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="yUA-F4-DVL">
+                                <rect key="frame" x="0.0" y="44" width="320" height="372"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                            <searchBar contentMode="redraw" id="Mbk-te-DI0">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="CDy-Sk-sr2" id="nSu-C2-8kK"/>
+                                </connections>
+                            </searchBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Patient Search" id="NaR-jd-dBR"/>
+                    <connections>
+                        <outlet property="searchDisplayController" destination="ptS-yt-Xhr" id="FWA-Ky-UOE"/>
+                    </connections>
+                </viewController>
+                <searchDisplayController id="ptS-yt-Xhr">
+                    <connections>
+                        <outlet property="delegate" destination="CDy-Sk-sr2" id="URs-aY-GGZ"/>
+                        <outlet property="searchBar" destination="Mbk-te-DI0" id="FZx-PU-NhI"/>
+                        <outlet property="searchContentsController" destination="CDy-Sk-sr2" id="sag-1e-L2P"/>
+                        <outlet property="searchResultsDataSource" destination="CDy-Sk-sr2" id="ytc-7h-JM0"/>
+                        <outlet property="searchResultsDelegate" destination="CDy-Sk-sr2" id="g6i-Py-gO5"/>
+                    </connections>
+                </searchDisplayController>
+            </objects>
+            <point key="canvasLocation" x="1903" y="279"/>
         </scene>
         <!--Office Details View Controller-->
         <scene sceneID="VJo-Dr-kLd">
@@ -473,6 +536,13 @@
             <relationships>
                 <relationship kind="outlet" name="loadingView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="PatientsTableViewCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PatientsTableViewCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="firstNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="lastNameLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
         <class className="PatientsViewController" superclassName="UIViewController">
