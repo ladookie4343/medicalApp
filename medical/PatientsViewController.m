@@ -219,7 +219,10 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    if (segue.identifier == @"officeDetailsSegue") {
+    
     ((OfficeDetailsViewController *)segue.destinationViewController).office = self.office;
+    }
 }
 
 - (NSArray *)customToolBarItems
