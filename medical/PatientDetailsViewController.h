@@ -8,6 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PatientDetailsViewController : UIViewController
+@class Patient;
+
+@interface PatientDetailsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIView *tableHeaderView;
+@property (weak, nonatomic) IBOutlet UIButton *photoButton;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *ageLabel;
+@property (weak, nonatomic) IBOutlet UILabel *bloodTypeLabel;
+@property (strong, nonatomic) Patient *patient;
+@property (assign, nonatomic) int latestWeight;
+@property (assign, nonatomic) int bpSystolic;
+@property (assign, nonatomic) int bpDiastolic;
 
 @end
