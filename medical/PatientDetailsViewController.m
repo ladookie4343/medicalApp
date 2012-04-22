@@ -13,7 +13,8 @@
 
 @property (strong, nonatomic) NSArray *allergies;
 @property (strong, nonatomic) NSArray *medicalConditions;
-@property (strong, nonatomic) NSMutableArray *textFields;
+@property (strong, nonatomic) NSMutableArray *allergyTextFields;
+@property (strong, nonatomic) NSMutableArray *conditionsTextFields;
 
 - (UIImage *)getImageForPatient:(Patient *)patient;
 - (void)updatePhotoButton;
@@ -33,10 +34,11 @@
 @synthesize patient = _patient;
 @synthesize allergies = _allergies;
 @synthesize medicalConditions = _medicalConditions;
-@synthesize textFields = _textFields;
+@synthesize allergyTextFields = _allergyTextFields;
 @synthesize latestWeight = _latestWeight;
 @synthesize bpSystolic = _bpSystolic;
 @synthesize bpDiastolic = _bpDiastolic;
+@synthesize conditionsTextFields = _conditionsTextFields;
 
 #define STATS_SECTION 0
 #define DETAILS_SECTION 1
@@ -49,7 +51,7 @@
     
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.tableView.tableHeaderView = self.tableHeaderView;
-    self.textFields = [NSMutableArray new];
+    self.allergyTextFields = [NSMutableArray new];
     
     self.nameLabel.text = @"Matthew LaDuca";
     self.ageLabel.text = @"28";
@@ -182,10 +184,42 @@
                 cell.textLabel.text = @"Visits";
                 break;
             case 1:
+                cell.textLabel.text = @"Surgeries";
+                break;
+            case 2:
+                cell.textLabel.text = @"Tests";
+                break;
             default:
                 break;
         }
+    } else if (indexPath.section == ALLERGIES_SECTION) {
+        if (indexPath.row < self.patient.allergies.count) {
+            UITextField *tf = [[UITextField alloc] initWithFrame:CGRectMake(10, 9, 270, 31)];
+            tf.text = [self.patient.allergies objectAtIndex:indexPath.row];
+            tf.enabled = self.editing;
+            [cell addSubview:tf];
+        } else {
+            // add new allergy row
+            UITextField *tf = [[UITextField alloc] initWithFrame:CGRectMake(10, 9, 270, 31)];
+            tf.text = @"add new allergy";
+            tf.enabled = YES;
+            [cell addSubview:tf];
+        }
+    } else if (indexPath.section == CONDITIONS_SECTION) {
+        if (indexPath.row < self.patient.medicalConditions.count) {
+            UITextField *tf = [[UITextField alloc] initWithFrame:CGRectMake(10, 9, 270, 31)];
+            tf.text = [self.patient.medicalConditions objectAtIndex:indexPath.row];
+            tf.enabled = self.editing;
+            [cell addSubview:tf];
+        } else {
+            // add new allergy row
+            UITextField *tf = [[UITextField alloc] initWithFrame:CGRectMake(10, 9, 270, 31)];
+            tf.text = @"add new medical condition";
+            tf.enabled = YES;
+            [cell addSubview:tf];
+        }
     }
+    return cell;
 }
 
 #pragma mark - Editing rows
@@ -205,11 +239,35 @@
     NSArray *conditionsInsertIndexPath = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:conditionsCount inSection:CONDITIONS_SECTION]];
     
     if (editing) {
-        [self.tableView insertRowsAtIndexPaths:allergiesInsertIndexPath withRowAnimation:UITableViewRowAnimationTop];
-        [self.tableView insertRowsAtIndexPaths:conditionsInsertIndexPath withRowAnimation:UITableViewRowAnimationTop];
+        for (int i = 0; i < self.allergyTextFields.count; i++) {
+            ((UITextField *)[self.allergyTextFields objectAtIndex:i]).enabled = YES;
+        }
+        for (int i = 0; i < self.conditionsTextFields.count; i++) {
+            ((UITextField *)[self.conditionsTextFields objectAtIndex:i]).enabled = YES;
+        }
+        [self.tableView insertRowsAtIndexPaths:allergiesInsertIndexPath 
+                              withRowAnimation:UITableViewRowAnimationTop];
+        [self.tableView insertRowsAtIndexPaths:conditionsInsertIndexPath 
+                              withRowAnimation:UITableViewRowAnimationTop];
     } else {
-        [self.tableView deleteRowsAtIndexPaths:allergiesInsertIndexPath withRowAnimation:UITableViewRowAnimationTop];
-        [self.tableView deleteRowsAtIndexPaths:conditionsInsertIndexPath withRowAnimation:UITableViewRowAnimationTop];
+        for (int i = 0; i < self.allergyTextFields.count; i++) {
+            [((UITextField *)[self.allergyTextFields objectAtIndex:i]) resignFirstResponder];
+            ((UITextField *)[self.allergyTextFields objectAtIndex:i]).enabled = NO;
+        }
+        for (int i = 0; i < self.conditionsTextFields.count; i++) {
+            [((UITextField *)[self.conditionsTextFields objectAtIndex:i]) resignFirstResponder];
+            ((UITextField *)[self.conditionsTextFields objectAtIndex:i]).enabled = NO;
+        }
+        
+        if ([@"" isEqualToString:(NSString *)[self.allergyTextFields objectAtIndex:self.allergyTextFields.count - 1]]) {
+            [self.tableView deleteRowsAtIndexPaths:allergiesInsertIndexPath 
+                                  withRowAnimation:UITableViewRowAnimationTop];
+        }
+        
+        if ([@"" isEqualToString:(NSString *)[self.conditionsTextFields objectAtIndex:self.conditionsTextFields.count - 1]]) {
+            [self.tableView deleteRowsAtIndexPaths:conditionsInsertIndexPath 
+                                  withRowAnimation:UITableViewRowAnimationTop];
+        }
     }
     
     [self.tableView endUpdates];
