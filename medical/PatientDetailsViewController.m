@@ -15,11 +15,15 @@
 @property (strong, nonatomic) NSArray *medicalConditions;
 @property (strong, nonatomic) NSMutableArray *allergyTextFields;
 @property (strong, nonatomic) NSMutableArray *conditionsTextFields;
+@property (assign, nonatomic) int conditionCountBeforeEditing;
+@property (assign, nonatomic) int allergyCountBeforeEditing;
 
 - (UIImage *)getImageForPatient:(Patient *)patient;
 - (void)updatePhotoButton;
 - (UILabel *)labelWithStat:(NSString *)stat;
 - (UILabel *)labelWithText:(NSString *)text;
+- (void)registerForKeyboardNotifications;
+- (UITextField *)textFieldForSection:(int)section Row:(int)row;
 
 @end
 
@@ -39,6 +43,8 @@
 @synthesize bpSystolic = _bpSystolic;
 @synthesize bpDiastolic = _bpDiastolic;
 @synthesize conditionsTextFields = _conditionsTextFields;
+@synthesize allergyCountBeforeEditing = _allergyCountBeforeEditing;
+@synthesize conditionCountBeforeEditing = _conditionCountBeforeEditing;
 
 #define STATS_SECTION 0
 #define DETAILS_SECTION 1
@@ -49,6 +55,7 @@
 {
     [super viewDidLoad];
     
+    [self registerForKeyboardNotifications];
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.tableView.tableHeaderView = self.tableHeaderView;
     self.allergyTextFields = [NSMutableArray new];
@@ -153,10 +160,13 @@
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"PatientCell"];
     
     if (indexPath.section == STATS_SECTION) {
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.userInteractionEnabled = NO;
         switch (indexPath.row) {
             case 0: {
                 UILabel *statLabel = [self labelWithStat:@"height"];
                 UILabel *actualStats = [self labelWithText:@"5' 8\""];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 [cell addSubview:statLabel];
                 [cell addSubview:actualStats];
                 break;
@@ -193,33 +203,48 @@
                 break;
         }
     } else if (indexPath.section == ALLERGIES_SECTION) {
-        if (indexPath.row < self.patient.allergies.count) {
-            UITextField *tf = [[UITextField alloc] initWithFrame:CGRectMake(10, 9, 270, 31)];
-            tf.text = [self.patient.allergies objectAtIndex:indexPath.row];
-            tf.enabled = self.editing;
-            [cell addSubview:tf];
-        } else {
-            // add new allergy row
-            UITextField *tf = [[UITextField alloc] initWithFrame:CGRectMake(10, 9, 270, 31)];
-            tf.text = @"add new allergy";
-            tf.enabled = YES;
-            [cell addSubview:tf];
-        }
+        UITextField *tf = [self textFieldForSection:ALLERGIES_SECTION Row:indexPath.row];
+        [cell addSubview:tf];
     } else if (indexPath.section == CONDITIONS_SECTION) {
-        if (indexPath.row < self.patient.medicalConditions.count) {
-            UITextField *tf = [[UITextField alloc] initWithFrame:CGRectMake(10, 9, 270, 31)];
-            tf.text = [self.patient.medicalConditions objectAtIndex:indexPath.row];
-            tf.enabled = self.editing;
-            [cell addSubview:tf];
-        } else {
-            // add new allergy row
-            UITextField *tf = [[UITextField alloc] initWithFrame:CGRectMake(10, 9, 270, 31)];
-            tf.text = @"add new medical condition";
-            tf.enabled = YES;
-            [cell addSubview:tf];
-        }
+        UITextField *tf = [self textFieldForSection:CONDITIONS_SECTION Row:indexPath.row];
+        [cell addSubview:tf];
     }
     return cell;
+}
+
+- (UITextField *)textFieldForSection:(int)section Row:(int)row
+{
+    BOOL allergySection = section == ALLERGIES_SECTION ? YES : NO;
+    
+    NSArray *array = allergySection ? self.patient.allergies : self.patient.medicalConditions;
+    UITextField *tf = [[UITextField alloc] initWithFrame:CGRectMake(10, 9, 270, 31)];
+    tf.delegate = self;
+    tf.returnKeyType = UIReturnKeyDone;
+    
+    if (row < array.count) {
+        if (allergySection) {
+            tf.text = (NSString *)[self.patient.allergies objectAtIndex:row];
+        } else {
+            tf.text = (NSString *)[self.patient.medicalConditions objectAtIndex:row];
+        }
+        tf.enabled = self.editing;
+    } else {
+        // add new row
+        tf.placeholder = @"add new allergy";
+        if (allergySection) {
+            tf.placeholder = @"add new allergy";
+        } else {
+            tf.placeholder = @"add new medical condition";
+        }
+        tf.enabled = YES;
+    }
+    return tf;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
 }
 
 #pragma mark - Editing rows
@@ -232,13 +257,17 @@
     
     [self.tableView beginUpdates];
     
+    
+    
     NSUInteger allergiesCount = self.allergies.count;
     NSArray *allergiesInsertIndexPath = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:allergiesCount inSection:ALLERGIES_SECTION]];
     
     NSUInteger conditionsCount = self.medicalConditions.count;
     NSArray *conditionsInsertIndexPath = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:conditionsCount inSection:CONDITIONS_SECTION]];
     
+    
     if (editing) {
+        [self getArrayCounts];
         for (int i = 0; i < self.allergyTextFields.count; i++) {
             ((UITextField *)[self.allergyTextFields objectAtIndex:i]).enabled = YES;
         }
@@ -259,14 +288,18 @@
             ((UITextField *)[self.conditionsTextFields objectAtIndex:i]).enabled = NO;
         }
         
+        
+        // if no text was entered in the 'add new allergy' row then delete it.
         if ([@"" isEqualToString:(NSString *)[self.allergyTextFields objectAtIndex:self.allergyTextFields.count - 1]]) {
             [self.tableView deleteRowsAtIndexPaths:allergiesInsertIndexPath 
                                   withRowAnimation:UITableViewRowAnimationTop];
+            [self.allergyTextFields removeObjectAtIndex:self.allergyTextFields.count - 1];
         }
-        
+        // if no text was entered in the 'add new medical condition' row then delete it.
         if ([@"" isEqualToString:(NSString *)[self.conditionsTextFields objectAtIndex:self.conditionsTextFields.count - 1]]) {
             [self.tableView deleteRowsAtIndexPaths:conditionsInsertIndexPath 
                                   withRowAnimation:UITableViewRowAnimationTop];
+            [self.conditionsTextFields removeObjectAtIndex:self.conditionsTextFields.count - 1];
         }
     }
     
@@ -274,12 +307,31 @@
 
     // if done editing save the conditions and allergies to database
     if (!editing) {
-        
+        if (self.allergyCountBeforeEditing != self.allergyTextFields.count) {
+            //allergies have been added or deleted or both. loop through all the allergies and insert
+            // into database.
+        }
+        if (self.conditionCountBeforeEditing != self.conditionsTextFields.count) {
+            // medical conditions added or deleted or both, loop through them and insert into db.
+        }
     }
+}
+
+- (void)getArrayCounts
+{
+    self.allergyCountBeforeEditing = self.allergyTextFields.count;
+    self.conditionCountBeforeEditing = self.conditionsTextFields.count;
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
+    NSIndexPath *rowToSelect = indexPath;
+    
+    if (self.editing && indexPath.section == DETAILS_SECTION) {
+        [tableView deselectRowAtIndexPath:indexPath animated:NO];
+        rowToSelect = nil;
+    }
+    return rowToSelect;
 }
 
 
@@ -291,13 +343,36 @@
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-
+    UITableViewCellEditingStyle style = UITableViewCellEditingStyleNone;
+    
+    // only allow editing in the allerigies and conditions section
+    if (indexPath.section == ALLERGIES_SECTION) {
+        if (indexPath.row < self.patient.allergies.count) {
+            style = UITableViewCellEditingStyleDelete;
+        }
+    }
+    
+    if (indexPath.section == CONDITIONS_SECTION) {
+        if (indexPath.row < self.patient.medicalConditions.count) {
+            style = UITableViewCellEditingStyleDelete;
+        }
+    }
+    return style;
 }
 
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-
+    // Only allow deletion in allergies and medical conditions
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        if (indexPath.section == ALLERGIES_SECTION) {
+            [self.patient.allergies removeObjectAtIndex:indexPath.row];
+            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]  withRowAnimation:UITableViewRowAnimationTop];
+        } else if (indexPath.section == CONDITIONS_SECTION) {
+            [self.patient.medicalConditions removeObjectAtIndex:indexPath.row];
+            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]  withRowAnimation:UITableViewRowAnimationTop];
+        }
+    }
 }
 
 #pragma mark - Photo stuff
@@ -306,8 +381,13 @@
 {
     self.photoButton.enabled = self.editing;
     
+    if (self.patient.patientImage == @"") {
+        [self.photoButton setImage:[UIImage imageNamed:@"noImage.png"] forState:UIControlStateNormal];
+    }
+    
     if (self.editing) {
         // set photo button image to be editingImage.png
+        [self.photoButton setImage:[UIImage imageNamed:@"editImage.png"] forState:UIControlStateNormal];
     }
 }
 
@@ -332,6 +412,39 @@
     label.backgroundColor = [UIColor clearColor];
     return label;
 }
+
+- (void)registerForKeyboardNotifications 
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWasShown:)
+                                                 name:UIKeyboardDidShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWasHidden:)
+                                                 name:UIKeyboardDidHideNotification object:nil];
+}
+
+- (void)keyboardWasShown:(NSNotification *)aNotification 
+{
+    CGRect keyboardBounds;
+    [[aNotification.userInfo valueForKey:UIKeyboardFrameBeginUserInfoKey] getValue: &keyboardBounds];
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, keyboardBounds.size.height, 0);
+    [UIView commitAnimations];
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]
+                          atScrollPosition:UITableViewScrollPositionMiddle
+                                  animated:YES];
+}
+
+- (void)keyboardWasHidden:(NSNotification *)aNotification 
+{
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    self.tableView.contentInset = UIEdgeInsetsZero;
+    [UIView commitAnimations];
+}
+
 @end
 
 

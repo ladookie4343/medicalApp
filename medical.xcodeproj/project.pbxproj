@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C90AF24C154474D6008284A6 /* editImage.png in Resources */ = {isa = PBXBuildFile; fileRef = C90AF24A154474D6008284A6 /* editImage.png */; };
+		C90AF24D154474D6008284A6 /* noImage.png in Resources */ = {isa = PBXBuildFile; fileRef = C90AF24B154474D6008284A6 /* noImage.png */; };
 		C90D2735151F96CB0099926F /* bottomRowSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D2731151F96CB0099926F /* bottomRowSelected.png */; };
 		C90D2736151F96CB0099926F /* middleRowSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D2732151F96CB0099926F /* middleRowSelected.png */; };
 		C90D2737151F96CB0099926F /* oneRowOnly.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D2733151F96CB0099926F /* oneRowOnly.png */; };
@@ -37,6 +39,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C90AF24A154474D6008284A6 /* editImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = editImage.png; sourceTree = "<group>"; };
+		C90AF24B154474D6008284A6 /* noImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noImage.png; sourceTree = "<group>"; };
 		C90D26EC151F65B00099926F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C90D2731151F96CB0099926F /* bottomRowSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bottomRowSelected.png; sourceTree = "<group>"; };
 		C90D2732151F96CB0099926F /* middleRowSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = middleRowSelected.png; sourceTree = "<group>"; };
@@ -111,6 +115,8 @@
 		C93361A414FAB9DD003F1349 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				C90AF24A154474D6008284A6 /* editImage.png */,
+				C90AF24B154474D6008284A6 /* noImage.png */,
 				C90D2731151F96CB0099926F /* bottomRowSelected.png */,
 				C90D2732151F96CB0099926F /* middleRowSelected.png */,
 				C90D2733151F96CB0099926F /* oneRowOnly.png */,
@@ -284,6 +290,8 @@
 				C90D2736151F96CB0099926F /* middleRowSelected.png in Resources */,
 				C90D2737151F96CB0099926F /* oneRowOnly.png in Resources */,
 				C90D2738151F96CB0099926F /* topRowSelected.png in Resources */,
+				C90AF24C154474D6008284A6 /* editImage.png in Resources */,
+				C90AF24D154474D6008284A6 /* noImage.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

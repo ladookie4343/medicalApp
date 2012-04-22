@@ -10,7 +10,7 @@
 
 @class Patient;
 
-@interface PatientDetailsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface PatientDetailsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *tableHeaderView;

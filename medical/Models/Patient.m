@@ -50,4 +50,16 @@
     return patients;
 }
 
++ (void)updateAllergies
+{
+    
+}
+
+// deletes all rows in medicalConditions table for this patient 
+// and adds the rows currently in allergies array
++ (void)updateMedicalConditions
+{
+    
+}
+
 @end

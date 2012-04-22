@@ -22,10 +22,17 @@
 @property (nonatomic, strong) NSArray * visits;
 @property (nonatomic, strong) NSArray *tests;
 @property (nonatomic, strong) NSArray *surgeries;
-@property (nonatomic, strong) NSArray *allergies;
-@property (nonatomic, strong) NSArray *medicalConditions;
+@property (nonatomic, strong) NSMutableArray *allergies;
+@property (nonatomic, strong) NSMutableArray *medicalConditions;
 @property (nonatomic, strong) NSString *patientImage;
 
 + (NSArray *)patientsForPatientsTable:(int)officeID;
 
+// deletes all rows in allergy table for this patient 
+// and adds the rows currently in allergies array
++ (void)updateAllergies;
+
+// deletes all rows in medicalConditions table for this patient 
+// and adds the rows currently in allergies array
++ (void)updateMedicalConditions;
 @end
