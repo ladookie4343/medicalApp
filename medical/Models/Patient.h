@@ -22,17 +22,25 @@
 @property (nonatomic, strong) NSArray * visits;
 @property (nonatomic, strong) NSArray *tests;
 @property (nonatomic, strong) NSArray *surgeries;
+@property (nonatomic, strong) NSString *bloodType;
 @property (nonatomic, strong) NSMutableArray *allergies;
 @property (nonatomic, strong) NSMutableArray *medicalConditions;
 @property (nonatomic, strong) NSString *patientImage;
 
-+ (NSArray *)patientsForPatientsTable:(int)officeID;
-
 // deletes all rows in allergy table for this patient 
 // and adds the rows currently in allergies array
-+ (void)updateAllergies;
+- (void)updateAllergies;
 
 // deletes all rows in medicalConditions table for this patient 
 // and adds the rows currently in allergies array
-+ (void)updateMedicalConditions;
+- (void)updateMedicalConditions;
+
+
+
++ (NSArray *)patientsForPatientsTable:(int)officeID;
+
+// gets additional information from patient for patientDetailsViewController:
+// dob, height, bloodtype, allergies, medicalConditions,
++ (Patient *)PatientForPatientDetailsVC:(Patient *)patient;
+
 @end

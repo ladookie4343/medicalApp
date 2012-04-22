@@ -11,8 +11,6 @@
 
 @interface PatientDetailsViewController ()
 
-@property (strong, nonatomic) NSArray *allergies;
-@property (strong, nonatomic) NSArray *medicalConditions;
 @property (strong, nonatomic) NSMutableArray *allergyTextFields;
 @property (strong, nonatomic) NSMutableArray *conditionsTextFields;
 @property (assign, nonatomic) int conditionCountBeforeEditing;
@@ -36,8 +34,6 @@
 @synthesize ageLabel = _ageLabel;
 @synthesize bloodTypeLabel = _bloodTypeLabel;
 @synthesize patient = _patient;
-@synthesize allergies = _allergies;
-@synthesize medicalConditions = _medicalConditions;
 @synthesize allergyTextFields = _allergyTextFields;
 @synthesize latestWeight = _latestWeight;
 @synthesize bpSystolic = _bpSystolic;
@@ -60,12 +56,14 @@
     self.tableView.tableHeaderView = self.tableHeaderView;
     self.allergyTextFields = [NSMutableArray new];
     
-    self.nameLabel.text = @"Matthew LaDuca";
-    self.ageLabel.text = @"28";
-    self.bloodTypeLabel.text = @"O+";
-    
-    self.allergies = [NSArray arrayWithObjects:@"Penicilin", @"Mold", nil];
-    self.medicalConditions = [NSArray new];
+    self.nameLabel.text = [self.patient.firstname stringByAppendingFormat:@" %@", self.patient.lastname];
+    self.ageLabel.text = [self calculateAgeFromDOB:self.patient.dob];
+    self.bloodTypeLabel.text = self.patient.bloodType;
+}
+
+- (NSString *) calculateAgeFromDOB:(NSDate *)dob
+{
+    return @"28";
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -116,13 +114,13 @@
             rows = 3;
             break;
         case ALLERGIES_SECTION:
-            rows = self.allergies.count;
+            rows = self.patient.allergies.count;
             if (self.editing) {
                 rows++;
             }
             break;
         case CONDITIONS_SECTION:
-            rows = self.medicalConditions.count;
+            rows = self.patient.medicalConditions.count;
             if (self.editing) {
                 rows++;
             }
@@ -249,6 +247,8 @@
 
 #pragma mark - Editing rows
 
+#define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated 
 {
     [super setEditing:editing animated:animated];
@@ -259,10 +259,10 @@
     
     
     
-    NSUInteger allergiesCount = self.allergies.count;
+    NSUInteger allergiesCount = self.patient.allergies.count;
     NSArray *allergiesInsertIndexPath = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:allergiesCount inSection:ALLERGIES_SECTION]];
     
-    NSUInteger conditionsCount = self.medicalConditions.count;
+    NSUInteger conditionsCount = self.patient.medicalConditions.count;
     NSArray *conditionsInsertIndexPath = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:conditionsCount inSection:CONDITIONS_SECTION]];
     
     
@@ -305,16 +305,16 @@
     
     [self.tableView endUpdates];
 
-    // if done editing save the conditions and allergies to database
-    if (!editing) {
-        if (self.allergyCountBeforeEditing != self.allergyTextFields.count) {
-            //allergies have been added or deleted or both. loop through all the allergies and insert
-            // into database.
+    dispatch_async(kBgQueue, ^{
+        if (!editing) {
+            if (self.allergyCountBeforeEditing != self.allergyTextFields.count) {
+                [self.patient updateAllergies];
+            }
+            if (self.conditionCountBeforeEditing != self.conditionsTextFields.count) {
+                [self.patient updateMedicalConditions];
+            }
         }
-        if (self.conditionCountBeforeEditing != self.conditionsTextFields.count) {
-            // medical conditions added or deleted or both, loop through them and insert into db.
-        }
-    }
+    });
 }
 
 - (void)getArrayCounts

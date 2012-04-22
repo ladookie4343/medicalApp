@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *ageLabel;
 @property (weak, nonatomic) IBOutlet UILabel *bloodTypeLabel;
+
 @property (strong, nonatomic) Patient *patient;
 @property (assign, nonatomic) int latestWeight;
 @property (assign, nonatomic) int bpSystolic;

@@ -11,6 +11,7 @@
 #import "Patient.h"
 #import "OfficeDetailsViewController.h"
 #import "PatientsTableViewCell.h"
+#import "PatientDetailsViewController.h"
 
 @interface PatientsViewController ()
 - (void)splitPatientsByLastname;
@@ -21,6 +22,7 @@
 - (void)handleSearchForTerm:(NSString *)term;
 
 @property (strong, nonatomic) NSMutableArray *patientsByLastName;
+@property (strong, nonatomic) Patient *selectedPatient;
 @end
 
 @implementation PatientsViewController
@@ -30,6 +32,7 @@
 @synthesize patientsByLastName = _patientsByLastName;
 @synthesize patientSearchResults = _patientSearchResults;
 @synthesize savedSearchTerm = _savedSearchTerm;
+@synthesize selectedPatient = _selectedPatient;
 
 - (void)viewDidLoad
 {
@@ -185,6 +188,21 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        self.selectedPatient = [self.patientSearchResults objectAtIndex:indexPath.row];
+    } else {
+        self.selectedPatient = [self.patients objectAtIndex:indexPath.row];
+    }
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if (segue.identifier == @"officeDetailsSegue") {
+        ((OfficeDetailsViewController *)segue.destinationViewController).office = self.office;
+    } else if (segue.identifier == @"TransitionToPatientDetail") {
+        PatientDetailsViewController *patientDetialVC = segue.destinationViewController;
+        patientDetialVC;
+    }
 }
 
 #pragma mark - Search Methods
@@ -216,14 +234,6 @@
 }
 
 #pragma mark - Helper Methods
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if (segue.identifier == @"officeDetailsSegue") {
-    
-    ((OfficeDetailsViewController *)segue.destinationViewController).office = self.office;
-    }
-}
 
 - (NSArray *)customToolBarItems
 {
