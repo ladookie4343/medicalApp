@@ -13,9 +13,12 @@
 
 @property (strong, nonatomic) NSArray *allergies;
 @property (strong, nonatomic) NSArray *medicalConditions;
+@property (strong, nonatomic) NSMutableArray *textFields;
 
 - (UIImage *)getImageForPatient:(Patient *)patient;
 - (void)updatePhotoButton;
+- (UILabel *)labelWithStat:(NSString *)stat;
+- (UILabel *)labelWithText:(NSString *)text;
 
 @end
 
@@ -30,6 +33,10 @@
 @synthesize patient = _patient;
 @synthesize allergies = _allergies;
 @synthesize medicalConditions = _medicalConditions;
+@synthesize textFields = _textFields;
+@synthesize latestWeight = _latestWeight;
+@synthesize bpSystolic = _bpSystolic;
+@synthesize bpDiastolic = _bpDiastolic;
 
 #define STATS_SECTION 0
 #define DETAILS_SECTION 1
@@ -42,6 +49,7 @@
     
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.tableView.tableHeaderView = self.tableHeaderView;
+    self.textFields = [NSMutableArray new];
     
     self.nameLabel.text = @"Matthew LaDuca";
     self.ageLabel.text = @"28";
@@ -140,6 +148,44 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"PatientCell"];
+    
+    if (indexPath.section == STATS_SECTION) {
+        switch (indexPath.row) {
+            case 0: {
+                UILabel *statLabel = [self labelWithStat:@"height"];
+                UILabel *actualStats = [self labelWithText:@"5' 8\""];
+                [cell addSubview:statLabel];
+                [cell addSubview:actualStats];
+                break;
+            }
+            case 1: {
+                UILabel *statLabel = [self labelWithStat:@"weight"];
+                UILabel *actualStats = [self labelWithText:@"174 pounds"];
+                [cell addSubview:statLabel];
+                [cell addSubview:actualStats];
+                break;
+            }
+            case 2: {
+                UILabel *statLabel = [self labelWithStat:@"blood pressure"];
+                UILabel *actualStats = [self labelWithText:@"131 / 82"];
+                [cell addSubview:statLabel];
+                [cell addSubview:actualStats];
+                break;
+            }
+            default:
+                break;
+        }
+    } else if (indexPath.section == DETAILS_SECTION) {
+        switch (indexPath.row) {
+            case 0:
+                cell.textLabel.text = @"Visits";
+                break;
+            case 1:
+            default:
+                break;
+        }
+    }
 }
 
 #pragma mark - Editing rows
@@ -207,6 +253,27 @@
     }
 }
 
+#pragma mark - Helpers
+
+- (UILabel *)labelWithStat:(NSString *)stat
+{
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 13, 55, 21)];
+    label.text = stat;
+    label.textAlignment = UITextAlignmentRight;
+    label.backgroundColor = [UIColor clearColor];
+    label.textColor = [UIColor colorWithRed:81/255.0 green:102/255.0 blue:145/255.0 alpha:1];
+    label.font = [UIFont boldSystemFontOfSize:13.0];
+    return label;
+}
+
+- (UILabel *)labelWithText:(NSString *)text
+{
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(83, 9, 197, 31)];
+    label.text = text;
+    label.font = [UIFont boldSystemFontOfSize:15];
+    label.backgroundColor = [UIColor clearColor];
+    return label;
+}
 @end
 
 
