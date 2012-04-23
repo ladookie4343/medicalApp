@@ -90,8 +90,8 @@
     NSError *error;
     NSArray *json = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&error];
     
-    NSString *readabledata = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-    NSLog(@"%@", readabledata);
+   // NSString *readabledata = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+   // NSLog(@"%@", readabledata);
     
     for (int i = 0; i < 3; i++) {
         switch (i) {
@@ -126,9 +126,6 @@
                 break;
         }
     }
-    
-    NSLog(@"%@", self.allergies);
-    NSLog(@"%@", self.medicalConditions);
 }
 
 #define kLatestStatsURL [NSURL URLWithString: @"http://www.ladookie4343.com/MedicalApp/latestWeightBP.php"]

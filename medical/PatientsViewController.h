@@ -21,5 +21,6 @@
 @property (strong, nonatomic) NSString *savedSearchTerm;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UIView *loadingView;
 
 @end

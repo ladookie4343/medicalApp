@@ -12,6 +12,7 @@
 #import "OfficeDetailsViewController.h"
 #import "PatientsTableViewCell.h"
 #import "PatientDetailsViewController.h"
+#import "Utilities.h"
 
 @interface PatientsViewController ()
 - (void)splitPatientsByLastname;
@@ -29,6 +30,7 @@
 @synthesize office = _office;
 @synthesize patients = _patients;
 @synthesize tableView = _tableView;
+@synthesize loadingView = _loadingView;
 @synthesize patientsByLastName = _patientsByLastName;
 @synthesize patientSearchResults = _patientSearchResults;
 @synthesize savedSearchTerm = _savedSearchTerm;
@@ -65,6 +67,7 @@
     [self setTableView:nil];
     self.savedSearchTerm = self.searchDisplayController.searchBar.text;
     self.patientSearchResults = nil;
+    [self setLoadingView:nil];
     [super viewDidUnload];
 }
 
@@ -188,12 +191,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
     if (tableView == self.searchDisplayController.searchResultsTableView) {
         self.selectedPatient = [self.patientSearchResults objectAtIndex:indexPath.row];
     } else {
-        self.selectedPatient = [self.patients objectAtIndex:indexPath.row];
+        NSArray *patientsWithSimilarLastName = [self.patientsByLastName objectAtIndex:indexPath.section];
+        self.selectedPatient = [patientsWithSimilarLastName objectAtIndex:indexPath.row];
     }
     [self performSegueWithIdentifier:@"PatientDetailSegue" sender:self];
+    [Utilities showLoadingView:self.loadingView InView:self.view];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -201,11 +208,12 @@
     if ([segue.identifier isEqualToString:@"officeDetailsSegue"]) {
         ((OfficeDetailsViewController *)segue.destinationViewController).office = self.office;
     } else if ([segue.identifier isEqualToString: @"PatientDetailSegue"]) {
-        PatientDetailsViewController *patientDetialVC = segue.destinationViewController;
+        PatientDetailsViewController *patientDetailVC = segue.destinationViewController;
         [self.selectedPatient GetDetailsForPatientDetailsVC];
         [self.selectedPatient GetLatestStats];
-        patientDetialVC.patient = self.selectedPatient;
-    } 
+        patientDetailVC.patient = self.selectedPatient;
+    }
+    [self.loadingView removeFromSuperview];
 }
 
 #pragma mark - Search Methods

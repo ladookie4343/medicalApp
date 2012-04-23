@@ -269,6 +269,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="loadingView" destination="QKR-6I-2lE" id="GWf-kP-r18"/>
                         <outlet property="searchDisplayController" destination="CUN-v4-syT" id="B3O-la-Zoz"/>
                         <outlet property="tableView" destination="bWO-ug-6SA" id="ZTg-88-cFV"/>
                         <segue destination="RGV-V5-J9U" kind="modal" identifier="officeDetailsSegue" modalTransitionStyle="flipHorizontal" id="C6h-TX-Dja"/>
@@ -285,6 +286,28 @@
                         <outlet property="searchResultsDelegate" destination="rQ4-1e-hBO" id="A9q-QP-3JX"/>
                     </connections>
                 </searchDisplayController>
+                <view opaque="NO" contentMode="scaleToFill" id="QKR-6I-2lE">
+                    <rect key="frame" x="0.0" y="0.0" width="130" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" image="loading.png" id="5ZI-tN-Rxe">
+                            <rect key="frame" x="-1" y="0.0" width="131" height="41"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        </imageView>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" animating="YES" style="white" id="A0N-cQ-Pru">
+                            <rect key="frame" x="99" y="10" width="20" height="20"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </activityIndicatorView>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Loading..." lineBreakMode="tailTruncation" minimumFontSize="10" id="UcH-9F-a7o">
+                            <rect key="frame" x="15" y="9" width="70" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                </view>
             </objects>
             <point key="canvasLocation" x="1252" y="413"/>
         </scene>
@@ -321,6 +344,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Patient" id="cr3-Ts-cJR"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="ageLabel" destination="Srh-yv-47T" id="czH-Yh-gFb"/>
                         <outlet property="bloodTypeLabel" destination="5dP-MQ-j2z" id="dwT-SW-RtW"/>
@@ -334,7 +358,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="84"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="aa0-ej-eyp">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="aa0-ej-eyp">
                             <rect key="frame" x="11" y="9" width="81" height="68"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -659,6 +683,7 @@
         <class className="PatientsViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PatientsViewController.h"/>
             <relationships>
+                <relationship kind="outlet" name="loadingView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
             </relationships>
         </class>
