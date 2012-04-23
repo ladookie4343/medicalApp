@@ -193,16 +193,19 @@
     } else {
         self.selectedPatient = [self.patients objectAtIndex:indexPath.row];
     }
+    [self performSegueWithIdentifier:@"PatientDetailSegue" sender:self];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if (segue.identifier == @"officeDetailsSegue") {
+    if ([segue.identifier isEqualToString:@"officeDetailsSegue"]) {
         ((OfficeDetailsViewController *)segue.destinationViewController).office = self.office;
-    } else if (segue.identifier == @"TransitionToPatientDetail") {
+    } else if ([segue.identifier isEqualToString: @"PatientDetailSegue"]) {
         PatientDetailsViewController *patientDetialVC = segue.destinationViewController;
-        patientDetialVC;
-    }
+        [self.selectedPatient GetDetailsForPatientDetailsVC];
+        [self.selectedPatient GetLatestStats];
+        patientDetialVC.patient = self.selectedPatient;
+    } 
 }
 
 #pragma mark - Search Methods

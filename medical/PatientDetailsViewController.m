@@ -35,9 +35,6 @@
 @synthesize bloodTypeLabel = _bloodTypeLabel;
 @synthesize patient = _patient;
 @synthesize allergyTextFields = _allergyTextFields;
-@synthesize latestWeight = _latestWeight;
-@synthesize bpSystolic = _bpSystolic;
-@synthesize bpDiastolic = _bpDiastolic;
 @synthesize conditionsTextFields = _conditionsTextFields;
 @synthesize allergyCountBeforeEditing = _allergyCountBeforeEditing;
 @synthesize conditionCountBeforeEditing = _conditionCountBeforeEditing;
@@ -153,6 +150,16 @@
     return title;
 }
 
+- (NSString *)convertInchesToFeet:(NSString *)inches
+{
+    return @"5' 8\"";
+}
+
+- (NSString *)singleStringForSystolic:(NSString *)systolic diastolic:(NSString *)diastolic
+{
+    return @"128 / 81";
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"PatientCell"];
@@ -163,7 +170,7 @@
         switch (indexPath.row) {
             case 0: {
                 UILabel *statLabel = [self labelWithStat:@"height"];
-                UILabel *actualStats = [self labelWithText:@"5' 8\""];
+                UILabel *actualStats = [self labelWithText:[self convertInchesToFeet:self.patient.height]];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 [cell addSubview:statLabel];
                 [cell addSubview:actualStats];
@@ -171,14 +178,14 @@
             }
             case 1: {
                 UILabel *statLabel = [self labelWithStat:@"weight"];
-                UILabel *actualStats = [self labelWithText:@"174 pounds"];
+                UILabel *actualStats = [self labelWithText:[NSString stringWithFormat:@"%@ pounds", self.patient.latestWeight]];
                 [cell addSubview:statLabel];
                 [cell addSubview:actualStats];
                 break;
             }
             case 2: {
                 UILabel *statLabel = [self labelWithStat:@"blood pressure"];
-                UILabel *actualStats = [self labelWithText:@"131 / 82"];
+                UILabel *actualStats = [self labelWithText:[self singleStringForSystolic:self.patient.latestBPSys diastolic:self.patient.latestBPDia]];
                 [cell addSubview:statLabel];
                 [cell addSubview:actualStats];
                 break;
@@ -210,6 +217,8 @@
     return cell;
 }
 
+// NSLog("tf X: 0x%x",tfx);
+
 - (UITextField *)textFieldForSection:(int)section Row:(int)row
 {
     BOOL allergySection = section == ALLERGIES_SECTION ? YES : NO;
@@ -219,11 +228,14 @@
     tf.delegate = self;
     tf.returnKeyType = UIReturnKeyDone;
     
+    NSLog(@"%@", self.patient.allergies);
+    NSLog(@"%@", self.patient.medicalConditions);
+    
     if (row < array.count) {
         if (allergySection) {
-            tf.text = (NSString *)[self.patient.allergies objectAtIndex:row];
+            tf.text = [self.patient.allergies objectAtIndex:row];
         } else {
-            tf.text = (NSString *)[self.patient.medicalConditions objectAtIndex:row];
+            tf.text = [self.patient.medicalConditions objectAtIndex:row];
         }
         tf.enabled = self.editing;
     } else {

@@ -19,9 +19,13 @@
 @synthesize visits = _visits;
 @synthesize tests = _tests;
 @synthesize surgeries = _surgeries;
+@synthesize bloodType = _bloodType;
 @synthesize allergies = _allergies;
 @synthesize medicalConditions = _medicalConditions;
 @synthesize patientImage = _patientImage;
+@synthesize latestWeight = _latestWeight;
+@synthesize latestBPSys = _latestBPSys;
+@synthesize latestBPDia = _latestBPDia;
 
 #define kPatientsRetrievalURL [NSURL URLWithString: @"http://www.ladookie4343.com/MedicalApp/retrievePatients.php"]
 
@@ -30,8 +34,8 @@
     NSString *postRequest = [NSString stringWithFormat:@"officeID=%d", officeID];
     NSData *responseData = [Utilities dataFromPHPScript:kPatientsRetrievalURL post:YES request:postRequest];
     
-    //NSString *readabledata = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-    //NSLog(@"%@", readabledata);
+   // NSString *readabledata = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+   // NSLog(@"%@", readabledata);
     
     NSMutableArray *patients = [[NSMutableArray alloc] init];
     
@@ -78,13 +82,16 @@
 
 // gets additional information from patient for patientDetailsViewController:
 // dob, height, bloodtype, allergies, medicalConditions,
-+ (Patient *)PatientForPatientDetailsVC:(Patient *)patient
+- (void)GetDetailsForPatientDetailsVC
 {
-    NSString *postRequest = [NSString stringWithFormat:@"patientID=%d", patient.patientID];
+    NSString *postRequest = [NSString stringWithFormat:@"patientID=%d", self.patientID];
     NSData *responseData = [Utilities dataFromPHPScript:kPatientDetailsURL post:YES request:postRequest];
     
     NSError *error;
     NSArray *json = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&error];
+    
+    //NSString *readabledata = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+    //NSLog(@"%@", readabledata);
     
     for (int i = 0; i < 3; i++) {
         switch (i) {
@@ -92,32 +99,60 @@
                 NSDateFormatter *df = [[NSDateFormatter alloc] init];
                 [df setDateFormat:@"yyyy-MM-dd"];
                 NSDictionary *patientDetails = [json objectAtIndex:i];
-                patient.dob = [df dateFromString:(NSString *)[patientDetails objectForKey:@"dob"]];
+                self.dob = [df dateFromString:[patientDetails objectForKey:@"dob"]];
+                self.height = [patientDetails objectForKey:@"height"];
+                self.bloodType = [patientDetails objectForKey:@"bloodType"];
                 break;
             }
             case 1: {
                 NSArray *jsonArray = [json objectAtIndex:i];
                 NSMutableArray *allergies = [NSMutableArray new];
                 for (int i = 0; i < jsonArray.count; i++) {
-                    [allergies addObject:(NSString *)[jsonArray objectAtIndex:i]];
+                    [allergies addObject:[[jsonArray objectAtIndex:i] objectForKey:@"allergy"]];
                 }
-                patient.allergies = allergies;
+                self.allergies = allergies;
                 break;
             }
             case 2: {
                 NSArray *jsonArray = [json objectAtIndex:i];
                 NSMutableArray *conditions = [NSMutableArray new];
                 for (int i = 0; i < jsonArray.count; i++) {
-                    [conditions addObject:(NSString *)[jsonArray objectAtIndex:i]];
+                    [conditions addObject:[[jsonArray objectAtIndex:i] objectForKey:@"condition"]];
                 }
-                patient.medicalConditions = conditions;
+                self.medicalConditions = conditions;
                 break;
             }
             default:
                 break;
         }
     }
-    return patient;
+    
+    if ([@"<null>" isEqualToString:[self.medicalConditions objectAtIndex:0]]) {
+        [self.medicalConditions removeObjectAtIndex:0];
+    }
+    if ([@"<null>" isEqualToString:[self.allergies objectAtIndex:0]]) {
+        [self.allergies removeObjectAtIndex:0];
+    }
+    
+    NSLog(@"%@", self.allergies);
+    NSLog(@"%@", self.medicalConditions);
+}
+
+#define kLatestStatsURL [NSURL URLWithString: @"http://www.ladookie4343.com/MedicalApp/latestWeightBP.php"]
+- (void)GetLatestStats
+{
+    NSString *postRequest = [NSString stringWithFormat:@"patientID=%d", self.patientID];
+    NSData *responseData = [Utilities dataFromPHPScript:kLatestStatsURL post:YES request:postRequest];
+    
+    //NSString *readabledata = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+    //NSLog(@"%@", readabledata);
+    
+    NSError *error;
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&error];
+    
+    self.latestWeight = [json objectForKey:@"weight"];
+    self.latestBPSys = [json objectForKey:@"bp_systolic"];
+    self.latestBPDia = [json objectForKey:@"bp_diastolic"];
 }
 
 @end

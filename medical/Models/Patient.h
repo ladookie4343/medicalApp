@@ -26,6 +26,9 @@
 @property (nonatomic, strong) NSMutableArray *allergies;
 @property (nonatomic, strong) NSMutableArray *medicalConditions;
 @property (nonatomic, strong) NSString *patientImage;
+@property (nonatomic, strong) NSString *latestWeight;
+@property (nonatomic, strong) NSString *latestBPSys;
+@property (nonatomic, strong) NSString *latestBPDia;
 
 // deletes all rows in allergy table for this patient 
 // and adds the rows currently in allergies array
@@ -35,12 +38,16 @@
 // and adds the rows currently in allergies array
 - (void)updateMedicalConditions;
 
+// gets additional information from patient for patientDetailsViewController:
+// dob, height, bloodtype, allergies, medicalConditions,
+- (void)GetDetailsForPatientDetailsVC;
 
+- (void)GetLatestStats;
 
 + (NSArray *)patientsForPatientsTable:(int)officeID;
 
-// gets additional information from patient for patientDetailsViewController:
-// dob, height, bloodtype, allergies, medicalConditions,
-+ (Patient *)PatientForPatientDetailsVC:(Patient *)patient;
+
+
+
 
 @end

@@ -241,7 +241,6 @@
                                         <connections>
                                             <outlet property="firstNameLabel" destination="wGg-je-Ybe" id="Oyz-HW-kGp"/>
                                             <outlet property="lastNameLabel" destination="kj1-VK-khI" id="Y72-fb-5AU"/>
-                                            <segue destination="Owf-Mc-1tg" kind="push" identifier="TransitionToPatientDetail" id="NZU-Lh-PN6"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -274,6 +273,7 @@
                         <outlet property="tableView" destination="bWO-ug-6SA" id="ZTg-88-cFV"/>
                         <segue destination="RGV-V5-J9U" kind="modal" identifier="officeDetailsSegue" modalTransitionStyle="flipHorizontal" id="C6h-TX-Dja"/>
                         <segue destination="CDy-Sk-sr2" kind="push" identifier="AddPatientSearchTransition" id="RPN-Dr-TnH"/>
+                        <segue destination="Owf-Mc-1tg" kind="push" identifier="PatientDetailSegue" id="mhE-I6-aCZ"/>
                     </connections>
                 </viewController>
                 <searchDisplayController id="CUN-v4-syT">
@@ -312,6 +312,10 @@
                                         </view>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="Owf-Mc-1tg" id="Fc3-Ci-Xrf"/>
+                                    <outlet property="delegate" destination="Owf-Mc-1tg" id="foQ-Uo-kgu"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

@@ -20,8 +20,4 @@
 @property (weak, nonatomic) IBOutlet UILabel *bloodTypeLabel;
 
 @property (strong, nonatomic) Patient *patient;
-@property (assign, nonatomic) int latestWeight;
-@property (assign, nonatomic) int bpSystolic;
-@property (assign, nonatomic) int bpDiastolic;
-
 @end
