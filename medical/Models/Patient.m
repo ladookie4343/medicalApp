@@ -90,8 +90,8 @@
     NSError *error;
     NSArray *json = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&error];
     
-    //NSString *readabledata = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-    //NSLog(@"%@", readabledata);
+    NSString *readabledata = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+    NSLog(@"%@", readabledata);
     
     for (int i = 0; i < 3; i++) {
         switch (i) {
@@ -125,13 +125,6 @@
             default:
                 break;
         }
-    }
-    
-    if ([@"<null>" isEqualToString:[self.medicalConditions objectAtIndex:0]]) {
-        [self.medicalConditions removeObjectAtIndex:0];
-    }
-    if ([@"<null>" isEqualToString:[self.allergies objectAtIndex:0]]) {
-        [self.allergies removeObjectAtIndex:0];
     }
     
     NSLog(@"%@", self.allergies);

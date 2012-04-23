@@ -162,30 +162,36 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"PatientCell"];
+    UITableViewCell *cell = nil;    
     
     if (indexPath.section == STATS_SECTION) {
+        static NSString *StatCellIdentifier = @"StatCell";
+        cell = [self.tableView dequeueReusableCellWithIdentifier:StatCellIdentifier];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:StatCellIdentifier];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.userInteractionEnabled = NO;
         switch (indexPath.row) {
             case 0: {
-                UILabel *statLabel = [self labelWithStat:@"height"];
-                UILabel *actualStats = [self labelWithText:[self convertInchesToFeet:self.patient.height]];
+                UILabel *statLabel = [self labelWithText:@"height"];
+                UILabel *actualStats = [self labelWithStat:[self convertInchesToFeet:self.patient.height]];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 [cell addSubview:statLabel];
                 [cell addSubview:actualStats];
                 break;
             }
             case 1: {
-                UILabel *statLabel = [self labelWithStat:@"weight"];
-                UILabel *actualStats = [self labelWithText:[NSString stringWithFormat:@"%@ pounds", self.patient.latestWeight]];
+                UILabel *statLabel = [self labelWithText:@"weight"];
+                UILabel *actualStats = [self labelWithStat:[NSString stringWithFormat:@"%@ pounds", self.patient.latestWeight]];
                 [cell addSubview:statLabel];
                 [cell addSubview:actualStats];
                 break;
             }
             case 2: {
-                UILabel *statLabel = [self labelWithStat:@"blood pressure"];
-                UILabel *actualStats = [self labelWithText:[self singleStringForSystolic:self.patient.latestBPSys diastolic:self.patient.latestBPDia]];
+                UILabel *statLabel = [self labelWithText:@"blood pressure"];
+                UILabel *actualStats = [self labelWithStat:[self singleStringForSystolic:self.patient.latestBPSys diastolic:self.patient.latestBPDia]];
                 [cell addSubview:statLabel];
                 [cell addSubview:actualStats];
                 break;
@@ -194,6 +200,12 @@
                 break;
         }
     } else if (indexPath.section == DETAILS_SECTION) {
+        static NSString *DetailCellIdentifier = @"DetailCell";
+        cell = [self.tableView dequeueReusableCellWithIdentifier:DetailCellIdentifier];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:DetailCellIdentifier];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
         switch (indexPath.row) {
             case 0:
                 cell.textLabel.text = @"Visits";
@@ -208,11 +220,25 @@
                 break;
         }
     } else if (indexPath.section == ALLERGIES_SECTION) {
+        static NSString *AllergyCellIdentifier = @"AllergyCell";
+        cell = [self.tableView dequeueReusableCellWithIdentifier:AllergyCellIdentifier];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:AllergyCellIdentifier];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
         UITextField *tf = [self textFieldForSection:ALLERGIES_SECTION Row:indexPath.row];
         [cell addSubview:tf];
+        cell.userInteractionEnabled = NO;
     } else if (indexPath.section == CONDITIONS_SECTION) {
+        static NSString *ConditionCellIdentifier = @"ConditionCell";
+        cell = [self.tableView dequeueReusableCellWithIdentifier:ConditionCellIdentifier];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ConditionCellIdentifier];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
         UITextField *tf = [self textFieldForSection:CONDITIONS_SECTION Row:indexPath.row];
         [cell addSubview:tf];
+        cell.userInteractionEnabled = NO;
     }
     return cell;
 }
@@ -224,12 +250,9 @@
     BOOL allergySection = section == ALLERGIES_SECTION ? YES : NO;
     
     NSArray *array = allergySection ? self.patient.allergies : self.patient.medicalConditions;
-    UITextField *tf = [[UITextField alloc] initWithFrame:CGRectMake(10, 9, 270, 31)];
+    UITextField *tf = [[UITextField alloc] initWithFrame:CGRectMake(20, 12, 240, 31)];
     tf.delegate = self;
     tf.returnKeyType = UIReturnKeyDone;
-    
-    NSLog(@"%@", self.patient.allergies);
-    NSLog(@"%@", self.patient.medicalConditions);
     
     if (row < array.count) {
         if (allergySection) {
@@ -240,7 +263,6 @@
         tf.enabled = self.editing;
     } else {
         // add new row
-        tf.placeholder = @"add new allergy";
         if (allergySection) {
             tf.placeholder = @"add new allergy";
         } else {
@@ -405,10 +427,10 @@
 
 #pragma mark - Helpers
 
-- (UILabel *)labelWithStat:(NSString *)stat
+- (UILabel *)labelWithText:(NSString *)text
 {
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 13, 55, 21)];
-    label.text = stat;
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 13, 95, 21)];
+    label.text = text;
     label.textAlignment = UITextAlignmentRight;
     label.backgroundColor = [UIColor clearColor];
     label.textColor = [UIColor colorWithRed:81/255.0 green:102/255.0 blue:145/255.0 alpha:1];
@@ -416,10 +438,10 @@
     return label;
 }
 
-- (UILabel *)labelWithText:(NSString *)text
+- (UILabel *)labelWithStat:(NSString *)stat
 {
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(83, 9, 197, 31)];
-    label.text = text;
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(123, 9, 197, 31)];
+    label.text = stat;
     label.font = [UIFont boldSystemFontOfSize:15];
     label.backgroundColor = [UIColor clearColor];
     return label;
