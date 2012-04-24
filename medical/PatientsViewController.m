@@ -51,6 +51,10 @@
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self.loadingView removeFromSuperview];
+}
 
 
 - (void)infoPressed

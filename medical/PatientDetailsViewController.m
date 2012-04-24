@@ -54,6 +54,7 @@
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.tableView.tableHeaderView = self.tableHeaderView;
     self.allergyTextFields = [NSMutableArray new];
+    self.conditionsTextFields = [NSMutableArray new];
     
     self.nameLabel.text = [self.patient.firstname stringByAppendingFormat:@" %@", self.patient.lastname];
     self.ageLabel.text = [self calculateAgeFromDOB:self.patient.dob];
@@ -62,7 +63,17 @@
 
 - (NSString *) calculateAgeFromDOB:(NSDate *)dob
 {
-    return @"28";
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit;
+    NSDateComponents *dateComponentsNow = [calendar components:unitFlags fromDate:[NSDate date]];
+    NSDateComponents *dateComponentsBirth = [calendar components:unitFlags fromDate:dob];
+    
+    if (([dateComponentsNow month] < [dateComponentsBirth month]) ||
+        (([dateComponentsNow month] == [dateComponentsBirth month]) && ([dateComponentsNow day] < [dateComponentsBirth day]))) {
+        return [NSString stringWithFormat:@"%d", [dateComponentsNow year] - [dateComponentsBirth year] - 1];
+    } else {
+        return [NSString stringWithFormat:@"%d", [dateComponentsNow year] - [dateComponentsBirth year]];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -84,7 +95,6 @@
 }
 - (void)viewDidUnload
 {
-    [self setTableView:nil];
     [self setTableView:nil];
     [self setTableHeaderView:nil];
     [self setPhotoButton:nil];
@@ -154,12 +164,20 @@
 
 - (NSString *)convertInchesToFeet:(NSString *)inches
 {
-    return @"5' 8\"";
+    int inchesTotal = inches.intValue;
+    
+    int feetComponent = inchesTotal / 12;
+    int inchesComponent = inchesTotal - (feetComponent * 12);
+    
+    return [NSString stringWithFormat:@"%d' %d\"", feetComponent, inchesComponent];
 }
 
 - (NSString *)singleStringForSystolic:(NSString *)systolic diastolic:(NSString *)diastolic
 {
-    return @"128 / 81";
+    if (systolic == nil || diastolic == nil) {
+        return @"No previous record.";
+    }
+    return [NSString stringWithFormat:@"%@ / %@", systolic, diastolic];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -186,7 +204,13 @@
             }
             case 1: {
                 UILabel *statLabel = [self labelWithText:@"weight"];
-                UILabel *actualStats = [self labelWithStat:[NSString stringWithFormat:@"%@ pounds", self.patient.latestWeight]];
+                NSString *weight;
+                if (self.patient.latestWeight == nil) {
+                    weight = @"No previous record.";
+                } else {
+                    weight = [NSString stringWithFormat:@"%@ pounds", self.patient.latestWeight];
+                }
+                UILabel *actualStats = [self labelWithStat:weight];
                 [cell addSubview:statLabel];
                 [cell addSubview:actualStats];
                 break;
@@ -299,6 +323,14 @@
     NSUInteger conditionsCount = self.patient.medicalConditions.count;
     NSArray *conditionsInsertIndexPath = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:conditionsCount inSection:CONDITIONS_SECTION]];
     
+    NSLog(@"%d", self.allergyTextFields.count);
+    NSLog(@"%d", self.conditionsTextFields.count);
+    for (UITextField *tf in self.allergyTextFields) {
+        NSLog(@"%@", tf);
+    }
+    for (UITextField *tf in self.conditionsTextFields) {
+        NSLog(@"%@", tf);
+    }
     
     if (editing) {
         [self getArrayCounts];
@@ -322,15 +354,21 @@
             ((UITextField *)[self.conditionsTextFields objectAtIndex:i]).enabled = NO;
         }
         
+        NSLog(@"%d", self.allergyTextFields.count);
+        NSLog(@"%d", self.conditionsTextFields.count);
+        
+        NSLog(@"|%@|", ((UITextField *)[self.allergyTextFields objectAtIndex:self.allergyTextFields.count - 1]).text);
+        
+        NSLog(@"|%@|", ((UITextField *)[self.conditionsTextFields objectAtIndex:self.conditionsTextFields.count - 1]).text);
         
         // if no text was entered in the 'add new allergy' row then delete it.
-        if ([@"" isEqualToString:(NSString *)[self.allergyTextFields objectAtIndex:self.allergyTextFields.count - 1]]) {
+        if (((UITextField *)[self.allergyTextFields objectAtIndex:self.allergyTextFields.count - 1]).text == nil) {
             [self.tableView deleteRowsAtIndexPaths:allergiesInsertIndexPath 
                                   withRowAnimation:UITableViewRowAnimationTop];
             [self.allergyTextFields removeObjectAtIndex:self.allergyTextFields.count - 1];
         }
         // if no text was entered in the 'add new medical condition' row then delete it.
-        if ([@"" isEqualToString:(NSString *)[self.conditionsTextFields objectAtIndex:self.conditionsTextFields.count - 1]]) {
+        if (((UITextField *)[self.conditionsTextFields objectAtIndex:self.conditionsTextFields.count - 1]).text == nil) {
             [self.tableView deleteRowsAtIndexPaths:conditionsInsertIndexPath 
                                   withRowAnimation:UITableViewRowAnimationTop];
             [self.conditionsTextFields removeObjectAtIndex:self.conditionsTextFields.count - 1];
