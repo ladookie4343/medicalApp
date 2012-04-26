@@ -11,30 +11,35 @@
 
 @interface PatientDetailsViewController ()
 
+@property (nonatomic, strong) NSMutableArray *textFields;
+
 - (UIImage *)getImageForPatient:(Patient *)patient;
 - (void)updatePhotoButton;
 - (UILabel *)labelWithStat:(NSString *)stat;
 - (UILabel *)labelWithText:(NSString *)text;
-- (UITextField *)textFieldForSection:(int)section Row:(int)row;
 - (NSString *) calculateAgeFromDOB:(NSDate *)dob;
 - (NSString *)convertInchesToFeet:(NSString *)inches;
 - (NSString *)singleStringForSystolic:(NSString *)systolic diastolic:(NSString *)diastolic;
+- (UITextField *)textFieldForSection:(int)section;
 
 @end
 
 @implementation PatientDetailsViewController
 
 @synthesize tableHeaderView = __tableHeaderView;
-@synthesize photoButton = _photoButton;
-@synthesize nameLabel = _nameLabel;
-@synthesize ageLabel = _ageLabel;
-@synthesize bloodTypeLabel = _bloodTypeLabel;
+@synthesize photoButton = __photoButton;
+@synthesize nameLabel = __nameLabel;
+@synthesize ageLabel = __ageLabel;
+@synthesize bloodTypeLabel = __bloodTypeLabel;
 @synthesize patient = __patient;
+@synthesize textFields = __textFields;
 
 #define STATS_SECTION 0
 #define DETAILS_SECTION 1
 #define ALLERGIES_SECTION 2
 #define CONDITIONS_SECTION 3
+
+#define PLACEHOLDER @"placeholder"
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -75,7 +80,7 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-#pragma mark - Table view data source
+#pragma mark - tableview datasource & delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -95,15 +100,15 @@
             break;
         case ALLERGIES_SECTION:
             rows = self.patient.allergies.count;
-            /*if (self.editing) {
+            if (self.editing) {
              rows++;
-             }*/
+             }
             break;
         case CONDITIONS_SECTION:
             rows = self.patient.medicalConditions.count;
-            /*if (self.editing) {
+            if (self.editing) {
              rows++;
-             }*/
+             }
             break;
         default:
             break;
@@ -138,39 +143,39 @@
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault 
                                           reuseIdentifier:statCellId];
-        }
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.userInteractionEnabled = NO;
-        switch (indexPath.row) {
-            case 0: {
-                UILabel *textLabel = [self labelWithText:@"height"];
-                UILabel *statLabel = [self labelWithStat:[self convertInchesToFeet:self.patient.height]];
-                [cell addSubview:textLabel];
-                [cell addSubview:statLabel];
-                break; 
-            }
-            case 1: {
-                UILabel *textLabel = [self labelWithText:@"weight"];
-                NSString *weight;
-                if (self.patient.latestWeight == nil) {
-                    weight = @"No previous record.";
-                } else {
-                    weight = [NSString stringWithFormat:@"%@ pounds", self.patient.latestWeight];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.userInteractionEnabled = NO;
+            switch (indexPath.row) {
+                case 0: {
+                    UILabel *textLabel = [self labelWithText:@"height"];
+                    UILabel *statLabel = [self labelWithStat:[self convertInchesToFeet:self.patient.height]];
+                    [cell addSubview:textLabel];
+                    [cell addSubview:statLabel];
+                    break; 
                 }
-                UILabel *statLabel = [self labelWithStat:weight];
-                [cell addSubview:textLabel];
-                [cell addSubview:statLabel];
-                break;
+                case 1: {
+                    UILabel *textLabel = [self labelWithText:@"weight"];
+                    NSString *weight;
+                    if (self.patient.latestWeight == nil) {
+                        weight = @"No previous record.";
+                    } else {
+                        weight = [NSString stringWithFormat:@"%@ pounds", self.patient.latestWeight];
+                    }
+                    UILabel *statLabel = [self labelWithStat:weight];
+                    [cell addSubview:textLabel];
+                    [cell addSubview:statLabel];
+                    break;
+                }
+                case 2: {
+                    UILabel *textLabel = [self labelWithText:@"blood pressure"];
+                    UILabel *statLabel = [self labelWithStat:[self singleStringForSystolic:self.patient.latestBPSys diastolic:self.patient.latestBPDia]];
+                    [cell addSubview:textLabel];
+                    [cell addSubview:statLabel];
+                    break;
+                }
+                default:
+                    break;
             }
-            case 2: {
-                UILabel *textLabel = [self labelWithText:@"blood pressure"];
-                UILabel *statLabel = [self labelWithStat:[self singleStringForSystolic:self.patient.latestBPSys diastolic:self.patient.latestBPDia]];
-                [cell addSubview:textLabel];
-                [cell addSubview:statLabel];
-                break;
-            }
-            default:
-                break;
         }
     } else if (indexPath.section == DETAILS_SECTION) {
         static NSString *detailCellId = @"DetailCell";
@@ -200,7 +205,16 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault 
                                           reuseIdentifier:allergyCellId];
         }
-        cell.textLabel.text = @"foo";
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        if (indexPath.row == self.patient.allergies.count) {
+            cell.textLabel.text = @"Add new allergy...";
+        } else {
+            if ([PLACEHOLDER isEqualToString:[self.patient.allergies objectAtIndex:indexPath.row]]) {
+                [cell.contentView addSubview:[self textFieldForSection:ALLERGIES_SECTION]];
+            } else {
+                cell.textLabel.text = [self.patient.allergies objectAtIndex:indexPath.row];
+            }
+        }
     } else if (indexPath.section == CONDITIONS_SECTION) {
         static NSString *conditionCellId = @"ConditionCell";
         cell = [self.tableView dequeueReusableCellWithIdentifier:conditionCellId];
@@ -208,61 +222,112 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault 
                                           reuseIdentifier:conditionCellId];
         }
-        cell.textLabel.text = @"foo";
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        if (indexPath.row == self.patient.medicalConditions.count) {
+            cell.textLabel.text = @"Add new medical condition...";
+        } else {
+            if ([PLACEHOLDER isEqualToString:[self.patient.medicalConditions objectAtIndex:indexPath.row]]) {
+                [cell.contentView addSubview:[self textFieldForSection:CONDITIONS_SECTION]];
+            } else {
+                cell.textLabel.text = [self.patient.medicalConditions objectAtIndex:indexPath.row];
+            }
+        }
     }
     
     return cell;
 }
 
-#pragma mark - tableview datasource & delegate
-
-/*
-// Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+    if (indexPath.section == ALLERGIES_SECTION || indexPath.section == CONDITIONS_SECTION) {
+        return  YES;
+    }
+    return NO;
 }
-*/
 
-/*
-// Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        if (indexPath.section == ALLERGIES_SECTION) {
+            [self.patient.allergies removeObjectAtIndex:indexPath.row];
+        } else if (indexPath.section == CONDITIONS_SECTION) {
+            [self.patient.medicalConditions removeObjectAtIndex:indexPath.row];
+        }
+        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }   
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        if (indexPath.section == ALLERGIES_SECTION) {
+            [self.patient.allergies addObject:PLACEHOLDER];
+        } else if (indexPath.section == CONDITIONS_SECTION) {
+            [self.patient.medicalConditions addObject:PLACEHOLDER];
+        }
+        [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationTop];
     }   
 }
-*/
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+    [super setEditing:editing animated:animated];
+    [self.navigationItem setHidesBackButton:editing animated:YES];
+    
+    if (editing) {
+        NSIndexPath *allergyIndexPath = [NSIndexPath indexPathForRow:self.patient.allergies.count 
+                                                           inSection:ALLERGIES_SECTION];
+        NSIndexPath *conditionsIndexPath = [NSIndexPath indexPathForRow:self.patient.medicalConditions.count 
+                                                              inSection:CONDITIONS_SECTION];
+        NSArray *paths = [NSArray arrayWithObjects:allergyIndexPath, conditionsIndexPath, nil];
+        [self.tableView insertRowsAtIndexPaths:paths withRowAnimation:UITableViewRowAnimationTop];
+    } else {
+        NSIndexPath *allergyIndexPath = [NSIndexPath indexPathForRow:self.patient.allergies.count 
+                                                           inSection:ALLERGIES_SECTION];
+        NSIndexPath *conditionsIndexPath = [NSIndexPath indexPathForRow:self.patient.medicalConditions.count 
+                                                              inSection:CONDITIONS_SECTION];
+        NSArray *paths = [NSArray arrayWithObjects:allergyIndexPath, conditionsIndexPath, nil];
+        [self.tableView deleteRowsAtIndexPaths:paths withRowAnimation:UITableViewRowAnimationFade];
+    }
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == ALLERGIES_SECTION && indexPath.row == self.patient.allergies.count) {
+        return UITableViewCellEditingStyleInsert;
+    } else if (indexPath.section == CONDITIONS_SECTION && indexPath.row == self.patient.medicalConditions.count) {
+        return UITableViewCellEditingStyleInsert;
+    } else {
+        return UITableViewCellEditingStyleDelete;
+    }
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 }
 
-- (UITextField *)textFieldForSection:(int)section Row:(int)row
+#pragma mark - text field delegates & helpers
+
+- (UITextField *)textFieldForSection:(int)section
 {
     BOOL allergySection = section == ALLERGIES_SECTION ? YES : NO;
     
-    NSArray *array = allergySection ? self.patient.allergies : self.patient.medicalConditions;
-    UITextField *tf = [[UITextField alloc] initWithFrame:CGRectMake(20, 12, 240, 31)];
-    tf.delegate = self;
-    tf.returnKeyType = UIReturnKeyDone;
+    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(20, 12, 240, 31)];
+    textField.delegate = self;
+    textField.returnKeyType = UIReturnKeyDone;
     
-    if (row < array.count) {
-        if (allergySection) {
-            tf.text = [self.patient.allergies objectAtIndex:row];
-        } else {
-            tf.text = [self.patient.medicalConditions objectAtIndex:row];
-        }
-        tf.enabled = self.editing;
+
+    if (allergySection) {
+        textField.placeholder = @"Enter a new allergy.";
+    } else {
+        textField.placeholder = @"Enter a new medical condition.";
     }
-    return tf;
+    textField.enabled = YES;
+    
+    return textField;
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
 
 #pragma mark - Helper methods
 
