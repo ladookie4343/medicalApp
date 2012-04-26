@@ -274,7 +274,7 @@
                         <outlet property="tableView" destination="bWO-ug-6SA" id="ZTg-88-cFV"/>
                         <segue destination="RGV-V5-J9U" kind="modal" identifier="officeDetailsSegue" modalTransitionStyle="flipHorizontal" id="C6h-TX-Dja"/>
                         <segue destination="CDy-Sk-sr2" kind="push" identifier="AddPatientSearchTransition" id="RPN-Dr-TnH"/>
-                        <segue destination="Owf-Mc-1tg" kind="push" identifier="PatientDetailSegue" id="mhE-I6-aCZ"/>
+                        <segue destination="dan-oM-drH" kind="push" identifier="PatientDetailSegue" id="4ue-49-ZXs"/>
                     </connections>
                 </viewController>
                 <searchDisplayController id="CUN-v4-syT">
@@ -311,54 +311,35 @@
             </objects>
             <point key="canvasLocation" x="1252" y="413"/>
         </scene>
-        <!--Patient Details View Controller - Patient-->
-        <scene sceneID="9Nz-1k-6Pq">
+        <!--Patient Details View Controller-->
+        <scene sceneID="C5j-Md-aFq">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="KIQ-R2-Tfx" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="Owf-Mc-1tg" customClass="PatientDetailsViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="dir-Rq-VU7">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DaE-CW-fut" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="dan-oM-drH" customClass="PatientDetailsViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="NIU-qn-c2U">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="vCb-hG-1PQ">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" red="0.20784313730000001" green="0.45882352939999999" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PatientCell" id="kTZ-jm-Dz0">
-                                        <rect key="frame" x="0.0" y="46" width="320" height="46"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="1" width="300" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="Owf-Mc-1tg" id="Fc3-Ci-Xrf"/>
-                                    <outlet property="delegate" destination="Owf-Mc-1tg" id="foQ-Uo-kgu"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Patient" id="cr3-Ts-cJR"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.20784313730000001" green="0.45882352939999999" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <connections>
+                            <outlet property="dataSource" destination="dan-oM-drH" id="CME-q2-dDn"/>
+                            <outlet property="delegate" destination="dan-oM-drH" id="7Kl-4J-NDo"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="wd9-AH-iSK"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="ageLabel" destination="Srh-yv-47T" id="czH-Yh-gFb"/>
-                        <outlet property="bloodTypeLabel" destination="5dP-MQ-j2z" id="dwT-SW-RtW"/>
-                        <outlet property="nameLabel" destination="f4X-c3-W2J" id="1Lc-iR-jMJ"/>
-                        <outlet property="photoButton" destination="aa0-ej-eyp" id="faK-yL-XML"/>
-                        <outlet property="tableHeaderView" destination="igX-fW-GTI" id="zcd-aw-9Nd"/>
-                        <outlet property="tableView" destination="vCb-hG-1PQ" id="hJ9-ST-dmH"/>
+                        <outlet property="ageLabel" destination="Srh-yv-47T" id="Fhe-Lh-kLM"/>
+                        <outlet property="bloodTypeLabel" destination="5dP-MQ-j2z" id="z8X-5V-d0j"/>
+                        <outlet property="nameLabel" destination="f4X-c3-W2J" id="lUj-1q-e56"/>
+                        <outlet property="photoButton" destination="aa0-ej-eyp" id="l5p-t7-4e1"/>
+                        <outlet property="tableHeaderView" destination="igX-fW-GTI" id="4SG-PJ-Ztl"/>
                     </connections>
-                </viewController>
+                </tableViewController>
                 <view contentMode="scaleToFill" id="igX-fW-GTI">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="84"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="77"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="aa0-ej-eyp">
+                        <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="aa0-ej-eyp">
                             <rect key="frame" x="11" y="9" width="81" height="68"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -409,7 +390,7 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
             </objects>
-            <point key="canvasLocation" x="1656" y="-294"/>
+            <point key="canvasLocation" x="1903" y="-296"/>
         </scene>
         <!--View Controller - Patient Search-->
         <scene sceneID="vLx-sO-ZZB">
@@ -628,66 +609,6 @@
     <resources>
         <image name="loading.png" width="130" height="40"/>
     </resources>
-    <classes>
-        <class className="LoginViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="keyboardToolbar" candidateClass="UIToolbar"/>
-                <relationship kind="outlet" name="loadingView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="logOnButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="OfficeDetailsViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/OfficeDetailsViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="email" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="location" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="phoneNumber" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="website" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="OfficeTableViewCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/OfficeTableViewCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="officeImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="officeLocationLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="officeNameLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="OfficesViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/OfficesViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="loadingView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="PatientDetailsViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PatientDetailsViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="ageLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="bloodTypeLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="photoButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="tableHeaderView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="PatientsTableViewCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PatientsTableViewCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="firstNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="lastNameLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="PatientsViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PatientsViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="loadingView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
