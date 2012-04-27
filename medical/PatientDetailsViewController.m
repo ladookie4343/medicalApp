@@ -11,7 +11,10 @@
 
 @interface PatientDetailsViewController ()
 
-@property (nonatomic, strong) NSMutableArray *textFields;
+@property (nonatomic, strong) NSMutableArray *allergyTextFields;
+@property (nonatomic, strong) NSMutableArray *conditionsTextFields;
+@property (nonatomic, assign) int allergyCountBeforeEditing;
+@property (nonatomic, assign) int conditionCountBeforeEditing;
 
 - (UIImage *)getImageForPatient:(Patient *)patient;
 - (void)updatePhotoButton;
@@ -21,6 +24,9 @@
 - (NSString *)convertInchesToFeet:(NSString *)inches;
 - (NSString *)singleStringForSystolic:(NSString *)systolic diastolic:(NSString *)diastolic;
 - (UITextField *)textFieldWithPlaceholder:(NSString *)placeholder;
+- (void)resignKeyBoard;
+- (void)updateAllergies;
+- (void)updateConditions;
 @end
 
 @implementation PatientDetailsViewController
@@ -31,7 +37,10 @@
 @synthesize ageLabel = __ageLabel;
 @synthesize bloodTypeLabel = __bloodTypeLabel;
 @synthesize patient = __patient;
-@synthesize textFields = __textFields;
+@synthesize allergyTextFields = __allergyTextFields;
+@synthesize conditionsTextFields = __conditionsTextFields;
+@synthesize allergyCountBeforeEditing = __allergyCountBeforeEditing;
+@synthesize conditionCountBeforeEditing = __conditionCountBeforeEditing;
 
 #define STATS_SECTION 0
 #define DETAILS_SECTION 1
@@ -48,13 +57,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     self.tableView.tableHeaderView = self.tableHeaderView;
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    // set up tableHeaderView
     self.nameLabel.text = [self.patient.firstname stringByAppendingFormat:@" %@", self.patient.lastname];
     self.ageLabel.text = [self calculateAgeFromDOB:self.patient.dob];
     self.photoButton.backgroundColor = [UIColor clearColor];
     self.bloodTypeLabel.text = self.patient.bloodType;
-    self.textFields = [NSMutableArray new];
+    
+    self.allergyTextFields = [NSMutableArray new];
+    self.conditionsTextFields = [NSMutableArray new];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -63,6 +77,11 @@
     [self.photoButton setImage:[self getImageForPatient:self.patient] forState:UIControlStateNormal];
     [self updatePhotoButton];
     [self.tableView reloadData];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    
 }
 
 - (void)viewDidUnload
@@ -101,14 +120,14 @@
         case ALLERGIES_SECTION:
             rows = self.patient.allergies.count;
             if (self.editing) {
-             rows++;
-             }
+                rows++;
+            }
             break;
         case CONDITIONS_SECTION:
             rows = self.patient.medicalConditions.count;
             if (self.editing) {
-             rows++;
-             }
+                rows++;
+            }
             break;
         default:
             break;
@@ -121,6 +140,9 @@
     NSString *title = nil;
     
     switch (section) {
+        case STATS_SECTION:
+            title = @"Latest Measurements";
+            break;
         case ALLERGIES_SECTION:
             title = @"Allergies";
             break;
@@ -199,42 +221,57 @@
                 break;
         }
     } else if (indexPath.section == ALLERGIES_SECTION || indexPath.section == CONDITIONS_SECTION) {
-        static NSString *editableCellId = @"EditableCell";
-        cell = [self.tableView dequeueReusableCellWithIdentifier:editableCellId];
-        if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault 
-                                          reuseIdentifier:editableCellId];
-        }
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
        
-        NSMutableArray *items;
+        NSMutableArray *items, *textFields;
+        NSString *insertString, *placeHolder;
+        static NSString *cellId;
         int rowCount;
-        NSString *insertString;
-        NSString *placeHolder;
         if (indexPath.section == ALLERGIES_SECTION) {
             items = self.patient.allergies;
             rowCount = self.patient.allergies.count;
-            insertString = @"Add New Allergy";
+            insertString = @"Add new allergy...";
             placeHolder = @"Enter a new allergy.";
+            textFields = self.allergyTextFields;
+            cellId = @"AllergyCellId";
+            if (indexPath.row < rowCount && [PLACEHOLDER isEqualToString:[items objectAtIndex:indexPath.row]]) {
+                cellId = @"allergyTextField";
+            }
         } else {
             items = self.patient.medicalConditions;
             rowCount = self.patient.medicalConditions.count;
             insertString = @"Add new medical condition...";
             placeHolder = @"Enter a new medical condition.";
-        }
-        
-        if (indexPath.row == rowCount) {
-            cell.textLabel.text = insertString;
-        } else {
-            if ([PLACEHOLDER isEqualToString:[items objectAtIndex:indexPath.row]]) {
-                UITextField *textField = [self textFieldWithPlaceholder:placeHolder];
-                [self.textFields addObject:textField];
-                [cell.contentView addSubview:textField];
-            } else {
-                cell.textLabel.text = [self.patient.allergies objectAtIndex:indexPath.row];
+            textFields = self.conditionsTextFields;
+            cellId = @"conditionCellId";
+            if (indexPath.row < rowCount && [PLACEHOLDER isEqualToString:[items objectAtIndex:indexPath.row]]) {
+                cellId = @"conditionTextField";
             }
-            
         }
+        UITextField *textField;
+        cell = [self.tableView dequeueReusableCellWithIdentifier:cellId];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault 
+                                          reuseIdentifier:cellId];
+            if (indexPath.row == rowCount) {
+                cell.textLabel.text = insertString;
+            } else {
+                if ([PLACEHOLDER isEqualToString:[items objectAtIndex:indexPath.row]]) {
+                    textField = [self textFieldWithPlaceholder:placeHolder];
+                    [textFields addObject:textField];
+                    [cell.contentView addSubview:textField];
+                } else {
+                    cell.textLabel.text = [self.patient.allergies objectAtIndex:indexPath.row];
+                }
+            }
+        } else {
+            if ([cell.reuseIdentifier isEqualToString:@"allergyTextField"] ||
+                [cell.reuseIdentifier isEqualToString:@"conditionTextField"]) {
+                UITextField *textField = [cell.contentView.subviews objectAtIndex:0];
+                textField.text = nil;
+                [textFields addObject:textField];
+            }
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
     return cell;
@@ -248,7 +285,8 @@
     return NO;
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle 
+                                            forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         if (indexPath.section == ALLERGIES_SECTION) {
@@ -256,7 +294,8 @@
         } else if (indexPath.section == CONDITIONS_SECTION) {
             [self.patient.medicalConditions removeObjectAtIndex:indexPath.row];
         }
-        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
+                              withRowAnimation:UITableViewRowAnimationFade];
     }   
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         if (indexPath.section == ALLERGIES_SECTION) {
@@ -264,7 +303,8 @@
         } else if (indexPath.section == CONDITIONS_SECTION) {
             [self.patient.medicalConditions addObject:PLACEHOLDER];
         }
-        [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationTop];
+        [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
+                              withRowAnimation:UITableViewRowAnimationTop];
     }   
 }
 
@@ -280,6 +320,8 @@
                                                               inSection:CONDITIONS_SECTION];
         NSArray *paths = [NSArray arrayWithObjects:allergyIndexPath, conditionsIndexPath, nil];
         [self.tableView insertRowsAtIndexPaths:paths withRowAnimation:UITableViewRowAnimationTop];
+        self.allergyCountBeforeEditing = self.patient.allergies.count;
+        self.conditionCountBeforeEditing = self.patient.medicalConditions.count;
     } else {
         NSIndexPath *allergyIndexPath = [NSIndexPath indexPathForRow:self.patient.allergies.count 
                                                            inSection:ALLERGIES_SECTION];
@@ -287,17 +329,31 @@
                                                               inSection:CONDITIONS_SECTION];
         NSArray *paths = [NSArray arrayWithObjects:allergyIndexPath, conditionsIndexPath, nil];
         [self.tableView deleteRowsAtIndexPaths:paths withRowAnimation:UITableViewRowAnimationFade];
-        for (UITextField *textField in self.textFields) {
-            [textField resignFirstResponder];
-        }
+        [self resignKeyBoard];
+        [self updateAllergies];
+        [self updateConditions];
+        [self.tableView reloadData];
     }
 }
 
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)resignKeyBoard
+{
+    for (UITextField *textField in self.allergyTextFields) {
+        [textField resignFirstResponder];
+    }
+    for (UITextField *textField in self.conditionsTextFields) {
+        [textField resignFirstResponder];
+    }
+
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView 
+           editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == ALLERGIES_SECTION && indexPath.row == self.patient.allergies.count) {
         return UITableViewCellEditingStyleInsert;
-    } else if (indexPath.section == CONDITIONS_SECTION && indexPath.row == self.patient.medicalConditions.count) {
+    } else if (indexPath.section == CONDITIONS_SECTION && 
+               indexPath.row == self.patient.medicalConditions.count) {
         return UITableViewCellEditingStyleInsert;
     } else {
         return UITableViewCellEditingStyleDelete;
@@ -341,14 +397,15 @@
 - (void)updatePhotoButton
 {
     self.photoButton.enabled = self.editing;
-    
-    if (self.patient.patientImage == @"") {
-        [self.photoButton setImage:[UIImage imageNamed:@"noImage.png"] forState:UIControlStateNormal];
+        
+    if ([self.patient.patientImage isEqualToString:@""]) {
+        [self.photoButton setImage:[UIImage imageNamed:@"noImage.png"] 
+                          forState:UIControlStateNormal];
     }
     
     if (self.editing) {
-        // set photo button image to be editingImage.png
-        [self.photoButton setImage:[UIImage imageNamed:@"editImage.png"] forState:UIControlStateNormal];
+        [self.photoButton setImage:[UIImage imageNamed:@"editImage.png"] 
+                          forState:UIControlStateNormal];
     }
 }
 
@@ -406,4 +463,59 @@
     return [NSString stringWithFormat:@"%@ / %@", systolic, diastolic];
 }
 
+- (void)updateAllergies
+{
+    NSLog(@"%d", self.allergyTextFields.count);
+    int numDeleted = 0;
+    for (int i = 0; i < self.allergyTextFields.count; i++) {
+        UITextField *textField = [self.allergyTextFields objectAtIndex:i];
+        if (textField.text == nil) {
+            [self.patient.allergies removeObjectAtIndex:self.allergyCountBeforeEditing + i - numDeleted];
+            numDeleted++;
+        } else {
+            [self.patient.allergies replaceObjectAtIndex:self.allergyCountBeforeEditing + i 
+                                              withObject:textField.text];
+        }
+    }
+    [self.allergyTextFields removeAllObjects];
+}
+
+- (void)updateConditions
+{
+    int numDeleted = 0;
+    for (int i = 0; i < self.conditionsTextFields.count; i++) {
+        UITextField *textField = [self.conditionsTextFields objectAtIndex:i];
+        if (textField.text == nil) {
+            [self.patient.medicalConditions removeObjectAtIndex:self.conditionCountBeforeEditing + i - numDeleted];
+            numDeleted++;
+        } else {
+            [self.patient.medicalConditions replaceObjectAtIndex:self.conditionCountBeforeEditing + i 
+                                                      withObject:textField.text];
+        }
+    }
+    [self.allergyTextFields removeAllObjects];
+}
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
