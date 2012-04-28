@@ -28,6 +28,7 @@
 - (void)resignKeyBoard;
 - (void)updateAllergies;
 - (void)updateConditions;
+- (NSString *)trimmedString:(NSString *)string;
 @end
 
 @implementation PatientDetailsViewController
@@ -84,8 +85,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [self.patient updateAllergies];
-    [self.patient updateMedicalConditions];
 }
 
 - (void)viewDidUnload
@@ -313,10 +312,9 @@
         [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
                               withRowAnimation:UITableViewRowAnimationLeft];
     }
-    for (NSString *allergy in self.patient.allergies) {
-        NSLog(@"%@", allergy);
-    }
 }
+
+#define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
 {
@@ -339,11 +337,17 @@
                                                               inSection:CONDITIONS_SECTION];
         NSArray *paths = [NSArray arrayWithObjects:allergyIndexPath, conditionsIndexPath, nil];
         [self.tableView deleteRowsAtIndexPaths:paths withRowAnimation:UITableViewRowAnimationFade];
+        
         [self resignKeyBoard];
         [self updateAllergies];
         [self updateConditions];
         [self.tableView reloadData];
         self.begginingEditMode = YES;
+        
+        dispatch_async(kBgQueue, ^{
+            [self.patient updateAllergies];
+            [self.patient updateMedicalConditions];
+        });
     }
 }
 
@@ -486,7 +490,7 @@
     int numDeleted = 0;
     for (int i = 0; i < self.allergyTextFields.count; i++) {
         UITextField *textField = [self.allergyTextFields objectAtIndex:i];
-        if (textField.text == nil) {
+        if (textField.text == nil || [@"" isEqualToString:[self trimmedString:textField.text]]) {
             [self.patient.allergies removeObjectAtIndex:self.allergyCountBeforeEditing + i - numDeleted];
             numDeleted++;
         } else {
@@ -497,12 +501,17 @@
     [self.allergyTextFields removeAllObjects];
 }
 
+- (NSString *)trimmedString:(NSString *)string
+{
+    return [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+}
+
 - (void)updateConditions
 {
     int numDeleted = 0;
     for (int i = 0; i < self.conditionsTextFields.count; i++) {
         UITextField *textField = [self.conditionsTextFields objectAtIndex:i];
-        if (textField.text == nil) {
+        if (textField.text == nil || [@"" isEqualToString:[self trimmedString:textField.text]]) {
             [self.patient.medicalConditions removeObjectAtIndex:self.conditionCountBeforeEditing + i - numDeleted];
             numDeleted++;
         } else {
