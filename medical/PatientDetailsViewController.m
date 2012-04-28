@@ -15,6 +15,7 @@
 @property (nonatomic, strong) NSMutableArray *conditionsTextFields;
 @property (nonatomic, assign) int allergyCountBeforeEditing;
 @property (nonatomic, assign) int conditionCountBeforeEditing;
+@property (nonatomic, assign) BOOL begginingEditMode;
 
 - (UIImage *)getImageForPatient:(Patient *)patient;
 - (void)updatePhotoButton;
@@ -41,6 +42,7 @@
 @synthesize conditionsTextFields = __conditionsTextFields;
 @synthesize allergyCountBeforeEditing = __allergyCountBeforeEditing;
 @synthesize conditionCountBeforeEditing = __conditionCountBeforeEditing;
+@synthesize begginingEditMode = __begginingEditMode;
 
 #define STATS_SECTION 0
 #define DETAILS_SECTION 1
@@ -69,6 +71,7 @@
     
     self.allergyTextFields = [NSMutableArray new];
     self.conditionsTextFields = [NSMutableArray new];
+    self.begginingEditMode = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -81,7 +84,8 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    
+    [self.patient updateAllergies];
+    [self.patient updateMedicalConditions];
 }
 
 - (void)viewDidUnload
@@ -260,15 +264,16 @@
                     [textFields addObject:textField];
                     [cell.contentView addSubview:textField];
                 } else {
-                    cell.textLabel.text = [self.patient.allergies objectAtIndex:indexPath.row];
+                    cell.textLabel.text = [items objectAtIndex:indexPath.row];
                 }
             }
         } else {
             if ([cell.reuseIdentifier isEqualToString:@"allergyTextField"] ||
                 [cell.reuseIdentifier isEqualToString:@"conditionTextField"]) {
                 UITextField *textField = [cell.contentView.subviews objectAtIndex:0];
-                textField.text = nil;
-                [textFields addObject:textField];
+                if (self.begginingEditMode) {
+                    textField.text = nil;
+                }
             }
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -291,8 +296,10 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         if (indexPath.section == ALLERGIES_SECTION) {
             [self.patient.allergies removeObjectAtIndex:indexPath.row];
+            self.allergyCountBeforeEditing--;
         } else if (indexPath.section == CONDITIONS_SECTION) {
             [self.patient.medicalConditions removeObjectAtIndex:indexPath.row];
+            self.conditionCountBeforeEditing--;
         }
         [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
                               withRowAnimation:UITableViewRowAnimationFade];
@@ -304,8 +311,11 @@
             [self.patient.medicalConditions addObject:PLACEHOLDER];
         }
         [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
-                              withRowAnimation:UITableViewRowAnimationTop];
-    }   
+                              withRowAnimation:UITableViewRowAnimationLeft];
+    }
+    for (NSString *allergy in self.patient.allergies) {
+        NSLog(@"%@", allergy);
+    }
 }
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
@@ -319,7 +329,7 @@
         NSIndexPath *conditionsIndexPath = [NSIndexPath indexPathForRow:self.patient.medicalConditions.count 
                                                               inSection:CONDITIONS_SECTION];
         NSArray *paths = [NSArray arrayWithObjects:allergyIndexPath, conditionsIndexPath, nil];
-        [self.tableView insertRowsAtIndexPaths:paths withRowAnimation:UITableViewRowAnimationTop];
+        [self.tableView insertRowsAtIndexPaths:paths withRowAnimation:UITableViewRowAnimationLeft];
         self.allergyCountBeforeEditing = self.patient.allergies.count;
         self.conditionCountBeforeEditing = self.patient.medicalConditions.count;
     } else {
@@ -333,6 +343,7 @@
         [self updateAllergies];
         [self updateConditions];
         [self.tableView reloadData];
+        self.begginingEditMode = YES;
     }
 }
 
@@ -368,7 +379,7 @@
 
 - (UITextField *)textFieldWithPlaceholder:(NSString *)placeholder
 {    
-    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(20, 12, 240, 31)];
+    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10, 12, 240, 31)];
     textField.delegate = self;
     textField.returnKeyType = UIReturnKeyDone;
     textField.placeholder = placeholder;
@@ -379,6 +390,12 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
+    return YES;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    self.begginingEditMode = NO;
     return YES;
 }
 
@@ -493,7 +510,7 @@
                                                       withObject:textField.text];
         }
     }
-    [self.allergyTextFields removeAllObjects];
+    [self.conditionsTextFields removeAllObjects];
 }
 @end
 

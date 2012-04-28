@@ -15,18 +15,21 @@
 #import "Utilities.h"
 
 @interface OfficesViewController()
+@property (nonatomic, strong) Office *selectedOffice;
+@property (nonatomic, strong) NSArray *patientsForOffice;
 
 - (UIImage *)getImageForOffice:(Office *)office;
-@property (nonatomic, strong) Office *selectedOffice;
-
+- (void)finishedLoadingPatients;
 @end
 
 @implementation OfficesViewController
 
-@synthesize offices = _offices;
-@synthesize tableView = _tableView;
-@synthesize loadingView = _loadingView;
-@synthesize selectedOffice = _selectedOffice;
+@synthesize offices = __offices;
+@synthesize tableView = __tableView;
+@synthesize loadingView = __loadingView;
+@synthesize selectedOffice = __selectedOffice;
+@synthesize patientsForOffice = __patientsForOffice;
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -119,18 +122,31 @@
                                                                  
 #pragma mark - Table view delegate
 
+#define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     self.selectedOffice = [self.offices objectAtIndex:indexPath.row];
-    [self performSegueWithIdentifier:@"SegueToPatientsView" sender:self];
     [Utilities showLoadingView:self.loadingView InView:self.view];
+    
+    dispatch_async(kBgQueue, ^ {
+        self.patientsForOffice = [Patient patientsForPatientsTable:self.selectedOffice.officeID];
+        [self performSelectorOnMainThread:@selector(finishedLoadingPatients) 
+                               withObject:nil 
+                            waitUntilDone:YES];   
+    });
+}
+         
+- (void)finishedLoadingPatients
+{
+    [self performSegueWithIdentifier:@"SegueToPatientsView" sender:self];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     ((PatientsViewController *)segue.destinationViewController).office = self.selectedOffice;
-    ((PatientsViewController *)segue.destinationViewController).patients = [Patient patientsForPatientsTable:self.selectedOffice.officeID];
+    ((PatientsViewController *)segue.destinationViewController).patients = self.patientsForOffice;   
     [self.loadingView removeFromSuperview];
 }
 

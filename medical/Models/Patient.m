@@ -56,25 +56,38 @@
 
 // deletes all rows in allergy table for this patient 
 // and adds the rows currently in allergies array
+
+#define kDeletaAllergiesURL [NSURL URLWithString:@"http://www.ladookie4343.com/MedicalApp/deleteAllergies.php"]
+#define kAddAllergyURL [NSURL URLWithString:@"http://www.ladookie4343.com/MedicalApp/addAllergy.php"]
 - (void)updateAllergies
 {
-    [Utilities dataFromPHPScript:[NSURL URLWithString:@"http://www.ladookie4343.com/MedicalApp/deleteAllergies.php"] post:YES request:[NSString stringWithFormat:@"patientID=%d", self.patientID]];
+    [Utilities dataFromPHPScript:kDeletaAllergiesURL 
+                            post:YES 
+                         request:[NSString stringWithFormat:@"patientID=%d", self.patientID]];
     
     // for each element in allergies call addallergy.php
     for (int i = 0; i < self.allergies.count; i++) {
-        [Utilities dataFromPHPScript:[NSURL URLWithString:@"http://www.ladookie4343.com/MedicalApp/addAllergy.php"] post:YES request:[NSString stringWithFormat:@"patientID=%d&allergy=%@", self.patientID, (NSString *)[self.allergies objectAtIndex:i]]];
+        [Utilities dataFromPHPScript:kAddAllergyURL 
+                                post:YES 
+                             request:[NSString stringWithFormat:@"patientID=%d&allergy=%@", self.patientID, (NSString *)[self.allergies objectAtIndex:i]]];
     }
 }
 
 // deletes all rows in medicalConditions table for this patient 
 // and adds the rows currently in allergies array
+#define kDeletaMedicalConditionsURL [NSURL URLWithString:@"http://www.ladookie4343.com/MedicalApp/deleteMedicalConditions.php"]
+#define kAddMedicalConditionURL [NSURL URLWithString:@"http://www.ladookie4343.com/MedicalApp/addMedicalCondition.php"]
 - (void)updateMedicalConditions
 {
-    [Utilities dataFromPHPScript:[NSURL URLWithString:@"http://www.ladookie4343.com/MedicalApp/deleteMedicalConditions.php"] post:YES request:[NSString stringWithFormat:@"patientID=%d", self.patientID]];
+    [Utilities dataFromPHPScript:kDeletaMedicalConditionsURL 
+                            post:YES 
+                         request:[NSString stringWithFormat:@"patientID=%d", self.patientID]];
     
     // for each element in allergies call addallergy.php
-    for (int i = 0; i < self.allergies.count; i++) {
-        [Utilities dataFromPHPScript:[NSURL URLWithString:@"http://www.ladookie4343.com/MedicalApp/addMedicalCondition.php"] post:YES request:[NSString stringWithFormat:@"patientID=%d&medicalCondition=%@", self.patientID, (NSString *)[self.medicalConditions objectAtIndex:i]]];
+    for (int i = 0; i < self.medicalConditions.count; i++) {
+        [Utilities dataFromPHPScript:kAddMedicalConditionURL 
+                                post:YES 
+                             request:[NSString stringWithFormat:@"patientID=%d&medicalCondition=%@", self.patientID, (NSString *)[self.medicalConditions objectAtIndex:i]]];
     }
 }
 

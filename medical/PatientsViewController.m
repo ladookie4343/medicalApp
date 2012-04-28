@@ -21,6 +21,7 @@
 - (void)addPatient;
 - (char)lastNameFirstCharForPatient:(Patient *)patient;
 - (void)handleSearchForTerm:(NSString *)term;
+- (void)finishedLoadingPatient;
 
 @property (strong, nonatomic) NSMutableArray *patientsByLastName;
 @property (strong, nonatomic) Patient *selectedPatient;
@@ -193,6 +194,9 @@
     return cell;
 }
 
+#define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
@@ -203,8 +207,21 @@
         NSArray *patientsWithSimilarLastName = [self.patientsByLastName objectAtIndex:indexPath.section];
         self.selectedPatient = [patientsWithSimilarLastName objectAtIndex:indexPath.row];
     }
-    [self performSegueWithIdentifier:@"PatientDetailSegue" sender:self];
+    
     [Utilities showLoadingView:self.loadingView InView:self.view];
+    
+    dispatch_async(kBgQueue, ^{
+        [self.selectedPatient GetDetailsForPatientDetailsVC];
+        [self.selectedPatient GetLatestStats];
+        [self performSelectorOnMainThread:@selector(finishedLoadingPatient) 
+                               withObject:nil 
+                            waitUntilDone:YES];
+    });
+}
+
+- (void)finishedLoadingPatient
+{
+    [self performSegueWithIdentifier:@"PatientDetailSegue" sender:self];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -213,8 +230,6 @@
         ((OfficeDetailsViewController *)segue.destinationViewController).office = self.office;
     } else if ([segue.identifier isEqualToString: @"PatientDetailSegue"]) {
         PatientDetailsViewController *patientDetailVC = segue.destinationViewController;
-        [self.selectedPatient GetDetailsForPatientDetailsVC];
-        [self.selectedPatient GetLatestStats];
         patientDetailVC.patient = self.selectedPatient;
     }
     [self.loadingView removeFromSuperview];
