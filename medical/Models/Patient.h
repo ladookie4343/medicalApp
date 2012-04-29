@@ -46,8 +46,10 @@
 
 + (NSArray *)patientsForPatientsTable:(int)officeID;
 
-+ (NSArray *)patientsForSearchByLastName:(NSString *)lastname;
++ (NSMutableArray *)patientsForSearchByLastName:(NSString *)lastname;
 
-+ (NSArray *)patientsForSearchById:(int)Id;
++ (NSMutableArray *)patientsForSearchById:(int)Id;
+
++ (NSMutableArray *)testPatients;
 
 @end

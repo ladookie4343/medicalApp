@@ -10,7 +10,7 @@
 #import "Utilities.h"
 
 @interface Patient ()
-+ (NSArray *)patientsSearchResultWithQueryString:(NSString *)queryString URL:(NSURL *)url;
++ (NSMutableArray *)patientsSearchResultWithQueryString:(NSString *)queryString URL:(NSURL *)url;
 @end
 
 @implementation Patient
@@ -32,6 +32,26 @@
 @synthesize latestBPDia = _latestBPDia;
 
 #define kPatientsRetrievalURL [NSURL URLWithString: @"http://www.ladookie4343.com/MedicalApp/retrievePatients.php"]
+
++ (NSMutableArray *)testPatients
+{
+    NSMutableArray *patients = [NSMutableArray new];
+    
+    Patient *p;
+    p = [[Patient alloc] init];
+    p.patientID = 4;
+    p.firstname = @"Matt";
+    p.lastname = @"LaDuca";
+    [patients addObject:p];
+    
+    p = [[Patient alloc] init];
+    p.patientID = 5;
+    p.firstname = @"Tao";
+    p.lastname = @"La";
+    [patients addObject:p];
+    
+    return patients;
+}
 
 + (NSArray *)patientsForPatientsTable:(int)officeID
 {
@@ -163,21 +183,21 @@
 }
 
 #define kPatientIDSearchURL [NSURL URLWithString:@"http://www.ladookie4343.com/MedicalApp/searchPatientsById.php"]
-#define kPatientLastNameSearchURL[NSURL URLWithString:@"http://www.ladookie4343.com/MedicalApp/searchPatientsByLastName.php"]
+#define kPatientLastNameSearchURL [NSURL URLWithString:@"http://www.ladookie4343.com/MedicalApp/searchPatientsByLastName.php"]
 
-+ (NSArray *)patientsForSearchByLastName:(NSString *)lastname
++ (NSMutableArray *)patientsForSearchByLastName:(NSString *)lastname
 {
     NSString *queryString = [NSString stringWithFormat:@"lastname=%@", lastname];
     return [self patientsSearchResultWithQueryString:queryString URL:kPatientLastNameSearchURL];
 }
 
-+ (NSArray *)patientsForSearchById:(int)Id
++ (NSMutableArray *)patientsForSearchById:(int)Id
 {
     NSString *queryString = [NSString stringWithFormat:@"patientID=%d", Id];
     return [self patientsSearchResultWithQueryString:queryString URL:kPatientLastNameSearchURL];
 }
 
-+ (NSArray *)patientsSearchResultWithQueryString:(NSString *)queryString URL:(NSURL *)url
++ (NSMutableArray *)patientsSearchResultWithQueryString:(NSString *)queryString URL:(NSURL *)url
 {
     NSData *responseData = [Utilities dataFromPHPScript:kPatientIDSearchURL post:YES request:queryString];
     
@@ -195,7 +215,6 @@
         [patients addObject:patient];
     }
     return patients;    
-
 }
 
 @end

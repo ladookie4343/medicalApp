@@ -10,9 +10,6 @@
 
 @interface PatientSearchViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchDisplayDelegate>
 
-// data source members
-@property (strong, nonatomic) NSArray *patients;
-
 // search members
 @property (strong, nonatomic) NSMutableArray *patientSearchResults;
 @property (strong, nonatomic) NSString *savedSearchTerm;

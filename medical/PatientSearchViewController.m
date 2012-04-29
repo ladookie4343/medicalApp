@@ -16,11 +16,13 @@
 
 @property (nonatomic, strong) Patient *selectedPatient;
 
+- (void)handleSearchForTerm:(NSString *)term scope:(NSString *)scope;
+- (void)finishedSearchingPatients;
+
 @end
 
 @implementation PatientSearchViewController
 @synthesize selectedPatient = __selectedPatient;
-@synthesize patients = __patients;
 @synthesize patientSearchResults = __patientSearchResults;
 @synthesize savedSearchTerm = __savedSearchTerm;
 @synthesize loadingView = __loadingView;
@@ -40,16 +42,6 @@
     [self.loadingView removeFromSuperview];
 }
 
-
-- (void)infoPressed
-{
-    [self performSegueWithIdentifier:@"officeDetailsSegue" sender:self];
-}
-
-- (void)addPatient
-{
-}
-
 - (void)viewDidUnload
 {
     self.savedSearchTerm = self.searchDisplayController.searchBar.text;
@@ -65,11 +57,10 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (IBAction)doneButtonPressed:(UIBarButtonItem *)sender 
+- (IBAction)doneButtonPressed:(id)sender 
 {
     [self dismissModalViewControllerAnimated:YES];
 }
-
 
 
 #pragma mark - Table View Methods
@@ -90,17 +81,24 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    PatientsTableViewCell *cell = (PatientsTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"PatientCell"];
+    static NSString *CellIdentifier = @"PatientCell";
     
+    PatientsTableViewCell *cell = 
+        (PatientsTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[PatientsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault 
+                                            reuseIdentifier:CellIdentifier];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
     
     Patient *patient = [self.patientSearchResults objectAtIndex:indexPath.row];
-
+    cell.textLabel.text = [patient.firstname stringByAppendingFormat:@" %@", patient.lastname];
     
-    cell.firstNameLabel.text = patient.firstname;
-    [cell.firstNameLabel sizeToFit];
-    
-    cell.lastNameLabel.frame = CGRectMake(20 + cell.firstNameLabel.frame.size.width + 6, 11, 120, 22);
-    cell.lastNameLabel.text = patient.lastname;
+//    cell.firstNameLabel.text = patient.firstname;
+//    [cell.firstNameLabel sizeToFit];
+//    
+//    cell.lastNameLabel.frame = CGRectMake(20 + cell.firstNameLabel.frame.size.width + 6, 11, 120, 22);
+//    cell.lastNameLabel.text = patient.lastname;
     
     return cell;
 }
@@ -128,12 +126,13 @@
 
 - (void)finishedLoadingPatient
 {
-    [self performSegueWithIdentifier:@"PatientDetailSegue" sender:self];
+    [self performSegueWithIdentifier:@"PatientDetailsFromSearch" sender:self];
+    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString: @"PatientDetailSegue"]) {
+    if ([segue.identifier isEqualToString: @"PatientDetailsFromSearch"]) {
         PatientDetailsViewController *patientDetailVC = segue.destinationViewController;
         patientDetailVC.patient = self.selectedPatient;
     }
@@ -143,7 +142,7 @@
 #pragma mark - Search Methods
 
 
-- (void)handleSearchForTerm:(NSString *)term
+- (void)handleSearchForTerm:(NSString *)term scope:(NSString *)scope
 {
     self.savedSearchTerm = term;
     
@@ -152,21 +151,32 @@
     }
     
     [self.patientSearchResults removeAllObjects];
-    if (self.savedSearchTerm.length != 0) {
-        for (Patient *p in self.patients) {
-            NSString *fullName = [NSString stringWithFormat:@"%@ %@", p.firstname, p.lastname];
-            if ([fullName rangeOfString:term options:NSCaseInsensitiveSearch].location != NSNotFound) {
-                [self.patientSearchResults addObject:p];
-            }
-        }
-    }
+    
+    if ([scope isEqualToString:@"Patient ID"]) {
+        self.patientSearchResults = [Patient patientsForSearchById:[term intValue]];
+    } else if ([scope isEqualToString:@"Last Name"]) {
+        self.patientSearchResults = [Patient patientsForSearchByLastName:term];
+    }    
+}
+
+- (void)finishedSearchingPatients
+{
+    [self.searchDisplayController.searchResultsTableView reloadData];
 }
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
 {
-    [self handleSearchForTerm:searchString];
-    return YES;
+    dispatch_async(kBgQueue, ^{
+        [self handleSearchForTerm:searchString scope:
+            [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:
+             [self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
+        [self performSelectorOnMainThread:@selector(finishedSearchingPatients) withObject:nil waitUntilDone:YES];
+    });
+    
+    return NO;
 }
+
+
 @end
 
 
