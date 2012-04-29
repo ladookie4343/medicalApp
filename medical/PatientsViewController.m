@@ -65,6 +65,7 @@
 
 - (void)addPatient
 {
+    [self performSegueWithIdentifier:@"AddPatientSearchTransition" sender:self];
 }
 
 - (void)viewDidUnload
@@ -231,6 +232,8 @@
     } else if ([segue.identifier isEqualToString: @"PatientDetailSegue"]) {
         PatientDetailsViewController *patientDetailVC = segue.destinationViewController;
         patientDetailVC.patient = self.selectedPatient;
+    } else if ([segue.identifier isEqualToString:@"AddPatientSearchTransition"]) {
+        // nothing to do.
     }
     [self.loadingView removeFromSuperview];
 }

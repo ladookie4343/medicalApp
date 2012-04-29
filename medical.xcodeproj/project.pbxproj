@@ -13,6 +13,7 @@
 		C90D2736151F96CB0099926F /* middleRowSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D2732151F96CB0099926F /* middleRowSelected.png */; };
 		C90D2737151F96CB0099926F /* oneRowOnly.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D2733151F96CB0099926F /* oneRowOnly.png */; };
 		C90D2738151F96CB0099926F /* topRowSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D2734151F96CB0099926F /* topRowSelected.png */; };
+		C92A91C1154C5E9300A4CEB5 /* PatientSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C92A91C0154C5E9300A4CEB5 /* PatientSearchViewController.m */; };
 		C93E1E25150D92610067622D /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = C93E1E24150D92610067622D /* Utilities.m */; };
 		C96605CD14FC7D8400040818 /* green_button.png in Resources */ = {isa = PBXBuildFile; fileRef = C96605CC14FC7D8400040818 /* green_button.png */; };
 		C96CDFCE15291BF8006F24F7 /* OfficeDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C96CDFCD15291BF8006F24F7 /* OfficeDetailsViewController.m */; };
@@ -46,6 +47,8 @@
 		C90D2732151F96CB0099926F /* middleRowSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = middleRowSelected.png; sourceTree = "<group>"; };
 		C90D2733151F96CB0099926F /* oneRowOnly.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = oneRowOnly.png; sourceTree = "<group>"; };
 		C90D2734151F96CB0099926F /* topRowSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topRowSelected.png; sourceTree = "<group>"; };
+		C92A91BF154C5E9300A4CEB5 /* PatientSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatientSearchViewController.h; sourceTree = "<group>"; };
+		C92A91C0154C5E9300A4CEB5 /* PatientSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PatientSearchViewController.m; sourceTree = "<group>"; };
 		C93E1E23150D92610067622D /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		C93E1E24150D92610067622D /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
 		C96605CC14FC7D8400040818 /* green_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = green_button.png; sourceTree = "<group>"; };
@@ -102,6 +105,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C92A91C3154C60D800A4CEB5 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				C9E5355A150E954D004EF069 /* OfficeTableViewCell.h */,
+				C9E5355B150E954D004EF069 /* OfficeTableViewCell.m */,
+				C9A15D181537D37A003CB66A /* PatientsTableViewCell.h */,
+				C9A15D191537D37A003CB66A /* PatientsTableViewCell.m */,
+			);
+			name = TableViewCells;
+			sourceTree = "<group>";
+		};
 		C93361A314FAB9DD003F1349 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -176,6 +190,7 @@
 		C9BA09F214E72175001F5F20 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				C92A91C3154C60D800A4CEB5 /* TableViewCells */,
 				C9F38A561502BA5B00B0B808 /* Models */,
 				C9BA09FB14E72175001F5F20 /* AppDelegate.h */,
 				C9BA09FC14E72175001F5F20 /* AppDelegate.m */,
@@ -183,16 +198,14 @@
 				C9BA0A0214E72175001F5F20 /* LoginViewController.m */,
 				C99B068E150BFD9C006490A6 /* OfficesViewController.h */,
 				C99B068F150BFD9C006490A6 /* OfficesViewController.m */,
-				C9E5355A150E954D004EF069 /* OfficeTableViewCell.h */,
-				C9E5355B150E954D004EF069 /* OfficeTableViewCell.m */,
 				C9F4C842152759C600E05A66 /* PatientsViewController.h */,
 				C9F4C843152759C600E05A66 /* PatientsViewController.m */,
-				C9A15D181537D37A003CB66A /* PatientsTableViewCell.h */,
-				C9A15D191537D37A003CB66A /* PatientsTableViewCell.m */,
 				C9A5ABE41548DBBB00E439FF /* PatientDetailsViewController.h */,
 				C9A5ABE51548DBBB00E439FF /* PatientDetailsViewController.m */,
 				C96CDFCC15291BF8006F24F7 /* OfficeDetailsViewController.h */,
 				C96CDFCD15291BF8006F24F7 /* OfficeDetailsViewController.m */,
+				C92A91BF154C5E9300A4CEB5 /* PatientSearchViewController.h */,
+				C92A91C0154C5E9300A4CEB5 /* PatientSearchViewController.m */,
 				C9F4C846152759EC00E05A66 /* Utilities */,
 			);
 			name = Classes;
@@ -317,6 +330,7 @@
 				C96CDFCE15291BF8006F24F7 /* OfficeDetailsViewController.m in Sources */,
 				C9A15D1A1537D37A003CB66A /* PatientsTableViewCell.m in Sources */,
 				C9A5ABE61548DBBB00E439FF /* PatientDetailsViewController.m in Sources */,
+				C92A91C1154C5E9300A4CEB5 /* PatientSearchViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

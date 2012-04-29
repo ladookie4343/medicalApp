@@ -9,6 +9,10 @@
 #import "Patient.h"
 #import "Utilities.h"
 
+@interface Patient ()
++ (NSArray *)patientsSearchResultWithQueryString:(NSString *)queryString URL:(NSURL *)url;
+@end
+
 @implementation Patient
 
 @synthesize patientID = _patientID;
@@ -156,6 +160,42 @@
     self.latestWeight = [json objectForKey:@"weight"];
     self.latestBPSys = [json objectForKey:@"bp_systolic"];
     self.latestBPDia = [json objectForKey:@"bp_diastolic"];
+}
+
+#define kPatientIDSearchURL [NSURL URLWithString:@"http://www.ladookie4343.com/MedicalApp/searchPatientsById.php"]
+#define kPatientLastNameSearchURL[NSURL URLWithString:@"http://www.ladookie4343.com/MedicalApp/searchPatientsByLastName.php"]
+
++ (NSArray *)patientsForSearchByLastName:(NSString *)lastname
+{
+    NSString *queryString = [NSString stringWithFormat:@"lastname=%@", lastname];
+    return [self patientsSearchResultWithQueryString:queryString URL:kPatientLastNameSearchURL];
+}
+
++ (NSArray *)patientsForSearchById:(int)Id
+{
+    NSString *queryString = [NSString stringWithFormat:@"patientID=%d", Id];
+    return [self patientsSearchResultWithQueryString:queryString URL:kPatientLastNameSearchURL];
+}
+
++ (NSArray *)patientsSearchResultWithQueryString:(NSString *)queryString URL:(NSURL *)url
+{
+    NSData *responseData = [Utilities dataFromPHPScript:kPatientIDSearchURL post:YES request:queryString];
+    
+    NSMutableArray *patients = [[NSMutableArray alloc] init];
+    
+    NSError *error;
+    NSArray *json = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&error];
+    
+    for (int i = 0; i < json.count; i++) {
+        NSDictionary *jsonPatient = [json objectAtIndex:i];
+        Patient *patient = [Patient new];
+        patient.patientID = [[jsonPatient objectForKey:@"patientID"] intValue];
+        patient.firstname = [jsonPatient objectForKey:@"firstname"];
+        patient.lastname = [jsonPatient objectForKey:@"lastname"];
+        [patients addObject:patient];
+    }
+    return patients;    
+
 }
 
 @end
