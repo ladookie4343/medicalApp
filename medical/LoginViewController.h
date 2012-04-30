@@ -6,14 +6,6 @@
 //  Copyright (c) 2012  PPA. All rights reserved.
 //
 
-
-// TODO:
-//
-//  - Add medical logo above in navbar
-//
-//  - Add button to allow user to save the username
-
-
 #import <UIKit/UIKit.h>
 
 

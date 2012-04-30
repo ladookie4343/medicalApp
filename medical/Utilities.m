@@ -7,6 +7,7 @@
 //
 
 #import "Utilities.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface Utilities()
 
@@ -47,6 +48,19 @@ NSData *responseData;
     [view addSubview:loadingView];
     loadingView.backgroundColor = [UIColor clearColor];
     loadingView.center = view.center;
+}
+
++ (NSString *)trimmedString:(NSString *)string
+{
+    return [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+}
+
++ (void)RoundedBorderForImageView:(UIImageView *)imageView
+{
+    imageView.layer.cornerRadius = 10.0;
+    imageView.layer.borderColor = [UIColor blackColor].CGColor;
+    imageView.layer.borderWidth = 0.75;
+    imageView.clipsToBounds = YES;
 }
 
 

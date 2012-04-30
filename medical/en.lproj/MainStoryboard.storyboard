@@ -146,7 +146,7 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <connections>
-                                            <outlet property="officeImageView" destination="S6Q-uf-j4J" id="bdV-1x-KbC"/>
+                                            <outlet property="officeImageView" destination="S6Q-uf-j4J" id="kLf-LW-VjJ"/>
                                             <outlet property="officeLocationLabel" destination="nXf-YE-tHh" id="fsN-e0-C5J"/>
                                             <outlet property="officeNameLabel" destination="ONe-tT-H0l" id="Deg-RA-EEO"/>
                                         </connections>
@@ -318,7 +318,7 @@
                 <tableViewController id="dan-oM-drH" customClass="PatientDetailsViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="NIU-qn-c2U">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.20784313730000001" green="0.45882352939999999" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
                         <connections>
                             <outlet property="dataSource" destination="dan-oM-drH" id="CME-q2-dDn"/>
@@ -326,11 +326,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Patient" id="wd9-AH-iSK"/>
-                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="ageLabel" destination="Srh-yv-47T" id="Fhe-Lh-kLM"/>
                         <outlet property="bloodTypeLabel" destination="5dP-MQ-j2z" id="z8X-5V-d0j"/>
                         <outlet property="nameLabel" destination="f4X-c3-W2J" id="lUj-1q-e56"/>
+                        <outlet property="patientImage" destination="JFj-py-vt2" id="yva-xi-7ko"/>
                         <outlet property="photoButton" destination="aa0-ej-eyp" id="l5p-t7-4e1"/>
                         <outlet property="tableHeaderView" destination="igX-fW-GTI" id="4SG-PJ-Ztl"/>
                     </connections>
@@ -351,6 +351,10 @@
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                         </button>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="JFj-py-vt2">
+                            <rect key="frame" x="11" y="9" width="81" height="68"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Matt LaDuca" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="f4X-c3-W2J">
                             <rect key="frame" x="107" y="14" width="193" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -696,6 +700,7 @@
                 <relationship kind="outlet" name="ageLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="bloodTypeLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="patientImage" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="photoButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="tableHeaderView" candidateClass="UIView"/>
             </relationships>
@@ -727,6 +732,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="GgC-f4-2BI"/>
+        <segue reference="4ue-49-ZXs"/>
     </inferredMetricsTieBreakers>
 </document>

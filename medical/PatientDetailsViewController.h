@@ -17,6 +17,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *ageLabel;
 @property (weak, nonatomic) IBOutlet UILabel *bloodTypeLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *patientImage;
+
+@property (assign, nonatomic) BOOL addingPatient;
 
 @property (strong, nonatomic) Patient *patient;
 

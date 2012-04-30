@@ -14,7 +14,7 @@
 #import "PatientDetailsViewController.h"
 #import "Utilities.h"
 
-@interface PatientsViewController ()
+@interface PatientsViewController()
 - (void)splitPatientsByLastname;
 - (NSArray *)customToolBarItems;
 - (void)infoPressed;
@@ -55,8 +55,13 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [self.loadingView removeFromSuperview];
+    [self.navigationController setToolbarHidden:NO animated:YES];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self.navigationController setToolbarHidden:YES animated:YES];
+}
 
 - (void)infoPressed
 {
@@ -232,6 +237,7 @@
     } else if ([segue.identifier isEqualToString: @"PatientDetailSegue"]) {
         PatientDetailsViewController *patientDetailVC = segue.destinationViewController;
         patientDetailVC.patient = self.selectedPatient;
+        patientDetailVC.addingPatient = NO;
     } else if ([segue.identifier isEqualToString:@"AddPatientSearchTransition"]) {
         // nothing to do.
     }

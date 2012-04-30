@@ -27,6 +27,7 @@
 @synthesize offices = __offices;
 @synthesize tableView = __tableView;
 @synthesize loadingView = __loadingView;
+//@synthesize officeImage = __officeImage;
 @synthesize selectedOffice = __selectedOffice;
 @synthesize patientsForOffice = __patientsForOffice;
 
@@ -55,6 +56,11 @@
 {
     self.navigationController.toolbarHidden = YES;
     [self.loadingView removeFromSuperview];
+    
+//    self.officeImage.layer.cornerRadius = 10.0;
+//    self.officeImage.layer.borderColor = [UIColor blackColor].CGColor;
+//    self.officeImage.layer.borderWidth = 0.75;
+//    self.officeImage.clipsToBounds = YES;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -82,8 +88,8 @@
     Office *office = [self.offices objectAtIndex:indexPath.row];
     
     cell.officeImageView.image = [self getImageForOffice:office];
-    cell.officeImageView.clipsToBounds = YES;
-    cell.officeImageView.layer.cornerRadius = 5.0;
+    [Utilities RoundedBorderForImageView:cell.officeImageView];
+
     cell.officeNameLabel.text = office.name;
     cell.officeLocationLabel.text = office.street;
     

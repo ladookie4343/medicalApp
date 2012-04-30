@@ -93,13 +93,7 @@
     
     Patient *patient = [self.patientSearchResults objectAtIndex:indexPath.row];
     cell.textLabel.text = [patient.firstname stringByAppendingFormat:@" %@", patient.lastname];
-    
-//    cell.firstNameLabel.text = patient.firstname;
-//    [cell.firstNameLabel sizeToFit];
-//    
-//    cell.lastNameLabel.frame = CGRectMake(20 + cell.firstNameLabel.frame.size.width + 6, 11, 120, 22);
-//    cell.lastNameLabel.text = patient.lastname;
-    
+        
     return cell;
 }
 
@@ -132,9 +126,16 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
+                                   initWithTitle: @"Back" 
+                                   style: UIBarButtonItemStyleBordered
+                                   target: nil action: nil];
+    [self.navigationItem setBackBarButtonItem: backButton];
+
     if ([segue.identifier isEqualToString: @"PatientDetailsFromSearch"]) {
         PatientDetailsViewController *patientDetailVC = segue.destinationViewController;
         patientDetailVC.patient = self.selectedPatient;
+        patientDetailVC.addingPatient = YES;
     }
     [self.loadingView removeFromSuperview];
 }
@@ -166,16 +167,30 @@
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
 {
-    dispatch_async(kBgQueue, ^{
-        [self handleSearchForTerm:searchString scope:
-            [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:
-             [self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
-        [self performSelectorOnMainThread:@selector(finishedSearchingPatients) withObject:nil waitUntilDone:YES];
-    });
+    if (![[Utilities trimmedString:searchString] isEqualToString:@""]) {
+        dispatch_async(kBgQueue, ^{
+            [self handleSearchForTerm:searchString scope:
+                [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:
+                 [self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
+            [self performSelectorOnMainThread:@selector(finishedSearchingPatients) withObject:nil waitUntilDone:YES];
+        });
+    }
     
     return NO;
 }
 
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption
+{
+    NSString *searchString = self.searchDisplayController.searchBar.text;
+    if (![[Utilities trimmedString:searchString] isEqualToString:@""]) {
+        dispatch_async(kBgQueue, ^{
+            [self handleSearchForTerm:searchString scope:[[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:searchOption]];
+            [self performSelectorOnMainThread:@selector(finishedSearchingPatients) withObject:nil waitUntilDone:YES];
+        });
+    }
+    
+    return NO;
+}
 
 @end
 

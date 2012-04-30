@@ -12,5 +12,7 @@
 
 + (NSData *)dataFromPHPScript:(NSURL *)script post:(BOOL)post request:(NSString *)request;
 + (void)showLoadingView:(UIView *)loadingView InView:(UIView *)view;
++ (NSString *)trimmedString:(NSString *)string;
++ (void)RoundedBorderForImageView:(UIImageView *)imageView;
 
 @end

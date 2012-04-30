@@ -8,6 +8,9 @@
 
 #import "PatientDetailsViewController.h"
 #import "Patient.h"
+#import "Utilities.h"
+#import <QuartzCore/QuartzCore.h>
+
 
 @interface PatientDetailsViewController ()
 
@@ -28,7 +31,8 @@
 - (void)resignKeyBoard;
 - (void)updateAllergies;
 - (void)updateConditions;
-- (NSString *)trimmedString:(NSString *)string;
+- (void)addPatientPressed;
+- (void)initPatientDetailsScreen;
 @end
 
 @implementation PatientDetailsViewController
@@ -44,6 +48,8 @@
 @synthesize allergyCountBeforeEditing = __allergyCountBeforeEditing;
 @synthesize conditionCountBeforeEditing = __conditionCountBeforeEditing;
 @synthesize begginingEditMode = __begginingEditMode;
+@synthesize addingPatient = __addingPatient;
+@synthesize patientImage = __patientImage;
 
 #define STATS_SECTION 0
 #define DETAILS_SECTION 1
@@ -60,31 +66,43 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    [self initPatientDetailsScreen];
+}
+
+- (void)initPatientDetailsScreen
+{
+    [self.tableView setFrame: CGRectMake(0, 0, 320, 493)];
     self.tableView.tableHeaderView = self.tableHeaderView;
-    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.navigationController.toolbarHidden = YES;
+    
+    self.allergyTextFields = [NSMutableArray new];
+    self.conditionsTextFields = [NSMutableArray new];
+    self.begginingEditMode = YES;
+    
+    if (self.addingPatient) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Add Patient" style:UIBarButtonItemStyleBordered target:self action:@selector(addPatientPressed)];
+        self.navigationItem.rightBarButtonItem.tintColor = [UIColor blueColor];
+    } else {
+        self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    }
+    
+    [Utilities RoundedBorderForImageView:self.patientImage];
+}
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.patientImage.image = [self getImageForPatient:self.patient];
+    [self updatePhotoButton];
+    [self.tableView reloadData];
     
     // set up tableHeaderView
     self.nameLabel.text = [self.patient.firstname stringByAppendingFormat:@" %@", self.patient.lastname];
     self.ageLabel.text = [self calculateAgeFromDOB:self.patient.dob];
     self.photoButton.backgroundColor = [UIColor clearColor];
     self.bloodTypeLabel.text = self.patient.bloodType;
-    
-    self.allergyTextFields = [NSMutableArray new];
-    self.conditionsTextFields = [NSMutableArray new];
-    self.begginingEditMode = YES;
-}
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self.photoButton setImage:[self getImageForPatient:self.patient] forState:UIControlStateNormal];
-    [self updatePhotoButton];
-    [self.tableView reloadData];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
 }
 
 - (void)viewDidUnload
@@ -95,6 +113,11 @@
     [self setAgeLabel:nil];
     [self setBloodTypeLabel:nil];
     [super viewDidUnload];
+}
+
+- (void)addPatientPressed
+{
+    
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -138,24 +161,39 @@
     return rows;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+#define HEADER_HEIGHT 40
+
+- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    NSString *title = nil;
-    
+    if (section == DETAILS_SECTION) {
+        return 20;
+    }
+    return HEADER_HEIGHT;
+}
+
+- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section 
+{
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, HEADER_HEIGHT)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(25, 16, tableView.bounds.size.width - 10, 18)];
+    [headerView addSubview:label];
+    label.text = @"";
+    label.textColor = [UIColor whiteColor];
+    label.font = [UIFont boldSystemFontOfSize:16];
+    label.backgroundColor = [UIColor clearColor];
     switch (section) {
         case STATS_SECTION:
-            title = @"Latest Measurements";
+            label.text = @"Latest Measurements";
             break;
         case ALLERGIES_SECTION:
-            title = @"Allergies";
+            label.text = @"Allergies";
             break;
         case CONDITIONS_SECTION:
-            title = @"Medical Conditions";
+            label.text = @"Medical Conditions";
             break;
         default:
             break;
     }
-    return title;
+    return headerView;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -420,8 +458,7 @@
     self.photoButton.enabled = self.editing;
         
     if ([self.patient.patientImage isEqualToString:@""]) {
-        [self.photoButton setImage:[UIImage imageNamed:@"noImage.png"] 
-                          forState:UIControlStateNormal];
+        self.patientImage.image = [UIImage imageNamed:@"noImage.png"];
     }
     
     if (self.editing) {
@@ -490,7 +527,7 @@
     int numDeleted = 0;
     for (int i = 0; i < self.allergyTextFields.count; i++) {
         UITextField *textField = [self.allergyTextFields objectAtIndex:i];
-        if (textField.text == nil || [@"" isEqualToString:[self trimmedString:textField.text]]) {
+        if (textField.text == nil || [@"" isEqualToString:[Utilities trimmedString:textField.text]]) {
             [self.patient.allergies removeObjectAtIndex:self.allergyCountBeforeEditing + i - numDeleted];
             numDeleted++;
         } else {
@@ -501,17 +538,12 @@
     [self.allergyTextFields removeAllObjects];
 }
 
-- (NSString *)trimmedString:(NSString *)string
-{
-    return [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-}
-
 - (void)updateConditions
 {
     int numDeleted = 0;
     for (int i = 0; i < self.conditionsTextFields.count; i++) {
         UITextField *textField = [self.conditionsTextFields objectAtIndex:i];
-        if (textField.text == nil || [@"" isEqualToString:[self trimmedString:textField.text]]) {
+        if (textField.text == nil || [@"" isEqualToString:[Utilities trimmedString:textField.text]]) {
             [self.patient.medicalConditions removeObjectAtIndex:self.conditionCountBeforeEditing + i - numDeleted];
             numDeleted++;
         } else {
