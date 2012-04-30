@@ -53,7 +53,7 @@
     return patients;
 }
 
-+ (NSArray *)patientsForPatientsTable:(int)officeID
++ (NSMutableArray *)patientsForPatientsTable:(int)officeID
 {
     NSString *queryString = [NSString stringWithFormat:@"officeID=%d", officeID];
     return [self patientsSearchResultWithQueryString:queryString URL:kPatientsRetrievalURL];

@@ -27,7 +27,7 @@
 
 @property (strong, nonatomic) NSMutableArray *patientsByLastName;
 @property (strong, nonatomic) Patient *selectedPatient;
-@property (strong, nonatomic) NSArray *patients;
+@property (strong, nonatomic) NSMutableArray *patients;
 
 @end
 
@@ -57,7 +57,7 @@
 {
     [self.loadingView removeFromSuperview];
     [self.navigationController setToolbarHidden:NO animated:YES];
-    self.patients = [NSArray new];
+    self.patients = [NSMutableArray new];
     self.patientsByLastName = [NSMutableArray new];
     [self loadPatients];
 }
@@ -67,14 +67,14 @@
 - (void)loadPatients
 {
     dispatch_async(kBgQueue, ^ {
-        NSArray *patients = [Patient patientsForPatientsTable:self.office.officeID];
+        NSMutableArray *patients = [Patient patientsForPatientsTable:self.office.officeID];
         [self performSelectorOnMainThread:@selector(finishedLoadingPatients:) 
                                withObject:patients 
                             waitUntilDone:YES];   
     });
 }
 
-- (void)finishedLoadingPatients:(NSArray *)patients
+- (void)finishedLoadingPatients:(NSMutableArray *)patients
 {
     self.patients = patients;
     if (self.patients.count > 0) {
@@ -129,7 +129,7 @@
         int startLocation, length;
         startLocation = [[splittingPoints objectAtIndex:i] intValue] + 1;
         length = [[splittingPoints objectAtIndex:i + 1] intValue] - (startLocation - 1);
-        [self.patientsByLastName addObject:[self.patients subarrayWithRange:NSMakeRange(startLocation, length)]];
+        [self.patientsByLastName addObject:[NSMutableArray arrayWithArray:[self.patients subarrayWithRange:NSMakeRange(startLocation, length)]]];
     }
 }
 
@@ -206,22 +206,23 @@
 {
     PatientsTableViewCell *cell = (PatientsTableViewCell *)[self.tableView dequeueReusableCellWithIdentifier:@"PatientCell"];
     
-    NSArray *patientsWithSimilarLastName = [self.patientsByLastName objectAtIndex:indexPath.section];
+    if (self.patientsByLastName.count > 0) {
+        NSArray *patientsWithSimilarLastName = [self.patientsByLastName objectAtIndex:indexPath.section];
     
-    Patient *p;
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
-        p = [self.patientSearchResults objectAtIndex:indexPath.row];
-    } else {
-        p = [patientsWithSimilarLastName objectAtIndex:indexPath.row];
+        Patient *p;
+        if (tableView == self.searchDisplayController.searchResultsTableView) {
+            p = [self.patientSearchResults objectAtIndex:indexPath.row];
+        } else {
+            p = [patientsWithSimilarLastName objectAtIndex:indexPath.row];
+        }
+        
+        
+        cell.firstNameLabel.text = p.firstname;
+        [cell.firstNameLabel sizeToFit];
+        
+        cell.lastNameLabel.frame = CGRectMake(20 + cell.firstNameLabel.frame.size.width + 6, 11, 120, 22);
+        cell.lastNameLabel.text = p.lastname;
     }
-    
-    
-    cell.firstNameLabel.text = p.firstname;
-    [cell.firstNameLabel sizeToFit];
-    
-    cell.lastNameLabel.frame = CGRectMake(20 + cell.firstNameLabel.frame.size.width + 6, 11, 120, 22);
-    cell.lastNameLabel.text = p.lastname;
-    
     return cell;
 }
 
@@ -255,8 +256,6 @@
     [self performSegueWithIdentifier:@"PatientDetailSegue" sender:self];
 }
 
-//SettingsViewController *settingsViewController = [[[segue destinationViewController] viewControllers] objectAtIndex:0];
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"officeDetailsSegue"]) {
@@ -271,6 +270,30 @@
         patientSearchVC.office = self.office;
     }
     [self.loadingView removeFromSuperview];
+}
+
+#pragma mark - editing methods
+
+#define kDeletePatientURLString @"http://www.ladookie4343.com/MedicalApp/deletePatient.php"
+#define kDeletePatientURL [NSURL URLWithString:kDeletePatientURLString]
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        NSMutableArray *patientsWithSimilarLastName = [self.patientsByLastName objectAtIndex:indexPath.section];
+        Patient *deletedPatient = [patientsWithSimilarLastName objectAtIndex:indexPath.row];
+        NSString *queryString = [NSString stringWithFormat:@"patientID=%d&officeID=%d", deletedPatient.patientID, self.office.officeID];
+        [Utilities dataFromPHPScript:kDeletePatientURL post:YES request:queryString];
+        
+        [patientsWithSimilarLastName removeObjectAtIndex:indexPath.row];
+        if (patientsWithSimilarLastName.count > 0) {
+            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        } else {
+            [self.patientsByLastName removeObjectAtIndex:indexPath.section];
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
+        }
+    }
 }
 
 #pragma mark - Search Methods

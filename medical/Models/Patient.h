@@ -44,7 +44,7 @@
 
 - (void)GetLatestStats;
 
-+ (NSArray *)patientsForPatientsTable:(int)officeID;
++ (NSMutableArray *)patientsForPatientsTable:(int)officeID;
 
 + (NSMutableArray *)patientsForSearchByLastName:(NSString *)lastname;
 

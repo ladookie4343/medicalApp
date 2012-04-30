@@ -46,7 +46,11 @@
 {
     [self.loadingView removeFromSuperview];
     if (self.addedPatient) {
-        [NSTimer timerWithTimeInterval:.5 target:self selector:@selector(timerDone) userInfo:nil repeats:NO];
+        [NSTimer scheduledTimerWithTimeInterval:0.5 
+                                         target:self 
+                                       selector:@selector(timerDone) 
+                                       userInfo:nil 
+                                        repeats:NO];
     }
 }
 
