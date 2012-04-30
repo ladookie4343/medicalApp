@@ -13,7 +13,6 @@
 @interface PatientsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchDisplayDelegate>
 
 // data source members
-@property (strong, nonatomic) NSArray *patients;
 @property (strong, nonatomic) Office *office;
 
 // search members

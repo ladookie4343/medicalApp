@@ -13,6 +13,5 @@
 @property (nonatomic, strong) NSArray *offices;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIView *loadingView;
-//@property (weak, nonatomic) IBOutlet UIImageView *officeImage;
 
 @end

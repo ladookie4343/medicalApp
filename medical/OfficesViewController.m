@@ -19,7 +19,6 @@
 @property (nonatomic, strong) NSArray *patientsForOffice;
 
 - (UIImage *)getImageForOffice:(Office *)office;
-- (void)finishedLoadingPatients;
 @end
 
 @implementation OfficesViewController
@@ -27,7 +26,6 @@
 @synthesize offices = __offices;
 @synthesize tableView = __tableView;
 @synthesize loadingView = __loadingView;
-//@synthesize officeImage = __officeImage;
 @synthesize selectedOffice = __selectedOffice;
 @synthesize patientsForOffice = __patientsForOffice;
 
@@ -56,11 +54,6 @@
 {
     self.navigationController.toolbarHidden = YES;
     [self.loadingView removeFromSuperview];
-    
-//    self.officeImage.layer.cornerRadius = 10.0;
-//    self.officeImage.layer.borderColor = [UIColor blackColor].CGColor;
-//    self.officeImage.layer.borderWidth = 0.75;
-//    self.officeImage.clipsToBounds = YES;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -135,24 +128,13 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     self.selectedOffice = [self.offices objectAtIndex:indexPath.row];
     [Utilities showLoadingView:self.loadingView InView:self.view];
-    
-    dispatch_async(kBgQueue, ^ {
-        self.patientsForOffice = [Patient patientsForPatientsTable:self.selectedOffice.officeID];
-        [self performSelectorOnMainThread:@selector(finishedLoadingPatients) 
-                               withObject:nil 
-                            waitUntilDone:YES];   
-    });
-}
-         
-- (void)finishedLoadingPatients
-{
+
     [self performSegueWithIdentifier:@"SegueToPatientsView" sender:self];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     ((PatientsViewController *)segue.destinationViewController).office = self.selectedOffice;
-    ((PatientsViewController *)segue.destinationViewController).patients = self.patientsForOffice;   
     [self.loadingView removeFromSuperview];
 }
 

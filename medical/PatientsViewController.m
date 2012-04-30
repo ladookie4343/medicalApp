@@ -13,6 +13,7 @@
 #import "PatientsTableViewCell.h"
 #import "PatientDetailsViewController.h"
 #import "Utilities.h"
+#import "PatientSearchViewController.h"
 
 @interface PatientsViewController()
 - (void)splitPatientsByLastname;
@@ -21,10 +22,13 @@
 - (void)addPatient;
 - (char)lastNameFirstCharForPatient:(Patient *)patient;
 - (void)handleSearchForTerm:(NSString *)term;
-- (void)finishedLoadingPatient;
+- (void)finishedLoadingPatients:(NSArray *)patients;
+- (void)loadPatients;
 
 @property (strong, nonatomic) NSMutableArray *patientsByLastName;
 @property (strong, nonatomic) Patient *selectedPatient;
+@property (strong, nonatomic) NSArray *patients;
+
 @end
 
 @implementation PatientsViewController
@@ -40,10 +44,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.patientsByLastName = [[NSMutableArray alloc] init];
-    [self splitPatientsByLastname];
-    
+        
     self.navigationController.toolbarHidden = NO;
     self.toolbarItems = [self customToolBarItems];
     
@@ -56,6 +57,30 @@
 {
     [self.loadingView removeFromSuperview];
     [self.navigationController setToolbarHidden:NO animated:YES];
+    self.patients = [NSArray new];
+    self.patientsByLastName = [NSMutableArray new];
+    [self loadPatients];
+}
+
+#define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+
+- (void)loadPatients
+{
+    dispatch_async(kBgQueue, ^ {
+        NSArray *patients = [Patient patientsForPatientsTable:self.office.officeID];
+        [self performSelectorOnMainThread:@selector(finishedLoadingPatients:) 
+                               withObject:patients 
+                            waitUntilDone:YES];   
+    });
+}
+
+- (void)finishedLoadingPatients:(NSArray *)patients
+{
+    self.patients = patients;
+    if (self.patients.count > 0) {
+        [self splitPatientsByLastname];
+    }
+    [self.tableView reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -230,6 +255,8 @@
     [self performSegueWithIdentifier:@"PatientDetailSegue" sender:self];
 }
 
+//SettingsViewController *settingsViewController = [[[segue destinationViewController] viewControllers] objectAtIndex:0];
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"officeDetailsSegue"]) {
@@ -238,8 +265,10 @@
         PatientDetailsViewController *patientDetailVC = segue.destinationViewController;
         patientDetailVC.patient = self.selectedPatient;
         patientDetailVC.addingPatient = NO;
+        patientDetailVC.office = self.office;
     } else if ([segue.identifier isEqualToString:@"AddPatientSearchTransition"]) {
-        // nothing to do.
+        PatientSearchViewController *patientSearchVC = [[[segue destinationViewController] viewControllers] objectAtIndex:0];
+        patientSearchVC.office = self.office;
     }
     [self.loadingView removeFromSuperview];
 }

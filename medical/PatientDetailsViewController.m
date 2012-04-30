@@ -9,6 +9,7 @@
 #import "PatientDetailsViewController.h"
 #import "Patient.h"
 #import "Utilities.h"
+#import "Office.h"
 #import <QuartzCore/QuartzCore.h>
 
 
@@ -33,6 +34,9 @@
 - (void)updateConditions;
 - (void)addPatientPressed;
 - (void)initPatientDetailsScreen;
+- (void)responseFromTryingToAddPatient:(NSData *)data;
+- (void)showAlertViewWithMessage:(NSString *)message;
+
 @end
 
 @implementation PatientDetailsViewController
@@ -50,6 +54,8 @@
 @synthesize begginingEditMode = __begginingEditMode;
 @synthesize addingPatient = __addingPatient;
 @synthesize patientImage = __patientImage;
+@synthesize office = __office;
+@synthesize delegate = __delegate;
 
 #define STATS_SECTION 0
 #define DETAILS_SECTION 1
@@ -115,9 +121,45 @@
     [super viewDidUnload];
 }
 
+#define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+
+#define kPatientInOfficeString @"http://www.ladookie4343.com/MedicalApp/patientInOffice.php"
+#define kPatientInOfficeURL [NSURL URLWithString: kPatientInOfficeString]
+#define kQueryString [NSString stringWithFormat:@"officeID=%d&patientID=%d", self.office.officeID, self.patient.patientID]
+
 - (void)addPatientPressed
 {
+    dispatch_async(kBgQueue, ^{
+        NSData *data = [Utilities dataFromPHPScript:kPatientInOfficeURL post:YES request:kQueryString];
+        [self performSelectorOnMainThread:@selector(responseFromTryingToAddPatient:) withObject:data waitUntilDone:YES];
+    });
     
+}
+
+#define kAddPatientURLString @"http://www.ladookie4343.com/MedicalApp/addPatient.php"
+#define kAddPatientURL [NSURL URLWithString:kAddPatientURLString]
+
+- (void)responseFromTryingToAddPatient:(NSData *)data
+{
+    NSString *alreadyInOffice = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    
+    if ([alreadyInOffice isEqualToString:@"yes"]) {
+        [self showAlertViewWithMessage:@"This patient is already in your office."];
+    } else {
+        [Utilities dataFromPHPScript:kAddPatientURL post:YES request:kQueryString];
+        self.delegate.addedPatient = YES;
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
+- (void)showAlertViewWithMessage:(NSString *)message
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil 
+                                                    message:message
+                                                   delegate:nil 
+                                          cancelButtonTitle:@"OK" 
+                                          otherButtonTitles:nil];
+    [alert show];   
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

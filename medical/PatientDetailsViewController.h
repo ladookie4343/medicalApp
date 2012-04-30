@@ -9,6 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @class Patient;
+@class Office;
+
+@protocol AddPatientDelegate <NSObject>
+
+@property (nonatomic, assign) BOOL addedPatient;
+
+@end
 
 @interface PatientDetailsViewController : UITableViewController <UITextFieldDelegate>
 
@@ -22,5 +29,8 @@
 @property (assign, nonatomic) BOOL addingPatient;
 
 @property (strong, nonatomic) Patient *patient;
+@property (strong, nonatomic) Office *office;
+
+@property (strong, nonatomic) id<AddPatientDelegate> delegate;
 
 @end

@@ -11,6 +11,7 @@
 #import "PatientDetailsViewController.h"
 #import "Patient.h"
 #import "Utilities.h"
+#import "Office.h"
 
 @interface PatientSearchViewController ()
 
@@ -18,6 +19,7 @@
 
 - (void)handleSearchForTerm:(NSString *)term scope:(NSString *)scope;
 - (void)finishedSearchingPatients;
+- (void)timerDone;
 
 @end
 
@@ -26,6 +28,8 @@
 @synthesize patientSearchResults = __patientSearchResults;
 @synthesize savedSearchTerm = __savedSearchTerm;
 @synthesize loadingView = __loadingView;
+@synthesize office = __office;
+@synthesize addedPatient;
 
 
 - (void)viewDidLoad
@@ -35,11 +39,20 @@
     if (self.savedSearchTerm) {
         self.searchDisplayController.searchBar.text = self.savedSearchTerm;
     }
+    NSLog(@"%d", self.office.officeID);
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [self.loadingView removeFromSuperview];
+    if (self.addedPatient) {
+        [NSTimer timerWithTimeInterval:.5 target:self selector:@selector(timerDone) userInfo:nil repeats:NO];
+    }
+}
+
+- (void)timerDone
+{
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 - (void)viewDidUnload
@@ -76,8 +89,6 @@
 {
     return self.patientSearchResults.count;
 }
-
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -136,6 +147,8 @@
         PatientDetailsViewController *patientDetailVC = segue.destinationViewController;
         patientDetailVC.patient = self.selectedPatient;
         patientDetailVC.addingPatient = YES;
+        patientDetailVC.office = self.office;
+        patientDetailVC.delegate = self;
     }
     [self.loadingView removeFromSuperview];
 }
