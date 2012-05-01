@@ -26,4 +26,6 @@
 
 - (void)getPrescriptions;
 
+- (void)updatePrescriptions;
+
 @end

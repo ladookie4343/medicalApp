@@ -90,6 +90,17 @@
     }
 }
 
+#define kAddPrescriptionsURLString @"http://www.ladookie4343.com/MedicalApp/addPrescription.php"
+#define kAddPrescriptionsURL [NSURL URLWithString:kAddPrescriptionsURLString]
+
+- (void)updatePrescriptions
+{
+    for (NSString *drug in self.prescriptions) {
+        NSString *queryString = [NSString stringWithFormat:@"visitID=%d&drug=%@", self.visitID, drug];
+        [Utilities dataFromPHPScript:kAddPrescriptionsURL post:YES request:queryString];
+    }
+}
+
 @end
 
 

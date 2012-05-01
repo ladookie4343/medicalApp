@@ -34,7 +34,6 @@
 - (NSString *) calculateAgeFromDOB:(NSDate *)dob;
 - (NSString *)convertInchesToFeet:(NSString *)inches;
 - (NSString *)singleStringForSystolic:(NSString *)systolic diastolic:(NSString *)diastolic;
-- (UITextField *)textFieldWithPlaceholder:(NSString *)placeholder;
 - (void)resignKeyBoard;
 - (void)updateAllergies;
 - (void)updateConditions;
@@ -95,7 +94,7 @@
     
     if (self.addingPatient) {
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Add Patient" style:UIBarButtonItemStyleBordered target:self action:@selector(addPatientPressed)];
-        self.navigationItem.rightBarButtonItem.tintColor = [UIColor blueColor];
+        self.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithRed:34/255.0 green:96/255.0 blue:221/255.0 alpha:1.0];
     } else {
         self.navigationItem.rightBarButtonItem = self.editButtonItem;
     }
@@ -260,7 +259,7 @@
             switch (indexPath.row) {
                 case 0: {
                     UILabel *textLabel = [self labelWithText:@"height"];
-                    UILabel *statLabel = [self labelWithStat:[self convertInchesToFeet:self.patient.height]];
+                    UILabel *statLabel = [self labelWithStat:[self convertInchesToFeet:self.patient.latestHeight]];
                     [cell addSubview:textLabel];
                     [cell addSubview:statLabel];
                     break; 
@@ -346,7 +345,7 @@
                 cell.textLabel.text = insertString;
             } else {
                 if ([PLACEHOLDER isEqualToString:[items objectAtIndex:indexPath.row]]) {
-                    textField = [self textFieldWithPlaceholder:placeHolder];
+                    textField = [Utilities textFieldWithPlaceholder:placeHolder delegate:self];
                     [textFields addObject:textField];
                     [cell.contentView addSubview:textField];
                 } else {
@@ -488,6 +487,7 @@
         visitsVC.visits = [Visit VisitsForPatient:self.patient.patientID office:self.office.officeID];
         visitsVC.doctor = self.doctor;
         visitsVC.patient = self.patient;
+        visitsVC.office = self.office;
     } else if ([segue.identifier isEqualToString:@"TransitionToSurgeries"]) {
         
     } else if ([segue.identifier isEqualToString:@"TransitionToTests"]) {
@@ -496,16 +496,6 @@
 }
 
 #pragma mark - text field delegates & helpers
-
-- (UITextField *)textFieldWithPlaceholder:(NSString *)placeholder
-{    
-    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10, 12, 240, 31)];
-    textField.delegate = self;
-    textField.returnKeyType = UIReturnKeyDone;
-    textField.placeholder = placeholder;
-    textField.enabled = YES;
-    return textField;
-}
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {

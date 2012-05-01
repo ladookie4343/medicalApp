@@ -63,5 +63,15 @@ NSData *responseData;
     imageView.clipsToBounds = YES;
 }
 
++ (UITextField *)textFieldWithPlaceholder:(NSString *)placeholder delegate:(id<UITextFieldDelegate>)delegate
+{    
+    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10, 12, 240, 31)];
+    textField.delegate = delegate;
+    textField.returnKeyType = UIReturnKeyDone;
+    textField.placeholder = placeholder;
+    textField.enabled = YES;
+    return textField;
+}
+
 
 @end

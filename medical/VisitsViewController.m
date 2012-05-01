@@ -23,6 +23,7 @@
 @synthesize selectedVisit = __selectedVisit;
 @synthesize doctor = __doctor;
 @synthesize patient = __patient;
+@synthesize office = __office;
 
 
 - (void)viewDidLoad
@@ -32,6 +33,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [self.tableView reloadData];
 }
 
 #define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
@@ -92,18 +94,22 @@
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    VisitDetailsViewController *visitDetailsVC = segue.destinationViewController;
+{        
+    VisitDetailsViewController *visitDetailsVC = [[[segue destinationViewController] viewControllers] objectAtIndex:0];
     visitDetailsVC.doctor = self.doctor;
     visitDetailsVC.patient = self.patient;
+    visitDetailsVC.office = self.office;
 
     if ([segue.identifier isEqualToString:@"TransitionToVisitDetails"]) {
         visitDetailsVC.visit = self.selectedVisit;
+        visitDetailsVC.addingNewVisit = NO;
     } else if ([segue.identifier isEqualToString:@"AddNewVisit"]) {
         Visit *newVisit = [Visit new];
         newVisit.when = [NSDate date];
         [self.visits addObject:newVisit];
         visitDetailsVC.visit = newVisit;
+        visitDetailsVC.addingNewVisit = YES;
+        visitDetailsVC.delegate = self;
     }
 }
 

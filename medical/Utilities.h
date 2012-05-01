@@ -14,5 +14,6 @@
 + (void)showLoadingView:(UIView *)loadingView InView:(UIView *)view;
 + (NSString *)trimmedString:(NSString *)string;
 + (void)RoundedBorderForImageView:(UIImageView *)imageView;
++ (UITextField *)textFieldWithPlaceholder:(NSString *)placeholder delegate:(id<UITextFieldDelegate>)delegate;
 
 @end

@@ -29,6 +29,7 @@
 @property (nonatomic, strong) NSString *latestWeight;
 @property (nonatomic, strong) NSString *latestBPSys;
 @property (nonatomic, strong) NSString *latestBPDia;
+@property (nonatomic, strong) NSString *latestHeight;
 
 // deletes all rows in allergy table for this patient 
 // and adds the rows currently in allergies array

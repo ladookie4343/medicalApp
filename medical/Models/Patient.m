@@ -15,22 +15,22 @@
 
 @implementation Patient
 
-@synthesize patientID = _patientID;
-@synthesize firstname = _firstname;
-@synthesize lastname = _lastname;
-@synthesize height = _height;
-@synthesize dob = _dob;
-@synthesize visits = _visits;
-@synthesize tests = _tests;
-@synthesize surgeries = _surgeries;
-@synthesize bloodType = _bloodType;
-@synthesize allergies = _allergies;
-@synthesize medicalConditions = _medicalConditions;
-@synthesize patientImage = _patientImage;
-@synthesize latestWeight = _latestWeight;
-@synthesize latestBPSys = _latestBPSys;
-@synthesize latestBPDia = _latestBPDia;
-
+@synthesize patientID = __patientID;
+@synthesize firstname = __firstname;
+@synthesize lastname = __lastname;
+@synthesize height = __height;
+@synthesize dob = __dob;
+@synthesize visits = __visits;
+@synthesize tests = __tests;
+@synthesize surgeries = __surgeries;
+@synthesize bloodType = __bloodType;
+@synthesize allergies = __allergies;
+@synthesize medicalConditions = __medicalConditions;
+@synthesize patientImage = __patientImage;
+@synthesize latestWeight = __latestWeight;
+@synthesize latestBPSys = __latestBPSys;
+@synthesize latestBPDia = __latestBPDia;
+@synthesize latestHeight = __latestHeight;
 #define kPatientsRetrievalURL [NSURL URLWithString: @"http://www.ladookie4343.com/MedicalApp/retrievePatients.php"]
 
 + (NSMutableArray *)testPatients
@@ -161,6 +161,7 @@
     self.latestWeight = [json objectForKey:@"weight"];
     self.latestBPSys = [json objectForKey:@"bp_systolic"];
     self.latestBPDia = [json objectForKey:@"bp_diastolic"];
+    self.latestHeight = [json objectForKey:@"height"];
 }
 
 #define kPatientIDSearchURL [NSURL URLWithString:@"http://www.ladookie4343.com/MedicalApp/searchPatientsById.php"]

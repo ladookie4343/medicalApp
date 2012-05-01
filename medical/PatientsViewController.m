@@ -61,6 +61,7 @@
     self.patients = [NSMutableArray new];
     self.patientsByLastName = [NSMutableArray new];
     [self loadPatients];
+    [Utilities showLoadingView:self.loadingView InView:self.view];
 }
 
 #define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
@@ -82,6 +83,7 @@
         [self splitPatientsByLastname];
     }
     [self.tableView reloadData];
+    [self.loadingView removeFromSuperview];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

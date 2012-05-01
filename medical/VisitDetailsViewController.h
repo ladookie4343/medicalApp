@@ -11,6 +11,7 @@
 @class Visit;
 @class Doctor;
 @class Patient;
+@class Office;
 
 @protocol cancelButtonDelegate <NSObject>
 
@@ -18,7 +19,7 @@
 
 @end
 
-@interface VisitDetailsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface VisitDetailsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITextField *diagnosisTextField;
@@ -26,10 +27,12 @@
 @property (weak, nonatomic) IBOutlet UITextField *pressureTextField;
 @property (weak, nonatomic) IBOutlet UITextField *weightTextField;
 @property (weak, nonatomic) IBOutlet UITextField *heightTextField;
+@property (weak, nonatomic) IBOutlet UIScrollView *visitDetailsScrollView;
 
 @property (strong, nonatomic) Visit *visit;
 @property (strong, nonatomic) Doctor *doctor;
 @property (strong, nonatomic) Patient *patient;
+@property (strong, nonatomic) Office *office;
 
 @property (strong, nonatomic) id<cancelButtonDelegate> delegate;
 @property (assign, nonatomic) BOOL addingNewVisit;
