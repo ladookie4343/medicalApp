@@ -22,6 +22,12 @@
 		C99B0690150BFD9C006490A6 /* OfficesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C99B068F150BFD9C006490A6 /* OfficesViewController.m */; };
 		C9A15D1A1537D37A003CB66A /* PatientsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A15D191537D37A003CB66A /* PatientsTableViewCell.m */; };
 		C9A5ABE61548DBBB00E439FF /* PatientDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A5ABE51548DBBB00E439FF /* PatientDetailsViewController.m */; };
+		C9ACC5AB154F2B760086ED41 /* VisitsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9ACC5AA154F2B760086ED41 /* VisitsViewController.m */; };
+		C9ACC5AF154F2BA00086ED41 /* VisitDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9ACC5AE154F2BA00086ED41 /* VisitDetailsViewController.m */; };
+		C9ACC5B2154F2BBF0086ED41 /* SurgeriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9ACC5B1154F2BBF0086ED41 /* SurgeriesViewController.m */; };
+		C9ACC5B5154F2BD10086ED41 /* SurgeryDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9ACC5B4154F2BD10086ED41 /* SurgeryDetailsViewController.m */; };
+		C9ACC5B8154F2BF30086ED41 /* TestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9ACC5B7154F2BF30086ED41 /* TestsViewController.m */; };
+		C9ACC5BB154F2C0A0086ED41 /* TestDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9ACC5BA154F2C0A0086ED41 /* TestDetailsViewController.m */; };
 		C9B431BE152494D0006CC1E2 /* Patient.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B431BD152494D0006CC1E2 /* Patient.m */; };
 		C9B431C2152497E0006CC1E2 /* Visit.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B431C1152497E0006CC1E2 /* Visit.m */; };
 		C9B431C515249807006CC1E2 /* Test.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B431C415249807006CC1E2 /* Test.m */; };
@@ -62,6 +68,18 @@
 		C9A15D191537D37A003CB66A /* PatientsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PatientsTableViewCell.m; sourceTree = "<group>"; };
 		C9A5ABE41548DBBB00E439FF /* PatientDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatientDetailsViewController.h; sourceTree = "<group>"; };
 		C9A5ABE51548DBBB00E439FF /* PatientDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PatientDetailsViewController.m; sourceTree = "<group>"; };
+		C9ACC5A9154F2B760086ED41 /* VisitsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisitsViewController.h; sourceTree = "<group>"; };
+		C9ACC5AA154F2B760086ED41 /* VisitsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisitsViewController.m; sourceTree = "<group>"; };
+		C9ACC5AD154F2B9F0086ED41 /* VisitDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisitDetailsViewController.h; sourceTree = "<group>"; };
+		C9ACC5AE154F2BA00086ED41 /* VisitDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisitDetailsViewController.m; sourceTree = "<group>"; };
+		C9ACC5B0154F2BBF0086ED41 /* SurgeriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurgeriesViewController.h; sourceTree = "<group>"; };
+		C9ACC5B1154F2BBF0086ED41 /* SurgeriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurgeriesViewController.m; sourceTree = "<group>"; };
+		C9ACC5B3154F2BD10086ED41 /* SurgeryDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurgeryDetailsViewController.h; sourceTree = "<group>"; };
+		C9ACC5B4154F2BD10086ED41 /* SurgeryDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurgeryDetailsViewController.m; sourceTree = "<group>"; };
+		C9ACC5B6154F2BF30086ED41 /* TestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestsViewController.h; sourceTree = "<group>"; };
+		C9ACC5B7154F2BF30086ED41 /* TestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestsViewController.m; sourceTree = "<group>"; };
+		C9ACC5B9154F2C0A0086ED41 /* TestDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestDetailsViewController.h; sourceTree = "<group>"; };
+		C9ACC5BA154F2C0A0086ED41 /* TestDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestDetailsViewController.m; sourceTree = "<group>"; };
 		C9B431BC152494D0006CC1E2 /* Patient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Patient.h; sourceTree = "<group>"; };
 		C9B431BD152494D0006CC1E2 /* Patient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Patient.m; sourceTree = "<group>"; };
 		C9B431C0152497E0006CC1E2 /* Visit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Visit.h; sourceTree = "<group>"; };
@@ -206,6 +224,18 @@
 				C96CDFCD15291BF8006F24F7 /* OfficeDetailsViewController.m */,
 				C92A91BF154C5E9300A4CEB5 /* PatientSearchViewController.h */,
 				C92A91C0154C5E9300A4CEB5 /* PatientSearchViewController.m */,
+				C9ACC5A9154F2B760086ED41 /* VisitsViewController.h */,
+				C9ACC5AA154F2B760086ED41 /* VisitsViewController.m */,
+				C9ACC5AD154F2B9F0086ED41 /* VisitDetailsViewController.h */,
+				C9ACC5AE154F2BA00086ED41 /* VisitDetailsViewController.m */,
+				C9ACC5B0154F2BBF0086ED41 /* SurgeriesViewController.h */,
+				C9ACC5B1154F2BBF0086ED41 /* SurgeriesViewController.m */,
+				C9ACC5B3154F2BD10086ED41 /* SurgeryDetailsViewController.h */,
+				C9ACC5B4154F2BD10086ED41 /* SurgeryDetailsViewController.m */,
+				C9ACC5B6154F2BF30086ED41 /* TestsViewController.h */,
+				C9ACC5B7154F2BF30086ED41 /* TestsViewController.m */,
+				C9ACC5B9154F2C0A0086ED41 /* TestDetailsViewController.h */,
+				C9ACC5BA154F2C0A0086ED41 /* TestDetailsViewController.m */,
 				C9F4C846152759EC00E05A66 /* Utilities */,
 			);
 			name = Classes;
@@ -331,6 +361,12 @@
 				C9A15D1A1537D37A003CB66A /* PatientsTableViewCell.m in Sources */,
 				C9A5ABE61548DBBB00E439FF /* PatientDetailsViewController.m in Sources */,
 				C92A91C1154C5E9300A4CEB5 /* PatientSearchViewController.m in Sources */,
+				C9ACC5AB154F2B760086ED41 /* VisitsViewController.m in Sources */,
+				C9ACC5AF154F2BA00086ED41 /* VisitDetailsViewController.m in Sources */,
+				C9ACC5B2154F2BBF0086ED41 /* SurgeriesViewController.m in Sources */,
+				C9ACC5B5154F2BD10086ED41 /* SurgeryDetailsViewController.m in Sources */,
+				C9ACC5B8154F2BF30086ED41 /* TestsViewController.m in Sources */,
+				C9ACC5BB154F2C0A0086ED41 /* TestDetailsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

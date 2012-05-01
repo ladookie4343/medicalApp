@@ -81,6 +81,7 @@
     self.tableView.tableHeaderView = self.tableHeaderView;
     self.navigationController.toolbarHidden = YES;
     
+    self.patientImage.image = [self getImageForPatient:self.patient];
     self.allergyTextFields = [NSMutableArray new];
     self.conditionsTextFields = [NSMutableArray new];
     self.begginingEditMode = YES;
@@ -99,7 +100,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.patientImage.image = [self getImageForPatient:self.patient];
     [self updatePhotoButton];
     [self.tableView reloadData];
     
@@ -457,6 +457,26 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.section == DETAILS_SECTION) {
+        switch (indexPath.row) {
+            case 0:
+                [self performSegueWithIdentifier:@"TransitionToVisits" sender:self];
+                break;
+            case 1:
+                [self performSegueWithIdentifier:@"TransitionToSurgeries" sender:self];
+                break;
+            case 2:
+                [self performSegueWithIdentifier:@"TransitionToTests" sender:self];
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // to do
 }
 
 #pragma mark - text field delegates & helpers
@@ -595,6 +615,7 @@
     }
     [self.conditionsTextFields removeAllObjects];
 }
+
 @end
 
 
