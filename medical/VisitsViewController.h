@@ -7,9 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "VisitDetailsViewController.h"
 
-@interface VisitsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@class Doctor;
+@class Patient;
+
+@interface VisitsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, cancelButtonDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) NSMutableArray *visits;
+@property (strong, nonatomic) Doctor *doctor;
+@property (strong, nonatomic) Patient *patient;
 
 @end

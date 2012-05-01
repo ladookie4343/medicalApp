@@ -10,7 +10,6 @@
 #import "PatientsTableViewCell.h"
 #import "PatientDetailsViewController.h"
 #import "Patient.h"
-#import "Utilities.h"
 #import "Office.h"
 
 @interface PatientSearchViewController ()

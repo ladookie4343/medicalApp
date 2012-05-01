@@ -8,15 +8,14 @@
 
 #import "LoginViewController.h"
 #import "OfficesViewController.h"
-#import "Utilities.h"
 #import "Office.h"
+#import "Doctor.h"
 
 @interface LoginViewController()
 
 @property (nonatomic, strong) UITextField *usernameField;
 @property (nonatomic, strong) UITextField *passwordField;
 @property (nonatomic, strong) UISegmentedControl *userIDPass;
-
 
 - (UITextField *)newUsernameTextField;
 - (UITextField *)newPasswordTextField;
@@ -33,13 +32,13 @@
 
 @implementation LoginViewController
 
-@synthesize tableView = _tableView;
-@synthesize keyboardToolbar = _keyboardToolbar;
-@synthesize logOnButton = _logOnButton;
-@synthesize loadingView = _loadingView;
-@synthesize usernameField = _usernameField;
-@synthesize passwordField = _passwordField;
-@synthesize userIDPass = _userIDPass;
+@synthesize tableView = __tableView;
+@synthesize keyboardToolbar = __keyboardToolbar;
+@synthesize logOnButton = __logOnButton;
+@synthesize loadingView = __loadingView;
+@synthesize usernameField = __usernameField;
+@synthesize passwordField = __passwordField;
+@synthesize userIDPass = __userIDPass;
 
 #pragma mark - View lifecycle
 
@@ -160,8 +159,9 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    ((OfficesViewController *)segue.destinationViewController).offices = [Office OfficesForUsername:self.usernameField.text];
-    
+    OfficesViewController *officesVC = segue.destinationViewController;
+    officesVC.offices = [Office OfficesForUsername:self.usernameField.text];
+    officesVC.doctor = [[Doctor alloc ] initFromUserName:self.usernameField.text];
     [self.loadingView removeFromSuperview];
 }
 

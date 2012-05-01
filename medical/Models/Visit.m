@@ -11,24 +11,32 @@
 
 @implementation Visit
 
-@synthesize visitID = _visitID;
-@synthesize patientID = _patientID;
-@synthesize doctorID = _doctorID;
-@synthesize when = _when;
-@synthesize reason = _reason;
-@synthesize diagnosis = _diagnosis;
-@synthesize height = _height;
-@synthesize weight = _weight;
-@synthesize bpSystolic = _bpSystolic;
-@synthesize bpDiastolic = _bpDiastolic;
+@synthesize visitID = __visitID;
+@synthesize patientID = __patientID;
+@synthesize doctorID = __doctorID;
+@synthesize when = __when;
+@synthesize reason = __reason;
+@synthesize diagnosis = __diagnosis;
+@synthesize height = __height;
+@synthesize weight = __weight;
+@synthesize bpSystolic = __bpSystolic;
+@synthesize bpDiastolic = __bpDiastolic;
+@synthesize prescriptions = __prescriptions;
 
 #define kRetrieveVisitsURLString @"http://www.ladookie4343.com/MedicalApp/retrieveVisits.php"
 #define kRetrieveVisitsURL [NSURL URLWithString:kRetrieveVisitsURLString]
 
-+ (NSMutableArray *)VisitsForPatient:(int)patientID office:(int)officeID doctor:(int)doctorID
+
+- (id)init
 {
-    NSString *queryString = [NSString stringWithFormat:@"patientID=%d&officeID=%d&doctorID=%d",
-                             patientID, officeID, doctorID];
+	self.prescriptions = [NSMutableArray new];
+    return self;
+}
+
++ (NSMutableArray *)VisitsForPatient:(int)patientID office:(int)officeID
+{
+    NSString *queryString = [NSString stringWithFormat:@"patientID=%d&officeID=%d",
+                             patientID, officeID];
     NSData *responseData = [Utilities dataFromPHPScript:kRetrieveVisitsURL post:YES request:queryString];
     
     NSMutableArray *visits = [[NSMutableArray alloc] init];
@@ -59,4 +67,45 @@
     return visits;    
 }
 
+#define kGetPrescriptionsURLString @"http://www.ladookie4343.com/MedicalApp/getPrescriptions.php"
+#define kGetPrescriptionsURL [NSURL URLWithString:kGetPrescriptionsURLString]
+
+
+- (void)getPrescriptions
+{    
+    NSString *queryString = [NSString stringWithFormat:@"visitID=%d", self.visitID];
+    NSData *responseData = [Utilities dataFromPHPScript:kGetPrescriptionsURL post:YES request:queryString];
+        
+    NSError *error;
+    NSArray *json = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&error];
+    
+    NSString *readabledata = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+    
+    if (![@"[null]" isEqualToString:readabledata]) {
+        for (int i = 0; i < json.count; i++) {
+            NSDictionary *jsonPrescription = [json objectAtIndex:i];
+            NSString *prescription = [jsonPrescription objectForKey:@"drug"];
+            [self.prescriptions addObject:prescription];
+        }
+    }
+}
+
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

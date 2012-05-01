@@ -9,11 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @class Office;
+@class Doctor;
 
 @interface PatientsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchDisplayDelegate>
 
-// data source members
 @property (strong, nonatomic) Office *office;
+@property (strong, nonatomic) Doctor *doctor;
 
 // search members
 @property (strong, nonatomic) NSMutableArray *patientSearchResults;
@@ -21,5 +22,6 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIView *loadingView;
+
 
 @end

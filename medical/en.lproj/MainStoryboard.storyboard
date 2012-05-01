@@ -332,7 +332,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Visits" id="FP7-dw-HO1"/>
+                    <navigationItem key="navigationItem" title="Visits" id="FP7-dw-HO1">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="x93-Nl-zCr">
+                            <connections>
+                                <action selector="addVisitPressed:" destination="cLE-z3-ncS" id="Iqr-Tp-9bN"/>
+                                <segue destination="9Dz-A9-oPD" kind="modal" identifier="AddNewVisit" id="O0N-gE-NS3"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="Jhr-8z-uca" id="vyT-Tb-MCY"/>
                         <segue destination="9Dz-A9-oPD" kind="push" identifier="TransitionToVisitDetails" id="yFA-AT-aNV"/>
@@ -347,60 +354,67 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dbQ-hU-08e" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="9Dz-A9-oPD" customClass="VisitDetailsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="llY-74-RYz">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="sHG-J8-ndI">
-                                <rect key="frame" x="21" y="83" width="279" height="79"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" id="sHG-J8-ndI">
+                                <rect key="frame" x="21" y="83" width="279" height="100"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Reason" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="a2G-GE-qhl">
-                                <rect key="frame" x="123" y="48" width="74" height="21"/>
+                                <rect key="frame" x="123" y="54" width="74" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="pressure" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="DuX-pP-zTG">
-                                <rect key="frame" x="77" y="14" width="75" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="bp" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="DuX-pP-zTG">
+                                <rect key="frame" x="93" y="14" width="41" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="weight" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="Dns-wW-mPc">
-                                <rect key="frame" x="180" y="14" width="61" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="wt" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="Dns-wW-mPc">
+                                <rect key="frame" x="222" y="14" width="23" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="ht" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="uDU-gQ-WCI">
+                                <rect key="frame" x="218" y="47" width="32" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Diagnosis" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="aK0-xY-JzT">
-                                <rect key="frame" x="119" y="185" width="83" height="21"/>
+                                <rect key="frame" x="119" y="186" width="83" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Prescriptions" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="Y5g-Ut-U94">
-                                <rect key="frame" x="101" y="269" width="118" height="21"/>
+                                <rect key="frame" x="101" y="266" width="118" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="fu9-Dn-bA1">
-                                <rect key="frame" x="21" y="217" width="279" height="31"/>
+                                <rect key="frame" x="21" y="212" width="279" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="37" sectionHeaderHeight="10" sectionFooterHeight="10" id="OT4-iW-siI">
-                                <rect key="frame" x="13" y="282" width="295" height="122"/>
+                                <rect key="frame" x="13" y="279" width="295" height="166"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -419,14 +433,20 @@
                                     <outlet property="delegate" destination="9Dz-A9-oPD" id="GBv-Sb-VB2"/>
                                 </connections>
                             </tableView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="3kg-GX-g7C">
-                                <rect key="frame" x="21" y="9" width="54" height="31"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="3kg-GX-g7C">
+                                <rect key="frame" x="21" y="9" width="74" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="QGa-0A-rDT">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="QGa-0A-rDT">
                                 <rect key="frame" x="247" y="10" width="53" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="Q9R-u6-DPJ">
+                                <rect key="frame" x="247" y="44" width="53" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -437,8 +457,11 @@
                     <navigationItem key="navigationItem" id="9dd-Fp-HRA"/>
                     <connections>
                         <outlet property="diagnosisTextField" destination="fu9-Dn-bA1" id="tG8-te-t8L"/>
+                        <outlet property="heightTextField" destination="Q9R-u6-DPJ" id="J6C-cT-gUR"/>
+                        <outlet property="pressureTextField" destination="3kg-GX-g7C" id="znh-eY-keI"/>
                         <outlet property="reasonTextView" destination="sHG-J8-ndI" id="xcb-iW-CXv"/>
                         <outlet property="tableView" destination="OT4-iW-siI" id="0OJ-xQ-52z"/>
+                        <outlet property="weightTextField" destination="QGa-0A-rDT" id="7ZC-4k-zy7"/>
                     </connections>
                 </viewController>
             </objects>
@@ -1049,8 +1072,11 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/VisitDetailsViewController.h"/>
             <relationships>
                 <relationship kind="outlet" name="diagnosisTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="heightTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="pressureTextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="reasonTextView" candidateClass="UITextView"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="weightTextField" candidateClass="UITextField"/>
             </relationships>
         </class>
         <class className="VisitsViewController" superclassName="UIViewController">
@@ -1067,5 +1093,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="4ue-49-ZXs"/>
+        <segue reference="O0N-gE-NS3"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -20,7 +20,10 @@
 @property (nonatomic, strong) NSString *weight;
 @property (nonatomic, strong) NSString *bpSystolic;
 @property (nonatomic, strong) NSString *bpDiastolic;
+@property (nonatomic, strong) NSMutableArray *prescriptions;
 
-+ (NSMutableArray *)VisitsForPatient:(int)patientID office:(int)officeID doctor:(int)doctorID;
++ (NSMutableArray *)VisitsForPatient:(int)patientID office:(int)officeID;
+
+- (void)getPrescriptions;
 
 @end

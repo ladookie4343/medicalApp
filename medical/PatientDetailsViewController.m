@@ -8,8 +8,14 @@
 
 #import "PatientDetailsViewController.h"
 #import "Patient.h"
-#import "Utilities.h"
 #import "Office.h"
+#import "Visit.h"
+#import "Doctor.h"
+#import "Test.h"
+#import "Surgery.h"
+#import "VisitsViewController.h"
+#import "SurgeriesViewController.h"
+#import "TestsViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
 
@@ -56,6 +62,7 @@
 @synthesize patientImage = __patientImage;
 @synthesize office = __office;
 @synthesize delegate = __delegate;
+@synthesize doctor = __doctor;
 
 #define STATS_SECTION 0
 #define DETAILS_SECTION 1
@@ -476,7 +483,16 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // to do
+    if ([segue.identifier isEqualToString:@"TransitionToVisits"]) {
+        VisitsViewController *visitsVC = segue.destinationViewController;
+        visitsVC.visits = [Visit VisitsForPatient:self.patient.patientID office:self.office.officeID];
+        visitsVC.doctor = self.doctor;
+        visitsVC.patient = self.patient;
+    } else if ([segue.identifier isEqualToString:@"TransitionToSurgeries"]) {
+        
+    } else if ([segue.identifier isEqualToString:@"TransitionToTests"]) {
+        
+    }
 }
 
 #pragma mark - text field delegates & helpers

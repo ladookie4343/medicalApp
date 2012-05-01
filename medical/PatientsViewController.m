@@ -9,10 +9,10 @@
 #import "PatientsViewController.h"
 #import "Office.h"
 #import "Patient.h"
+#import "Doctor.h"
 #import "OfficeDetailsViewController.h"
 #import "PatientsTableViewCell.h"
 #import "PatientDetailsViewController.h"
-#import "Utilities.h"
 #import "PatientSearchViewController.h"
 
 @interface PatientsViewController()
@@ -40,6 +40,7 @@
 @synthesize patientSearchResults = _patientSearchResults;
 @synthesize savedSearchTerm = _savedSearchTerm;
 @synthesize selectedPatient = _selectedPatient;
+@synthesize doctor = __doctor;
 
 - (void)viewDidLoad
 {
@@ -265,6 +266,7 @@
         patientDetailVC.patient = self.selectedPatient;
         patientDetailVC.addingPatient = NO;
         patientDetailVC.office = self.office;
+        patientDetailVC.doctor = self.doctor;
     } else if ([segue.identifier isEqualToString:@"AddPatientSearchTransition"]) {
         PatientSearchViewController *patientSearchVC = [[[segue destinationViewController] viewControllers] objectAtIndex:0];
         patientSearchVC.office = self.office;

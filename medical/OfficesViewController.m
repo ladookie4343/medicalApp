@@ -12,7 +12,7 @@
 #import "Office.h"
 #import "PatientsViewController.h"
 #import "Patient.h"
-#import "Utilities.h"
+#import "Doctor.h"
 
 @interface OfficesViewController()
 @property (nonatomic, strong) Office *selectedOffice;
@@ -28,7 +28,7 @@
 @synthesize loadingView = __loadingView;
 @synthesize selectedOffice = __selectedOffice;
 @synthesize patientsForOffice = __patientsForOffice;
-
+@synthesize doctor = __doctor;
 
 - (void)didReceiveMemoryWarning
 {
@@ -134,7 +134,10 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    ((PatientsViewController *)segue.destinationViewController).office = self.selectedOffice;
+    PatientsViewController *patientsVC = segue.destinationViewController;
+    patientsVC.office = self.selectedOffice;
+    patientsVC.doctor = self.doctor;
+    
     [self.loadingView removeFromSuperview];
 }
 

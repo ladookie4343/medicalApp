@@ -10,6 +10,7 @@
 
 @class Patient;
 @class Office;
+@class Doctor;
 
 @protocol AddPatientDelegate <NSObject>
 
@@ -30,6 +31,7 @@
 
 @property (strong, nonatomic) Patient *patient;
 @property (strong, nonatomic) Office *office;
+@property (strong, nonatomic) Doctor *doctor;
 
 @property (strong, nonatomic) id<AddPatientDelegate> delegate;
 

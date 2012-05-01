@@ -7,14 +7,23 @@
 //
 
 #import "VisitsViewController.h"
+#import "VisitDetailsViewController.h"
+#import "Doctor.h"
+#import "Visit.h"
 
 @interface VisitsViewController ()
+
+@property (strong, nonatomic) Visit *selectedVisit;
 
 @end
 
 @implementation VisitsViewController
+@synthesize tableView = __tableView;
+@synthesize visits = __visits;
+@synthesize selectedVisit = __selectedVisit;
+@synthesize doctor = __doctor;
+@synthesize patient = __patient;
 
-@synthesize tableView;
 
 - (void)viewDidLoad
 {
@@ -48,7 +57,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    return self.visits.count;
 }
 
 
@@ -59,7 +68,14 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    cell.textLabel.text = [NSString stringWithFormat:@"%d", indexPath.row];
+    
+    Visit *visit = [self.visits objectAtIndex:indexPath.row];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+    
+    cell.textLabel.text = [dateFormatter stringFromDate:visit.when];
+
     return cell;
 }
 
@@ -68,6 +84,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+    self.selectedVisit = [self.visits objectAtIndex:indexPath.row];
     [self performSegueWithIdentifier:@"TransitionToVisitDetails" sender:self];
 }
 
@@ -75,25 +93,27 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    
-}
+    VisitDetailsViewController *visitDetailsVC = segue.destinationViewController;
+    visitDetailsVC.doctor = self.doctor;
+    visitDetailsVC.patient = self.patient;
 
-#pragma mark - editing methods
-
-#define kDeletePatientURLString @"http://www.ladookie4343.com/MedicalApp/deletePatient.php"
-#define kDeletePatientURL [NSURL URLWithString:kDeletePatientURLString]
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete)
-    {
-        
-        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        
+    if ([segue.identifier isEqualToString:@"TransitionToVisitDetails"]) {
+        visitDetailsVC.visit = self.selectedVisit;
+    } else if ([segue.identifier isEqualToString:@"AddNewVisit"]) {
+        Visit *newVisit = [Visit new];
+        newVisit.when = [NSDate date];
+        [self.visits addObject:newVisit];
+        visitDetailsVC.visit = newVisit;
     }
 }
 
-#pragma mark - Search Methods
+- (void)cancelButtonPressed:(id)sender
+{
+    [self.visits removeLastObject];
+}
+
+#pragma mark - add patient
+
 
 
 @end
