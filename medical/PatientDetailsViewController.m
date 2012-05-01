@@ -123,7 +123,7 @@
 
 #define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
 
-#define kPatientInOfficeString @"http://www.ladookie4343.com/MedicalApp/patientInOffice.php"
+#define kPatientInOfficeString @"http://www.ladookie4343.com/MedicalApp/isPatientInOffice.php"
 #define kPatientInOfficeURL [NSURL URLWithString: kPatientInOfficeString]
 #define kQueryString [NSString stringWithFormat:@"officeID=%d&patientID=%d", self.office.officeID, self.patient.patientID]
 

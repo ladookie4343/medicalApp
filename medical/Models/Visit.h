@@ -10,7 +10,9 @@
 
 @interface Visit : NSObject
 
+@property (nonatomic, assign) int visitID;
 @property (nonatomic, assign) int patientID;
+@property (nonatomic, assign) int doctorID;
 @property (nonatomic, strong) NSDate *when;
 @property (nonatomic, strong) NSString *reason;
 @property (nonatomic, strong) NSString *diagnosis;
@@ -18,5 +20,7 @@
 @property (nonatomic, strong) NSString *weight;
 @property (nonatomic, strong) NSString *bpSystolic;
 @property (nonatomic, strong) NSString *bpDiastolic;
+
++ (NSMutableArray *)VisitsForPatient:(int)patientID office:(int)officeID doctor:(int)doctorID;
 
 @end

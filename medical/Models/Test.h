@@ -15,4 +15,6 @@
 @property (nonatomic, strong) NSString *testType;
 @property (nonatomic, strong) NSString *testResult;
 
++ (NSMutableArray *)testsForPatient:(int)patientID;
+
 @end
