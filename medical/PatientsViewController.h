@@ -22,6 +22,7 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIView *loadingView;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
 
 @end

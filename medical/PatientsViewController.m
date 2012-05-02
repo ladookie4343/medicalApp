@@ -28,6 +28,7 @@
 @property (strong, nonatomic) NSMutableArray *patientsByLastName;
 @property (strong, nonatomic) Patient *selectedPatient;
 @property (strong, nonatomic) NSMutableArray *patients;
+@property (strong, nonatomic) UISearchDisplayController *searchController;
 
 @end
 
@@ -36,15 +37,24 @@
 @synthesize patients = _patients;
 @synthesize tableView = _tableView;
 @synthesize loadingView = _loadingView;
+@synthesize searchBar = _searchBar;
 @synthesize patientsByLastName = _patientsByLastName;
 @synthesize patientSearchResults = _patientSearchResults;
 @synthesize savedSearchTerm = _savedSearchTerm;
 @synthesize selectedPatient = _selectedPatient;
 @synthesize doctor = __doctor;
+@synthesize searchController = __searchController;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    UISearchDisplayController* searchController = [[UISearchDisplayController alloc] 
+                                                   initWithSearchBar:self.searchBar contentsController:self];
+    searchController.searchResultsDataSource = self;
+    searchController.searchResultsDelegate = self;
+    searchController.delegate = self;
+    self.searchController = searchController;
         
     self.navigationController.toolbarHidden = NO;
     self.toolbarItems = [self customToolBarItems];
@@ -107,6 +117,8 @@
     self.savedSearchTerm = self.searchDisplayController.searchBar.text;
     self.patientSearchResults = nil;
     [self setLoadingView:nil];
+    [self setSearchBar:nil];
+    self.searchController = nil;
     [super viewDidUnload];
 }
 

@@ -65,9 +65,9 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     self.navigationController.toolbarHidden = YES;
-    self.usernameField.text = @"matt"; // make @"" for production
-    self.passwordField.text = @"a"; // make @"" for production
-    [self tryLogOn]; // delete this for production
+    self.usernameField.text = @""; // make @"" for production
+    self.passwordField.text = @""; // make @"" for production
+//    [self tryLogOn]; // delete this for production
 }
 
 #pragma mark -

@@ -16,5 +16,9 @@
     cancelTestButtonDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) NSMutableArray *tests;
+
+@property (strong, nonatomic) Patient *patient;
+@property (strong, nonatomic) Doctor *doctor;
 
 @end

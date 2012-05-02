@@ -7,14 +7,21 @@
 //
 
 #import "TestsViewController.h"
+#import "Test.h"
+#import "Patient.h"
+#import "Doctor.h"
 
 @interface TestsViewController ()
-
+@property (nonatomic, strong) Test *selectedTest;
 @end
 
 @implementation TestsViewController
 
-@synthesize tableView;
+@synthesize tableView = __tableView;
+@synthesize doctor = __doctor;
+@synthesize patient = __patient;
+@synthesize selectedTest = __selectedTest;
+@synthesize tests = __tests;
 
 - (void)viewDidLoad
 {
@@ -49,7 +56,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    return self.tests.count;
 }
 
 
@@ -60,43 +67,61 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    cell.textLabel.text = [NSString stringWithFormat:@"%d", indexPath.row];
+    
+    Test *test = [self.tests objectAtIndex:indexPath.row];
+    
+    NSDateFormatter *dateformatter = [[NSDateFormatter alloc] init];
+    dateformatter.dateStyle = NSDateFormatterMediumStyle;
+    
+    cell.textLabel.text = [dateformatter stringFromDate:test.when];
     return cell;
 }
 
+#define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self performSegueWithIdentifier:@"TransitionToTestDetails" sender:self];
+    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+    self.selectedTest = [self.tests objectAtIndex:indexPath.row];
+    [self performSegueWithIdentifier:@"TestDetailsTransition" sender:self];
 }
 
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    TestDetailsViewController *testDetailsVC;
+    
+    if ([segue.identifier isEqualToString:@"AddTestTransition"]) {
+        testDetailsVC = [[[segue destinationViewController] viewControllers] objectAtIndex:0];
+    } else if ([segue.identifier isEqualToString:@"TestDetailsTransition"]) {
+        testDetailsVC = segue.destinationViewController;
+    }
+    testDetailsVC.doctor = self.doctor;
+    testDetailsVC.patient = self.patient;
+    
+    if ([segue.identifier isEqualToString:@"TestDetailsTransition"]) {
+        testDetailsVC.test = self.selectedTest;
+        testDetailsVC.addingNewTest = NO;
+    } else if ([segue.identifier isEqualToString:@"AddTestTransition"]) {
+        Test *newTest = [Test new];
+        newTest.when = [NSDate date];
+        [self.tests addObject:newTest];
+        testDetailsVC.test = newTest;
+        testDetailsVC.addingNewTest = YES;
+        testDetailsVC.delegate = self;
+    }
     
 }
 
-#pragma mark - editing methods
-
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)cancelButtonPressed:(id)sender
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete)
-    {
-        
-        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        
-    }
+    [self.tests removeLastObject];
 }
-
-#pragma mark - Search Methods
 
 
 @end
-
-
-
-
 
 
 

@@ -249,12 +249,12 @@
                                     <outlet property="delegate" destination="rQ4-1e-hBO" id="PzG-3h-lMk"/>
                                 </connections>
                             </tableView>
-                            <searchBar contentMode="redraw" id="JHO-ps-QMV">
+                            <searchBar contentMode="redraw" id="7P1-12-av5">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <outlet property="delegate" destination="rQ4-1e-hBO" id="o2c-Gd-YkF"/>
+                                    <outlet property="delegate" destination="rQ4-1e-hBO" id="x6w-eW-j0g"/>
                                 </connections>
                             </searchBar>
                         </subviews>
@@ -270,22 +270,13 @@
                     </navigationItem>
                     <connections>
                         <outlet property="loadingView" destination="QKR-6I-2lE" id="GWf-kP-r18"/>
-                        <outlet property="searchDisplayController" destination="CUN-v4-syT" id="B3O-la-Zoz"/>
+                        <outlet property="searchBar" destination="7P1-12-av5" id="4Pa-Ny-D47"/>
                         <outlet property="tableView" destination="bWO-ug-6SA" id="ZTg-88-cFV"/>
                         <segue destination="RGV-V5-J9U" kind="modal" identifier="officeDetailsSegue" modalTransitionStyle="flipHorizontal" id="C6h-TX-Dja"/>
                         <segue destination="8jb-63-Ahf" kind="modal" identifier="AddPatientSearchTransition" id="RPN-Dr-TnH"/>
                         <segue destination="dan-oM-drH" kind="push" identifier="PatientDetailSegue" id="4ue-49-ZXs"/>
                     </connections>
                 </viewController>
-                <searchDisplayController id="CUN-v4-syT">
-                    <connections>
-                        <outlet property="delegate" destination="rQ4-1e-hBO" id="qWc-HQ-d1t"/>
-                        <outlet property="searchBar" destination="JHO-ps-QMV" id="VPR-ig-Aqe"/>
-                        <outlet property="searchContentsController" destination="rQ4-1e-hBO" id="bR6-14-nQU"/>
-                        <outlet property="searchResultsDataSource" destination="rQ4-1e-hBO" id="hgt-iq-Ly5"/>
-                        <outlet property="searchResultsDelegate" destination="rQ4-1e-hBO" id="A9q-QP-3JX"/>
-                    </connections>
-                </searchDisplayController>
                 <view opaque="NO" contentMode="scaleToFill" id="QKR-6I-2lE">
                     <rect key="frame" x="0.0" y="0.0" width="130" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -627,7 +618,7 @@
                     <navigationItem key="navigationItem" title="Tests" id="Yfy-3a-A2T">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Ktj-Zu-H1K">
                             <connections>
-                                <segue destination="NW8-jr-zgk" kind="modal" id="DCS-bh-xhD"/>
+                                <segue destination="NW8-jr-zgk" kind="modal" identifier="AddTestTransition" id="DCS-bh-xhD"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -667,6 +658,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <connections>
+                                    <outlet property="delegate" destination="x6Q-n5-5iA" id="Vu5-Pl-rMd"/>
+                                </connections>
                             </textField>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" id="WiP-XL-M6s">
                                 <rect key="frame" x="20" y="135" width="280" height="104"/>
@@ -674,6 +668,9 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
+                                <connections>
+                                    <outlet property="delegate" destination="x6Q-n5-5iA" id="1qo-fI-sA1"/>
+                                </connections>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" red="0.20784313730000001" green="0.45882352939999999" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
@@ -1158,6 +1155,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PatientsViewController.h"/>
             <relationships>
                 <relationship kind="outlet" name="loadingView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
             </relationships>
         </class>

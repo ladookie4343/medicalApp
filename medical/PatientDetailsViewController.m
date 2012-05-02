@@ -494,7 +494,10 @@
         surgeriesVC.doctor = self.doctor;
         surgeriesVC.patient = self.patient;
     } else if ([segue.identifier isEqualToString:@"TransitionToTests"]) {
-        
+        TestsViewController *testsVC = segue.destinationViewController;
+        testsVC.tests = [Test testsForPatient:self.patient.patientID];
+        testsVC.doctor = self.doctor;
+        testsVC.patient = self.patient;
     }
 }
 
