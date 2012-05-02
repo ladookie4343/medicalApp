@@ -7,8 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TestDetailsViewController.h"
 
-@interface TestsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@class Patient;
+@class Doctor;
+
+@interface TestsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, 
+    cancelTestButtonDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 

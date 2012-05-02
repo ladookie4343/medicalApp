@@ -30,6 +30,7 @@
     NSArray *json = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&error];
     
     NSString *readabledata = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+    
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     [df setDateFormat:@"yyyy-MM-dd"];
     if (![@"[null]" isEqualToString:readabledata]) {

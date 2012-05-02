@@ -9,6 +9,8 @@
 #import "SurgeriesViewController.h"
 #import "SurgeryDetailsViewController.h"
 #import "Surgery.h"
+#import "Patient.h"
+#import "Doctor.h"
 
 @interface SurgeriesViewController ()
 @property (nonatomic, strong) Surgery *selectedSurgery;
@@ -18,6 +20,8 @@
 @synthesize tableView;
 @synthesize surgeries = __surgeries;
 @synthesize selectedSurgery = __selectedSurgery;
+@synthesize doctor = __doctor;
+@synthesize patient = __patient;
 
 - (void)viewDidLoad
 {
@@ -26,6 +30,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [self.tableView reloadData];
 }
 
 #define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
@@ -84,49 +89,37 @@
 
 
 
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-//{
-//    VisitDetailsViewController *visitDetailsVC;
-//    
-//    if ([segue.identifier isEqualToString:@"AddSurgeryTransition"]) {
-//        visitDetailsVC = [[[segue destinationViewController] viewControllers] objectAtIndex:0];
-//    } else if ([segue.identifier isEqualToString:@"SurgeryDetailsTransition"]) {
-//        visitDetailsVC = segue.destinationViewController;
-//    }
-//    visitDetailsVC.doctor = self.doctor;
-//    visitDetailsVC.patient = self.patient;
-//    visitDetailsVC.office = self.office;
-//    
-//    if ([segue.identifier isEqualToString:@"SurgeryDetailsTransition"]) {
-//        visitDetailsVC.visit = self.selectedVisit;
-//        visitDetailsVC.addingNewVisit = NO;
-//    } else if ([segue.identifier isEqualToString:@"AddSurgeryTransition"]) {
-//        Visit *newVisit = [Visit new];
-//        newVisit.when = [NSDate date];
-//        [self.visits addObject:newVisit];
-//        visitDetailsVC.visit = newVisit;
-//        visitDetailsVC.addingNewVisit = YES;
-//        visitDetailsVC.delegate = self;
-//    }
-//
-//}
-
-#pragma mark - editing methods
-
-#define kDeletePatientURLString @"http://www.ladookie4343.com/MedicalApp/deletePatient.php"
-#define kDeletePatientURL [NSURL URLWithString:kDeletePatientURLString]
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete)
-    {
-        
-        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        
+    SurgeryDetailsViewController *surgeryDetailsVC;
+    
+    if ([segue.identifier isEqualToString:@"AddSurgeryTransition"]) {
+        surgeryDetailsVC = [[[segue destinationViewController] viewControllers] objectAtIndex:0];
+    } else if ([segue.identifier isEqualToString:@"SurgeryDetailsTransition"]) {
+        surgeryDetailsVC = segue.destinationViewController;
     }
+    surgeryDetailsVC.doctor = self.doctor;
+    surgeryDetailsVC.patient = self.patient;
+    
+    if ([segue.identifier isEqualToString:@"SurgeryDetailsTransition"]) {
+        surgeryDetailsVC.surgery = self.selectedSurgery;
+        surgeryDetailsVC.addingNewSurgery = NO;
+    } else if ([segue.identifier isEqualToString:@"AddSurgeryTransition"]) {
+        Surgery *newSurgery = [Surgery new];
+        newSurgery.when = [NSDate date];
+        [self.surgeries addObject:newSurgery];
+        surgeryDetailsVC.surgery = newSurgery;
+        surgeryDetailsVC.addingNewSurgery = YES;
+        surgeryDetailsVC.delegate = self;
+    }
+
 }
 
-#pragma mark - Search Methods
+- (void)cancelButtonPressed:(id)sender
+{
+    [self.surgeries removeLastObject];
+}
+
 
 
 @end

@@ -18,11 +18,12 @@
 
 @end
 
-@interface SurgeryDetailsViewController : UIViewController
+@interface SurgeryDetailsViewController : UIViewController <UITextFieldDelegate, UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *surgeryTypeTextField;
 @property (weak, nonatomic) IBOutlet UITextView *resultTextView;
 @property (weak, nonatomic) IBOutlet UITextView *complicationsTextView;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @property (strong, nonatomic) Surgery *surgery;
 @property (strong, nonatomic) Patient *patient;

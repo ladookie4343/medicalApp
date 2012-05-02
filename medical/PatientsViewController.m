@@ -152,7 +152,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    if (tableView == self.tableView) {
+    if (tableView == self.tableView && self.patientsByLastName.count > 0) {
         NSArray *patientsWithSimilarLastName = [self.patientsByLastName objectAtIndex:section];
         Patient *p = [patientsWithSimilarLastName objectAtIndex:0];
         char firstLetterOfLastName = [[p.lastname uppercaseString] characterAtIndex:0];
