@@ -20,7 +20,8 @@
 @property (nonatomic, strong) UITextField *activeField;
 @property (nonatomic, assign) BOOL cancelled;
 @property (nonatomic, strong) NSMutableArray *textFields;
-@property (nonatomic, assign) BOOL beginningEditMode;
+@property (nonatomic, assign) BOOL tableViewViewable;
+
 @end
 
 @implementation VisitDetailsViewController
@@ -40,11 +41,12 @@
 @synthesize activeField = __activeField;
 @synthesize cancelled = __cancelled;
 @synthesize textFields = __textFields;
-@synthesize beginningEditMode = __beginningEditMode;
+@synthesize tableViewViewable = __tableViewViewable;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.textFields = [NSMutableArray new];
     [self registerForKeyboardNotifications];
 }
 
@@ -69,7 +71,7 @@
         self.navigationItem.leftBarButtonItem.tintColor = [UIColor colorWithRed:34/255.0 green:96/255.0 blue:221/255.0 alpha:1.0];
         self.navigationItem.title = @"Add Visit";
         [self enableFields];
-        [self setEditing:YES animated:NO];
+        [self.tableView setEditing:YES animated:NO];
     }
 }
 
@@ -80,8 +82,10 @@
 {
     if (self.addingNewVisit && !self.cancelled) {
         NSArray *bpComponents = [self.pressureTextField.text componentsSeparatedByString:@" / "];
-        self.visit.bpSystolic = [bpComponents objectAtIndex:0];
-        self.visit.bpDiastolic = [bpComponents objectAtIndex:1];
+        if (bpComponents.count > 1) {
+            self.visit.bpSystolic = [bpComponents objectAtIndex:0];
+            self.visit.bpDiastolic = [bpComponents objectAtIndex:1];
+        }
         self.visit.weight = self.weightTextField.text;
         self.visit.height = self.heightTextField.text;
         self.visit.reason = self.reasonTextView.text;
@@ -92,7 +96,7 @@
         NSDate *now = [NSDate date];
         
         
-        NSString *queryString = [NSString stringWithFormat:@"patientID=%d&officeID=%d&doctorID=%d&date=%@&reason=%@&diagnosis=%@&height=%@&weight=%@&bp_systolic=%@&bp_diastolic=%@", self.patient.patientID, self.office.officeID, self.doctor.doctorID, [dateFormatter stringFromDate:now], self.reasonTextView.text, self.diagnosisTextField.text, self.heightTextField.text, self.weightTextField.text, [bpComponents objectAtIndex:0], [bpComponents objectAtIndex:1]];
+        NSString *queryString = [NSString stringWithFormat:@"patientID=%d&officeID=%d&doctorID=%d&date=%@&reason=%@&diagnosis=%@&height=%@&weight=%@&bp_systolic=%@&bp_diastolic=%@", self.patient.patientID, self.office.officeID, self.doctor.doctorID, [dateFormatter stringFromDate:now], self.reasonTextView.text, self.diagnosisTextField.text, self.heightTextField.text, self.weightTextField.text, self.visit.bpSystolic, self.visit.bpDiastolic];
         [Utilities dataFromPHPScript:kAddVisitURL post:YES request:queryString];
         [self.visit updatePrescriptions];
      }
@@ -165,21 +169,21 @@
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        
+    }
+    
+    if (!self.addingNewVisit) {
+        cell.textLabel.text = [self.visit.prescriptions objectAtIndex:indexPath.row];
+    } else {
         if (indexPath.row == self.visit.prescriptions.count) {
             cell.textLabel.text = @"Add new prescription...";
         } else {
             if ([PLACEHOLDER isEqualToString:[self.visit.prescriptions objectAtIndex:indexPath.row]]) {
                 textField = [Utilities textFieldWithPlaceholder:@"Enter a new prescription." delegate:self];
                 [self.textFields addObject:textField];
-            } else {
-                cell.textLabel.text = [self.visit.prescriptions objectAtIndex:indexPath.row];
+                [cell.contentView addSubview:textField];
+                [textField becomeFirstResponder];
+                self.tableViewViewable = YES;
             }
-        }
-    } else {
-        UITextField *textField = [cell.contentView.subviews objectAtIndex:0];
-        if (self.beginningEditMode) {
-            textField.text = nil;
         }
     }
         
@@ -222,6 +226,10 @@
 
 - (void)savePressed:(id)sender
 {
+    [self.visit.prescriptions removeAllObjects];
+    for (UITextField *tf in self.textFields) {
+        [self.visit.prescriptions addObject:tf.text];
+    }
     [self dismissModalViewControllerAnimated:YES];
 }
 
@@ -236,6 +244,9 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+    if (self.tableViewViewable) {
+        self.tableViewViewable = NO;
+    }
     [textField resignFirstResponder];
     return YES;
 }
@@ -264,8 +275,13 @@
     // If active text field is hidden by keyboard, scroll it so it's visible
     CGRect aRect = self.view.frame;
     aRect.size.height -= kbSize.height;
-    if (!CGRectContainsPoint(aRect, self.activeField.frame.origin) ) {
-        CGPoint scrollPoint = CGPointMake(0.0, self.activeField.frame.origin.y - kbSize.height + 50);
+    if ((!CGRectContainsPoint(aRect, self.activeField.frame.origin)) || self.tableViewViewable) {
+        CGPoint scrollPoint;
+        if (!self.tableViewViewable) {
+            scrollPoint = CGPointMake(0.0, self.activeField.frame.origin.y - kbSize.height + 50);
+        } else {
+            scrollPoint = CGPointMake(0.0, 175);
+        }
         [self.visitDetailsScrollView setContentOffset:scrollPoint animated:YES];
     }
 }

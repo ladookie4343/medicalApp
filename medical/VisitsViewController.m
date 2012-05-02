@@ -94,8 +94,14 @@
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{        
-    VisitDetailsViewController *visitDetailsVC = [[[segue destinationViewController] viewControllers] objectAtIndex:0];
+{
+    VisitDetailsViewController *visitDetailsVC;
+
+    if ([segue.identifier isEqualToString:@"AddNewVisit"]) {
+        visitDetailsVC = [[[segue destinationViewController] viewControllers] objectAtIndex:0];
+    } else if ([segue.identifier isEqualToString:@"TransitionToVisitDetails"]) {
+        visitDetailsVC = segue.destinationViewController;
+    }
     visitDetailsVC.doctor = self.doctor;
     visitDetailsVC.patient = self.patient;
     visitDetailsVC.office = self.office;

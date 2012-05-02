@@ -7,13 +7,17 @@
 //
 
 #import "SurgeriesViewController.h"
+#import "SurgeryDetailsViewController.h"
+#import "Surgery.h"
 
 @interface SurgeriesViewController ()
-
+@property (nonatomic, strong) Surgery *selectedSurgery;
 @end
 
 @implementation SurgeriesViewController
 @synthesize tableView;
+@synthesize surgeries = __surgeries;
+@synthesize selectedSurgery = __selectedSurgery;
 
 - (void)viewDidLoad
 {
@@ -47,7 +51,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    return self.surgeries.count;
 }
 
 
@@ -58,7 +62,13 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    cell.textLabel.text = [NSString stringWithFormat:@"%d", indexPath.row];
+    
+    Surgery *surgery = [self.surgeries objectAtIndex:indexPath.row];
+    
+    NSDateFormatter *dateformatter = [[NSDateFormatter alloc] init];
+    dateformatter.dateStyle = NSDateFormatterMediumStyle;
+    
+    cell.textLabel.text = [dateformatter stringFromDate:surgery.when];
     return cell;
 }
 
@@ -67,15 +77,39 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self performSegueWithIdentifier:@"TransitionToSurgeryDetails" sender:self];
+    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+    self.selectedSurgery = [self.surgeries objectAtIndex:indexPath.row];
+    [self performSegueWithIdentifier:@"SurgeryDetailsTransition" sender:self];
 }
 
 
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    
-}
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+//{
+//    VisitDetailsViewController *visitDetailsVC;
+//    
+//    if ([segue.identifier isEqualToString:@"AddSurgeryTransition"]) {
+//        visitDetailsVC = [[[segue destinationViewController] viewControllers] objectAtIndex:0];
+//    } else if ([segue.identifier isEqualToString:@"SurgeryDetailsTransition"]) {
+//        visitDetailsVC = segue.destinationViewController;
+//    }
+//    visitDetailsVC.doctor = self.doctor;
+//    visitDetailsVC.patient = self.patient;
+//    visitDetailsVC.office = self.office;
+//    
+//    if ([segue.identifier isEqualToString:@"SurgeryDetailsTransition"]) {
+//        visitDetailsVC.visit = self.selectedVisit;
+//        visitDetailsVC.addingNewVisit = NO;
+//    } else if ([segue.identifier isEqualToString:@"AddSurgeryTransition"]) {
+//        Visit *newVisit = [Visit new];
+//        newVisit.when = [NSDate date];
+//        [self.visits addObject:newVisit];
+//        visitDetailsVC.visit = newVisit;
+//        visitDetailsVC.addingNewVisit = YES;
+//        visitDetailsVC.delegate = self;
+//    }
+//
+//}
 
 #pragma mark - editing methods
 

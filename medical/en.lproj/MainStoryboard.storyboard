@@ -342,11 +342,11 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="Jhr-8z-uca" id="vyT-Tb-MCY"/>
-                        <segue destination="Gao-OX-1Ei" kind="push" identifier="TransitionToVisitDetails" id="yFA-AT-aNV"/>
+                        <segue destination="9Dz-A9-oPD" kind="push" identifier="TransitionToVisitDetails" id="AMM-z2-Kmq"/>
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="3567" y="-1063"/>
+            <point key="canvasLocation" x="3567" y="-1342"/>
         </scene>
         <!--Visit Details View Controller-->
         <scene sceneID="wSe-PE-MT8">
@@ -452,7 +452,7 @@
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="QGa-0A-rDT">
-                                        <rect key="frame" x="255" y="15" width="53" height="31"/>
+                                        <rect key="frame" x="255" y="51" width="53" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="done"/>
@@ -461,7 +461,7 @@
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="Q9R-u6-DPJ">
-                                        <rect key="frame" x="255" y="54" width="53" height="31"/>
+                                        <rect key="frame" x="255" y="15" width="53" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="done"/>
@@ -486,7 +486,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="4636" y="-1063"/>
+            <point key="canvasLocation" x="4630" y="-1342"/>
         </scene>
         <!--Surgeries View Controller - Surgeries-->
         <scene sceneID="HBE-bL-jHy">
@@ -509,10 +509,16 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Surgeries" id="U5e-jb-gTT"/>
+                    <navigationItem key="navigationItem" title="Surgeries" id="U5e-jb-gTT">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="HDJ-52-vqk">
+                            <connections>
+                                <segue destination="Pzs-Dw-OAu" kind="modal" identifier="AddSurgeryTransition" id="G8l-zK-PW8"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="fMP-JX-ms5" id="6bd-j3-qCG"/>
-                        <segue destination="Uxd-HN-OTU" kind="push" identifier="TransitionToSurgeryDetails" id="7JM-JK-Kcz"/>
+                        <segue destination="Uxd-HN-OTU" kind="push" identifier="SurgeryDetailsTransition" id="fAZ-zd-Ood"/>
                     </connections>
                 </viewController>
             </objects>
@@ -535,7 +541,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Result" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="Ch6-FY-VBD">
-                                <rect key="frame" x="123" y="112" width="74" height="21"/>
+                                <rect key="frame" x="123" y="110" width="74" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -544,15 +550,28 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="aNe-A7-QwI">
                                 <rect key="frame" x="20" y="49" width="280" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="biA-bh-4nt">
-                                <rect key="frame" x="20" y="144" width="280" height="128"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" id="biA-bh-4nt">
+                                <rect key="frame" x="20" y="139" width="280" height="74"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Complications" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="4Nu-7B-sG7">
+                                <rect key="frame" x="99" y="239" width="122" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" id="I77-rG-cnN">
+                                <rect key="frame" x="20" y="268" width="280" height="82"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
@@ -560,12 +579,13 @@
                     </view>
                     <navigationItem key="navigationItem" id="cVf-PV-K3m"/>
                     <connections>
+                        <outlet property="complicationsTextView" destination="I77-rG-cnN" id="WTH-cK-urB"/>
                         <outlet property="resultTextView" destination="biA-bh-4nt" id="m2W-mG-9Pf"/>
                         <outlet property="surgeryTypeTextField" destination="aNe-A7-QwI" id="Lxc-Ef-Tg2"/>
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="4110" y="-385"/>
+            <point key="canvasLocation" x="4630" y="-385"/>
         </scene>
         <!--Tests View Controller - Tests-->
         <scene sceneID="vbc-Gd-t8k">
@@ -588,14 +608,20 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Tests" id="Yfy-3a-A2T"/>
+                    <navigationItem key="navigationItem" title="Tests" id="Yfy-3a-A2T">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Ktj-Zu-H1K">
+                            <connections>
+                                <segue destination="NW8-jr-zgk" kind="modal" id="DCS-bh-xhD"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="oe4-sS-bpJ" id="Ccm-4r-PbL"/>
-                        <segue destination="x6Q-n5-5iA" kind="push" identifier="TransitionToTestDetails" id="it3-iX-jGZ"/>
+                        <segue destination="x6Q-n5-5iA" kind="push" identifier="TestDetailsTransition" id="ClT-n5-gU8"/>
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="3572" y="337"/>
+            <point key="canvasLocation" x="3567" y="918"/>
         </scene>
         <!--Test Details View Controller-->
         <scene sceneID="n27-SU-Cbt">
@@ -644,7 +670,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="4110" y="337"/>
+            <point key="canvasLocation" x="4630" y="918"/>
         </scene>
         <!--Patient Details View Controller - Patient-->
         <scene sceneID="C5j-Md-aFq">
@@ -1011,7 +1037,45 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="4110" y="-1063"/>
+            <point key="canvasLocation" x="4111" y="-1020"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="28j-uC-i0G">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Uik-1E-3ld" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController id="Pzs-Dw-OAu" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="Gu4-Ak-eSM"/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Nsh-BM-WTz">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Uxd-HN-OTU" kind="relationship" relationship="rootViewController" id="ddC-yG-N9c"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="4102" y="19"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="PUN-MZ-f75">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rjq-T0-dUJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController id="NW8-jr-zgk" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="f3Z-rG-ZvN"/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Xe9-FZ-asZ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="x6Q-n5-5iA" kind="relationship" relationship="rootViewController" id="W3l-r0-fuJ"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="4102" y="1383"/>
         </scene>
     </scenes>
     <resources>
@@ -1091,6 +1155,7 @@
         <class className="SurgeryDetailsViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SurgeryDetailsViewController.h"/>
             <relationships>
+                <relationship kind="outlet" name="complicationsTextView" candidateClass="UITextView"/>
                 <relationship kind="outlet" name="resultTextView" candidateClass="UITextView"/>
                 <relationship kind="outlet" name="surgeryTypeTextField" candidateClass="UITextField"/>
             </relationships>
@@ -1134,6 +1199,8 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="4ue-49-ZXs"/>
-        <segue reference="yFA-AT-aNV"/>
+        <segue reference="AMM-z2-Kmq"/>
+        <segue reference="ClT-n5-gU8"/>
+        <segue reference="fAZ-zd-Ood"/>
     </inferredMetricsTieBreakers>
 </document>
